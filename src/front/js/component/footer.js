@@ -5,8 +5,8 @@ import "../../styles/footer.css";
 export const Footer = () => (
   <footer className="text-white text-center text-lg-start bg-vital-gray">
     <div className="container pt-4">
-      <div className="d-flex flex-row flex-sm-column pt-4">
-        <div className="col">
+      <div className="d-flex pt-4">
+        <div className="col-3 h-50 logo">
           <img
             src={Logo}
             className="img-fluid object-fit-cover d-none d-sm-block d-sm-block bg-vital-gray d-md-block"
@@ -15,7 +15,7 @@ export const Footer = () => (
           />
         </div>
         <div className="d-flex mx-auto justify-content-end col">
-          <div className="email-wrap mx-5 col-7">
+          <div className="email-wrap mx-5 col-5">
             <input
               type="email"
               className="rounded-pill col-6 w-100 h-100 ps-5"
@@ -24,7 +24,7 @@ export const Footer = () => (
             <i className="fa-regular fa-envelope fs-4"></i>
           </div>
           <button
-            className="btn btn-vital-orange col-md-12 text-vital-white rounded-pill px-4"
+            className="btn btn-vital-orange text-vital-white rounded-pill px-4"
             type="submit"
           >
             Subscribe

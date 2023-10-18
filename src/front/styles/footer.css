@@ -2,8 +2,8 @@
   position: relative;
 }
 
-img {
-  width: 150px;
+.logo {
+  width: 100px;
   height: auto;
 }
 
@@ -11,8 +11,11 @@ img {
   position: absolute;
   color: #ff5300;
   left: 15px;
-  top: 13px;
+  top: 7px;
 }
 
 @media screen and (max-width: 560px) {
+  .logo img {
+    visibility: hidden;
+  }
 }
