@@ -5,3 +5,43 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+.card-style {
+  width: 280px;
+  height: auto;
+}
+
+.wrapp-cards {
+  height: auto;
+}
+
+.wrapp-cards i {
+  color: #ff5300;
+  font-size: 2.5rem;
+}
+
+.frame-home {
+  height: auto;
+}
+
+.image-wrap {
+  height: 500px;
+}
+
+@media screen and (max-width: 990px) {
+  .frame-home div {
+    min-width: 100%;
+  }
+
+  .frame-home {
+    padding: 35px;
+  }
+
+  .image-wrap {
+    visibility: hidden;
+  }
+
+  .wrapp-cards {
+    height: auto;
+  }
+}

@@ -1,0 +1,21 @@
+.email-wrap {
+  position: relative;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.email-wrap i {
+  position: absolute;
+  color: #ff5300;
+  left: 15px;
+  top: 7px;
+}
+
+@media screen and (max-width: 560px) {
+  .logo img {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,16 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+
+$font-family-base: "Space Grotesk", sans-serif;
+
+
+$custom: (
+  "vital-orange": #ff5300,
+  "vital-black": #1b1b1b,
+  "vital-gray": #3d3d3d,
+  "vital-white": #f6f6f6,
+);
+
+$theme-colors: map-merge($theme-colors, $custom);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
