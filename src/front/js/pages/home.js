@@ -11,19 +11,19 @@ export const Home = () => {
   return (
     <>
       <div
-        className="container-fluid bg-vital-black"
-        style={{ height: "60vh" }}
+        className="container-fluid bg-vital-black frame-home"
+        // style={{ height: "700px" }}
       >
-        <section className="container d-flex justify-content-between align-items-center w-100 h-100 bg-vital-black">
-          <div className="col-5">
-            <h1 className="text-vital-orange fw-bold">
+        <section className="container d-flex justify-content-between align-items-center bg-vital-black">
+          <div className="col-5 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
+            <h1 className="text-vital-orange fw-bold fs-sm-2 p-sm-5 p-md-5">
               Todo relacionado al ejercicio en un solo lugar
             </h1>
-            <p className="text-vital-white fs-5">
+            <p className="text-vital-white fs-md-5 fs-sd-5 p-sm-5 p-md-5">
               Unlock your potential with a fitness membership that gives you
               access to a world of training possibilities.
             </p>
-            <div className="d-flex justify-content-start">
+            <div className="d-flex justify-content-center pb-5">
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
                 type="submit"
@@ -38,25 +38,22 @@ export const Home = () => {
               </button>
             </div>
           </div>
-          <div
-            className="d-flex justify-content-center col-5"
-            style={{ height: "80%" }}
-          >
+          <div className="col-4 image-wrap  w-50 h-75">
             <img
               src={Image}
-              className="img-fluid object-fit-contain w-100 h-100 bg-vital-black"
+              className="img-fluid object-fit-cover w-75 h-100 d-none d-md-block d-sm-block bg-vital-black"
               alt="..."
             />
           </div>
         </section>
       </div>
       <div
-        className="text-center bg-vital-gray mt-0"
-        style={{ height: "600px" }}
+        className="container-fluid text-center bg-vital-gray mt-0"
+        //style={{ height: "600px" }}
       >
         <h1 className="text-vital-white p-5 fw-bold">¿Qué ofrece Vital?</h1>
-        <div className="wrapp-cards d-flex container  justify-content-around flex-wrap">
-          <div className="d-flex flex-column card-style justify-content-around rounded-5 bg-vital-black">
+        <div className="wrapp-cards d-flex container pb-5 justify-content-around flex-wrap">
+          <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
             <i className="fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Workout</h4>
             <p className="text-vital-white p-3">
@@ -71,7 +68,7 @@ export const Home = () => {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-column card-style justify-content-around rounded-5 bg-vital-black">
+          <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
             <i className="fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Meal Plans</h4>
             <p className="text-vital-white p-3 text-center">
@@ -86,7 +83,7 @@ export const Home = () => {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-column card-style justify-content-around rounded-5 bg-vital-black">
+          <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
             <i className="fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Find fitness centers</h4>
             <p className="text-vital-white p-3">
@@ -101,7 +98,7 @@ export const Home = () => {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-column card-style justify-content-around rounded-5 bg-vital-black">
+          <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
             <i className="fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Fitness Store</h4>
             <p className="text-vital-white p-3">
@@ -119,8 +116,8 @@ export const Home = () => {
         </div>
       </div>
       <div
-        className="text-center bg-vital-black mt-0"
-        style={{ height: "600px" }}
+        className="container-fluid text-center bg-vital-black mt-0"
+        // style={{ height: "600px" }}
       >
         <h1 className="text-vital-white p-5 fw-bold">
           Estos usuarios hicieron su vida mas facil con Vital

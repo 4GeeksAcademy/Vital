@@ -8,14 +8,40 @@
 
 .card-style {
   width: 280px;
-  height: 350px;
+  height: auto;
 }
 
 .wrapp-cards {
-  height: 400px;
+  height: auto;
 }
 
 .wrapp-cards i {
   color: #ff5300;
   font-size: 2.5rem;
+}
+
+.frame-home {
+  height: auto;
+}
+
+.image-wrap {
+  height: 500px;
+}
+
+@media screen and (max-width: 990px) {
+  .frame-home div {
+    min-width: 100%;
+  }
+
+  .frame-home {
+    padding: 35px;
+  }
+
+  .image-wrap {
+    visibility: hidden;
+  }
+
+  .wrapp-cards {
+    height: auto;
+  }
 }

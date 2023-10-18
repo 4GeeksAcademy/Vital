@@ -1,0 +1,18 @@
+.email-wrap {
+  position: relative;
+}
+
+img {
+  width: 150px;
+  height: auto;
+}
+
+.email-wrap i {
+  position: absolute;
+  color: #ff5300;
+  left: 15px;
+  top: 13px;
+}
+
+@media screen and (max-width: 560px) {
+}

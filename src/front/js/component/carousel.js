@@ -6,20 +6,20 @@ const Carousel = () => {
     <div id="carouselExample" className="carousel slide">
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <div className="d-flex justify-content-evenly flex-wrap">
+          <div className="d-flex justify-content-evenly flex-wrap pb-5">
             <Postcard />
             <Postcard />
           </div>
         </div>
         <div className="carousel-item">
-          <div className="d-flex justify-content-around">
+          <div className="d-flex justify-content-evenly flex-wrap pb-5">
             <Postcard />
             <Postcard />
           </div>
         </div>
         <div className="carousel-inner">
           <div className="carousel-item">
-            <div className="d-flex justify-content-around">
+            <div className="d-flex justify-content-evenly flex-wrap pb-5">
               <Postcard />
               <Postcard />
             </div>

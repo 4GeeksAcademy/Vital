@@ -3,7 +3,7 @@ import "../../styles/postcard.css";
 const Postcard = () => {
   return (
     <>
-      <div className="postcards d-flex justify-content-center col-4">
+      <div className="postcards d-flex justify-content-center mt-5 col-sm-12 col-md-8 col-4">
         <div className="bg-vital-gray d-flex  flex-column rounded-5">
           <div className="circle-avatar align-self-center mt-3 bg-vital-orange rounded-circle"></div>
           <h4 className="fs-6 text-vital-white mt-3">Workout</h4>
