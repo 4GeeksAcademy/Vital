@@ -83,12 +83,14 @@ export const Navbar = () => {
           >
             Log in
           </button>
-          <button
-            className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
-            type="submit"
-          >
-            Sign up free
-          </button>
+          <Link to="/register">
+            <button
+              className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
+              type="submit"
+            >
+              Sign up free
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
