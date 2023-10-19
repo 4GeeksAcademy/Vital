@@ -2,20 +2,58 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Administrator, Favorite
 from api.utils import generate_sitemap, APIException
+import random
+import math
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from datetime import timedelta
+import re
+import bcrypt
 
-api = Blueprint('api', __name__)
+
+def check(email):
+    regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b"
+    # pass the regular expression
+    # and the string into the fullmatch() method
+    if re.fullmatch(regex, email):
+        return True
+    else:
+        return False
 
 
-@api.route('/hello', methods=['POST', 'GET'])
+api = Blueprint("api", __name__)
+
+
+@api.route("/hello", methods=["POST", "GET"])
 def handle_hello():
-
     response_body = {
         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
     }
 
     return jsonify(response_body), 200
+
+
+@api.route("/token", methods=["POST"])
+def create_token():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    print(email, password)
+    if email is None or password is None:
+        return {"message": "parameters missing"}, 400
+    user = User.query.filter_by(email=email).one_or_none()
+    if user is None:
+        return {"message": "user doesn't exist"}, 400
+    password_byte = bytes(password, "utf-8")
+    # hash_password = bcrypt.hashpw(password_byte)
+    if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
+        return {
+            "token": create_access_token(
+                identity=user.email, expires_delta=timedelta(hours=3)
+            )
+        }, 200
+    return {"message": "Access no granted"}, 501
+
 
 @api.route("/users", methods=["GET"])
 def handle_users():
@@ -25,3 +63,185 @@ def handle_users():
         return [user.serialize() for user in users], 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("/users/favorites/<username>", methods=["GET"])
+def favorites_get(username):          
+    try:
+        favorites = Favorite.query.filter_by(username=username).first()
+        response_body = [favorite.serialize() for favorite in favorites]
+        return response_body, 200
+    except Exception as error:
+        return jsonify({"message": str(error)}), 400   
+    
+@api.route("favorites/<username>", methods=["GET"])
+def get_favorites(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    favorites = Favorite.query.filter_by(user=user).first()
+    if favorites is None:
+        return {"msg": "User doesn't have favorites"}, 400    
+    return favorites.serialize() , 200
+
+
+@api.route("create-user", methods=["POST"])
+def create_user():
+    body = request.get_json()
+    email = body.get("email", None)
+    password = body.get("password", None)
+    username = body.get("username", None)
+    name = body.get("name", None)
+    lastname = body.get("lastname", None)
+    if (
+        email is None
+        or password is None
+        or username is None
+        or name is None
+        or lastname is None
+    ):
+        return {"msg": "Missing fields"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    user = User.query.filter_by(email=email).first()
+    bpassword = bytes(password, "utf-8")
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(bpassword, salt)
+    if user is None:
+        try:
+            user = User(
+                email=email,
+                password=hashed.decode("utf-8"),
+                username=username,
+                name=name,
+                lastname=lastname,
+            )            
+            db.session.add(user)
+            db.session.commit()
+            favorite = Favorite(user=user,favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
+            db.session.add(favorite)
+            db.session.commit()
+            return {"msg": "User created successfully"}, 200
+        except ValueError as error:
+            return {"msg": "Something went wrong" + error}, 500
+    else:
+        return {"msg": "User already exists"}, 400
+
+
+@api.route("create-admin", methods=["POST"])
+def create_admin():
+    body = request.get_json()
+    email = body.get("email", None)
+    password = body.get("password", None)
+    username = body.get("username", None)
+    name = body.get("name", None)
+    lastname = body.get("lastname", None)
+    role = body.get("role", None)
+    if (
+        email is None
+        or password is None
+        or username is None
+        or name is None
+        or lastname is None
+        or role is None
+    ):
+        return {"msg": "Missing fields"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    admin_user = Administrator.query.filter_by(email=email).first()
+    if admin_user is not None:
+        return {"msg": "Admin User already exists"}, 400
+    bpassword = bytes(password, "utf-8")
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(bpassword, salt)
+    if admin_user is None:
+        try:
+            admin = Administrator( 
+                email=email,               
+                password=hashed.decode("utf-8"),
+                username=username,
+                name=name,
+                lastname=lastname,
+                role=role,
+            )            
+            db.session.add(admin)            
+            db.session.commit()
+            return {"msg": "Admin created successfully"}, 200
+        except ValueError as error:
+            return {"msg": "Something went wrong" + error}, 500
+    else:
+        return {"msg": "Admin User already exists"}, 400
+    
+@api.route("add-favorite/<username>", methods=["POST"])
+def add_favorites(username):
+    args = request.args
+    body_part = args.get("body_part", None, type=str)
+    exercise = args.get("exercise", None, type=str)
+    
+    #favorite_back, favorite_cardio, favorite_chest, favorite_lower_arms, favorite_lower_legs, favorite_neck, favorite_shoulders, favorite_upper_arms, favorite_upper_legs, favorite_waist
+    user = User.query.filter_by(username=username).first()    
+    favorite = Favorite.query.filter_by(user=user).first()    
+    if user is None or favorite is None:
+        return {"msg": "User doesn't exist"}, 400
+    if body_part == "back" and exercise is not None:
+        current_favorite = favorite.favorite_back
+        current_favorite= exercise
+        favorite.favorite_back = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "cardio" and exercise is not None:
+        current_favorite = favorite.favorite_cardio
+        current_favorite= exercise
+        favorite.favorite_cardio = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "chest" and exercise is not None:
+        current_favorite = favorite.favorite_chest        
+        current_favorite= exercise
+        favorite.favorite_chest = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "lower_arms" and exercise is not None:
+        current_favorite = favorite.favorite_lower_arms
+        current_favorite= exercise
+        favorite.favorite_lower_arms = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "lower_legs" and exercise is not None:
+        current_favorite = favorite.favorite_lower_legs
+        current_favorite= exercise
+        favorite.favorite_lower_legs = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "neck" and exercise is not None:
+        current_favorite = favorite.favorite_neck
+        current_favorite= exercise
+        favorite.favorite_neck = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "shoulders" and exercise is not None:
+        current_favorite = favorite.favorite_shoulders
+        current_favorite= exercise
+        favorite.favorite_shoulders = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "upper_arms" and exercise is not None:
+        current_favorite = favorite.favorite_upper_arms
+        current_favorite= exercise
+        favorite.favorite_upper_arms = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "upper_legs" and exercise is not None:
+        current_favorite = favorite.favorite_upper_legs
+        current_favorite= exercise
+        favorite.favorite_upper_legs = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    if body_part == "waist" and exercise is not None:
+        current_favorite = favorite.favorite_waist
+        current_favorite= exercise
+        favorite.favorite_waist = current_favorite
+        db.session.commit()
+        return {"msg": "Favorite added successfully"}, 200
+    else:
+        return {"msg": "Something went wrong"}, 500
+    
