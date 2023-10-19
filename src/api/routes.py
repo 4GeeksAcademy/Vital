@@ -16,3 +16,12 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route("/users", methods=["GET"])
+def handle_users():
+    try:
+        users = User.query.all()
+        print(users)
+        return [user.serialize() for user in users], 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
