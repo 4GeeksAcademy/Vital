@@ -1,0 +1,6 @@
+.image-card {
+  width: 204px;
+  height: 160px;
+  object-fit: cover;
+  background-repeat: no-repeat;
+}

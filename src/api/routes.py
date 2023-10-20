@@ -37,15 +37,13 @@ def handle_hello():
 @api.route("/token", methods=["POST"])
 def create_token():
     email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    print(email, password)
+    password = request.json.get("password", None)    
     if email is None or password is None:
         return {"message": "parameters missing"}, 400
     user = User.query.filter_by(email=email).one_or_none()
     if user is None:
         return {"message": "user doesn't exist"}, 400
-    password_byte = bytes(password, "utf-8")
-    # hash_password = bcrypt.hashpw(password_byte)
+    password_byte = bytes(password, "utf-8")   
     if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
         return {
             "token": create_access_token(
@@ -103,11 +101,12 @@ def create_user():
     if check(email) == False:
         return {"msg": "Invalid email"}, 400
     user = User.query.filter_by(email=email).first()
-    bpassword = bytes(password, "utf-8")
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(bpassword, salt)
     if user is None:
         try:
+           
+            bpassword = bytes(password, "utf-8")
+            salt = bcrypt.gensalt()
+            hashed = bcrypt.hashpw(bpassword, salt)
             user = User(
                 email=email,
                 password=hashed.decode("utf-8"),
@@ -171,7 +170,7 @@ def create_admin():
     else:
         return {"msg": "Admin User already exists"}, 400
     
-@api.route("add-favorite/<username>", methods=["POST"])
+@api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
     args = request.args
     body_part = args.get("body_part", None, type=str)
