@@ -1,0 +1,21 @@
+.image-background {
+  height: 75vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-image: url("../img/image-background.png");
+}
+
+.wrap-background-image {
+  height: 100%;
+  width: 100%;
+}
+
+.title h1 {
+  font-size: 3rem;
+}
+
+.title p {
+  font-size: 1.4rem;
+}
