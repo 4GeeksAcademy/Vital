@@ -15,10 +15,18 @@
 }
 
 .wrap-exercise-card {
+  position: relative;
   height: 230px;
   width: 252px;
 }
 
 .font-p {
   font-size: 0.8rem;
+}
+
+i {
+  top: 5px;
+  right: 8px;
+  font-size: 1.2rem;
+  position: absolute;
 }
