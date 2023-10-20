@@ -1,11 +1,12 @@
 import {useState, useEffect} from "react";
+import { Exercises } from "../pages/exercises";
 
 
 export const useFetch = (url, options) => {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
-
+    
     useEffect(()=>{
         const getData = async () => {
             try{

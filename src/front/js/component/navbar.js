@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-vital-black">
+    <nav className="navbar navbar-expand-lg bg-vital-black p-3">
       <div className="container d-flex justify-space-around">
         <a className="navbar-brand" href="#">
-          <img src={Logo} style={{ width: "100px" }} />
+          <img src={Logo} style={{ width: "150px" }} />
         </a>
         <button
           className="navbar-toggler"
