@@ -30,7 +30,7 @@ export const Register = () => {
                         <label className="form-check-label mb-4" for="flexCheckDefault">
                             Forgot Password
                         </label>
-                    </div>
+                    </div>  
 
                     
 
