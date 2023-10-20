@@ -66,8 +66,12 @@ const ExerciseDetail = () => {
               </div>
             </div>
           </div>
-          <div className="wrap-gif mx-auto h-100 col-6">
-            <img className="img-fluid rounded-3 " src={gif} alt="gif exercise"/>
+          <div className="wrap-gif mx-auto mt-5 h-100">
+            <img
+              className="img-fluid rounded-3 "
+              src={gif}
+              alt="gif exercise"
+            />
           </div>
         </div>
       </div>
