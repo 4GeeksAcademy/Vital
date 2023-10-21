@@ -3,6 +3,7 @@ import "../../styles/exercises.css";
 import { useFetch } from "../hooks/useFetch";
 import imageBackground from "../../img/image-background.png";
 import CardWorkout from "../component/cardWorkout";
+import { scrollToTop } from "../function/scrollToTop";
 
 export const Exercises = () => {
   const bodyPart = "chest";
@@ -14,6 +15,10 @@ export const Exercises = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
+
+  useEffect(() => {
+    scrollToTop()
+  }, []);
 
   // const { data, error, loading } = useFetch(url, options);
   // console.log(data);
