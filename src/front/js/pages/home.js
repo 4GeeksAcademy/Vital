@@ -4,10 +4,14 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Image from "../../img/image1.png";
 import Carousel from "../component/carousel";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
-
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/exercises");
+  };
   return (
     <>
       <div
@@ -63,6 +67,7 @@ export const Home = () => {
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
                 type="submit"
+                onClick={handleClick}
               >
                 Primary Action
               </button>

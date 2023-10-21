@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import gif from "../../img/exercise.gif";
 import "../../styles/exercise-detail.css";
+import { scrollToTop } from "../function/scrollToTop";
 
 const ExerciseDetail = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+
   return (
     <div className="container-fluid p-0 d-flex flex-column bg-vital-gray">
       <div className="container d-flex flex-column bg-vital-gray p-3 vh-25">
