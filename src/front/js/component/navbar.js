@@ -77,12 +77,14 @@ export const Navbar = () => {
           </ul>
         </div>
         <div>
-          <button
-            className="btn btn-outline-vital-orange text-vital-white rounded-pill"
-            type="submit"
-          >
-            Log in
-          </button>
+          <Link to=>
+            <button
+              className="btn btn-outline-vital-orange text-vital-white rounded-pill"
+              type="submit"
+            >
+              Log in
+            </button>
+          </Link>
           <Link to="/register">
             <button
               className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
