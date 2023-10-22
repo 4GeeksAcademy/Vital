@@ -134,15 +134,19 @@ class Gym(db.Model):
     name = db.Column(db.String(200), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=True)
     address = db.Column(db.String(500), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(500), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
-    image = db.Column(db.String(200), nullable=True)
+    image = db.Column(db.String(1000), nullable=True)
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, name, email, address, description, phone, image):
+    def __init__(self, name, email, address, latitude, longitude, description, phone, image):
         self.name = name
         self.email = email
         self.address = address
+        self.latitude = latitude
+        self.longitude = longitude
         self.description = description
         self.phone = phone
         self.image = image
@@ -189,3 +193,21 @@ class Profile(db.Model):
             "description": self.description,
             "phone": self.phone,
         }
+
+class Newsletter(db.Model):
+    __tablename__ = "newsletter"
+    id = db.Column(db.Integer, primary_key=True)
+
+    email = db.Column(db.String(200), unique=False, nullable=False)    
+    is_active = db.Column(db.Boolean, unique=False, nullable=False)
+
+    def __init__(self, email):
+        
+        self.email = email        
+        self.is_active = True
+
+    def __repr__(self):
+        return f"<Gym {self.id} {self.email}>"
+
+    def serialize(self):
+        return {"email": self.email, "Active": self.is_active}
