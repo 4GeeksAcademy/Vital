@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../styles/register.css"
 
 
+
 export const Register = () => {
     const [user,setUser] = useState( {
         firstname: "",
@@ -13,11 +14,11 @@ export const Register = () => {
 
     })
     return (
-        <div className="bg-vital-black h-100 p-5">
+        <div className="bg-vital-black p-5">
 
-        <div className="container bg-vital-gray  rounded-3">
+        <div className="container  bg-vital-gray  rounded-3">
             <div className="row">
-                <div className="col-6 d-flex justify-content-center align-items-center bg-success text-light rounded-start-3 firstDiv"><h2><strong>Create your Account</strong></h2></div>
+                <div className="col-6 d-flex justify-content-center align-items-center  text-light rounded-start-3 imageRegister"><h2><strong>Create your Account</strong></h2></div>
                 <div className="col-6 ">
                     <h2 className="mb-4 mt-4 d-flex justify-content-center "><strong className= "text-vital-orange">Sign up</strong></h2>
 

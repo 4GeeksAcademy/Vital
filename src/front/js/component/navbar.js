@@ -77,7 +77,7 @@ export const Navbar = () => {
           </ul>
         </div>
         <div>
-          <Link to=>
+          <Link to="/login">
             <button
               className="btn btn-outline-vital-orange text-vital-white rounded-pill"
               type="submit"
