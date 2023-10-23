@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import Image from "../../img/image1.png";
 
 const ProductCard = ({ name, price, url, id }) => {
     
