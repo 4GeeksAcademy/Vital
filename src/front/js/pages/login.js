@@ -28,8 +28,8 @@ export const Login = () => {
                         </div>
                         <div className="d-flex-column justify-content-center mb-4">
 
-                            <span className="d-flex justify-content-center">Don't have an account</span>
-                            <Link to='/register' className="d-flex justify-content-center text-vital-orange text-decoration-none">Create account</Link>
+                            <span className="d-flex justify-content-center">Don't have an account?</span>
+                            <Link to='/register' className="d-flex justify-content-center text-vital-orange text-decoration-none">Create one here</Link>
                             
                         </div>
                     </div>
