@@ -8,6 +8,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try{
 					const resp = await fetch("https://fakestoreapi.com/products")
 					const data = await resp.json()
+					data.forEach(product => {
+						product.price = product.price.toLocaleString("es-Es", {style: "currency", currency: "USD"});
+					});
+					console.log(data)
 					// const store = getStore()
 					// console.log(store.products)
 					setStore({ products: data })
