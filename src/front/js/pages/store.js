@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import ProductCard from "../component/productCard";
 // import { products } from "../constants/constants";
@@ -9,6 +9,10 @@ export const Store = () => {
 
   const { store, actions } = useContext(Context)
   const products = store.products
+
+  useEffect(() => {
+    actions.getProducts();
+  }, []);
 
   return (
     <>
