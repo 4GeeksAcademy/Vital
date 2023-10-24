@@ -4,6 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
+import { Store } from "./pages/store";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -13,6 +14,7 @@ import { Footer } from "./component/footer";
 import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
+import ProductDetail from "./pages/productDetail";
 
 //create your first component
 const Layout = () => {
@@ -32,11 +34,12 @@ const Layout = () => {
             <Route element={<Home />} path="/" />
             <Route element={<Exercises />} path="/exercises" />
             <Route element={<BodypartExercises />} path="/bodypart/:part" />
-            <Route
-              element={<ExerciseDetail />}
-              path="/exercisedetail/:exercise"
-            />
+            <Route element={<ExerciseDetail />} path="/exercisedetail/:exercise"/>
+            <Route element={<ProductDetail />} path="/product-detail/:id"/>
+            <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
+            <Route element={<Single />} path="/single/:theid" />
+
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
