@@ -8,7 +8,7 @@ import { Store } from "./pages/store";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
+import GymMap from "./pages/gymMap";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Exercises } from "./pages/exercises";
@@ -37,7 +37,9 @@ const Layout = () => {
             <Route element={<ExerciseDetail />} path="/exercisedetail/:exercise"/>
             <Route element={<ProductDetail />} path="/product-detail/:id"/>
             <Route element={<Store />} path="/store" />
+            <Route element={<GymMap />} path="/gyms-map" />
             <Route element={<Single />} path="/single/:theid" />
+
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
