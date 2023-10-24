@@ -9,7 +9,7 @@ const ProductDetail = () => {
     return (
         <div className="container-fluid bg-vital-black d-flex flex-column p-5"> 
             <div className="row">
-                <div className="col-lg-6 col-md-12 text-vital-white">
+                <div className="col-lg-6 col-md-12 text-vital-white text-center">
                     <img
                         className="img-fluid rounded-3"
                         src={gif}
