@@ -58,7 +58,7 @@ export const Exercises = () => {
           </h1>
           <div className="row col-11 d-flex mx-auto justify-content-around">
             {catagories.map((item, index) => {
-              return <CardWorkout title={item} key={index} />;
+              return <CardWorkout title={item.toLowerCase()} key={index} />;
             })}
           </div>
         </div>
@@ -68,16 +68,5 @@ export const Exercises = () => {
 };
 
 {
-  /* <ul>
-                {data &&
-                  data.map((item, index) => {
-                    return (
-                      <li key={index}>
-                        {item.name}
-                        {item.instructions}
-                        <img src={item.gifUrl} />
-                      </li>
-                    );
-                  })}
-              </ul> */
+
 }

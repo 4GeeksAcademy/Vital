@@ -8,12 +8,14 @@ export const useFetch = (url, options) => {
     const [loading, setLoading] = useState(true)
     
     useEffect(()=>{
+        
         const getData = async () => {
             try{
                 const response = await fetch(url, options)
                 if(response.ok) {
                     const dataJson = await response.json()
                     setData(dataJson)
+                    console.log("useEffect")
                 } else {
                     throw new Error(response.statusText)
                 }

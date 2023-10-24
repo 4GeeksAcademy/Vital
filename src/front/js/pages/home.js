@@ -112,7 +112,7 @@ export const Home = () => {
             <div>
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
-                type="submit"
+                type="submit" onClick={()=> navigate("/store")}
               >
                 Primary Action
               </button>
