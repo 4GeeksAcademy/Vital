@@ -36,6 +36,7 @@ const ProductDetail = () => {
                 className="img-fluid rounded-3"
                 src={data.image}
                 alt="Product"
+                style={{ maxHeight: "25rem" }}
               />
             </div>
             <div className="col-lg-6 col-md-12">
