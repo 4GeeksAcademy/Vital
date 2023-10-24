@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import gif from "../../img/exercise.gif";
 import { useFetch } from "../hooks/useFetch";
 import Loading from "../component/loading/loading.js";
+import { ArrowBackOutline } from "react-ionicons";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -20,13 +21,12 @@ const ProductDetail = () => {
       ) : (
         <div className="container-fluid bg-vital-black d-flex flex-column p-5">
           <div className="mb-3">
-            {/* Por alguna razon no se muestra el icono */}
-            <i className="fa-solid fa-arrow-left" style={{ color: "#ff5300" }}></i> 
             <span
               className="text-vital-orange"
               onClick={() => navigate(`/store`)}
               style={{ cursor: "pointer" }}
             >
+              <ArrowBackOutline color={"#ff5300"} className="me-1"/>
               Go back
             </span>
           </div>
