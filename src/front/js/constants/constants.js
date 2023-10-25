@@ -48,9 +48,6 @@ export const products = [
         id: 8
     }
 ]
-
-
-
 export const title = "Lower arms";
 export const description =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan odio ut mi aliquam volutpat. Nam tincidunt quam vitae massa suscipit placerat.";
@@ -97,8 +94,6 @@ export const description =
     id: 8,
   },
 ];
-
-
 export const data = [
   {
       "bodyPart": "cardio",
@@ -278,7 +273,6 @@ export const data = [
       ]
   }
 ]
-
 export const details = {
   "bodyPart": "cardio",
   "equipment": "body weight",
@@ -299,4 +293,27 @@ export const details = {
       "Land softly with your feet shoulder-width apart, bending your knees to absorb the impact.",
       "Repeat for the desired number of repetitions."
   ]
+}
+
+
+export const objectIA = {
+    "id": "chatcmpl-8DeHGYmb3pnqyeae24OMMVeDOeG9B",
+    "object": "chat.completion",
+    "created": 1698263782,
+    "model": "gpt-3.5-turbo-0613",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "Exercise Description: Astride Jumps for Male Individuals (Around Age 20)\n\nPurpose: The purpose of this exercise is to improve leg strength, balance, and coordination while performing astride jumps. Astride jumps are a great way to enhance lower body power and agility, providing a well-rounded workout for the muscles in your legs, core, and glutes.\n\nInstructions:\n\n1. Warm-up: Begin with a dynamic warm-up routine that includes light cardio exercises like jogging in place, high knees, or jumping jacks. This will increase your heart rate, warm up your muscles, and prevent any potential injuries.\n\n2. Proper Technique: Stand with your feet shoulder-width apart, ensuring a strong and stable stance. Keep your knees slightly bent, maintaining a natural posture throughout the exercise.\n\n3. Jump Technique: Bend your knees and use your leg muscles to explosively jump into the air. As you push off the ground, drive your knees up towards your chest area, attempting to bring them parallel to the floor if possible. Remember, this is an astride jump, so focus on spreading your legs apart, away from each other, while in mid-air.\n\n4. Mid-Air Coordination: While in the air, try to maintain balance and control. Spread your legs as wide as you can, ideally achieving a horizontal position, before preparing to land.\n\n5. Landing Technique: As you descend, keep your eyes focused on the ground to ensure a safe landing. Bend your knees and hips, absorbing the impact with a soft landing. Try to land on the balls of your feet, lowering your heels to the ground gradually, and avoid landing with locked knees, as this can cause strain.\n\n6. Repeat: Perform a set of 10 jumps initially, gradually increasing the repetitions as you become more comfortable and proficient. Take short breaks between each set to recover and catch your breath.\n\nSafety Tips:\n\n- Ensure you have adequate space and a suitable surface for performing astride jumps, preferably an exercise mat or a non-slippery floor.\n- Avoid locking your knees during the landing phase, as this can lead to joint discomfort or hyperextension.\n- Keep your core engaged and maintain proper posture throughout the exercise to avoid any strain on your lower back.\n- Start with a comfortable jump height and gradually increase it as you gain strength and confidence.\n- If you have any pre-existing leg or knee injuries, consult with a healthcare professional before attempting this exercise variation.\n\nAdditional Challenge/Progression:\n\nTo further challenge yourself and enhance the workout, consider incorporating the following variations or modifications:\n\n1. Higher Jump: Gradually increase the jump height as you progress, aiming to achieve a maximum vertical jump.\n2. Weighted Astride Jumps: Hold dumbbells or wear ankle weights to add resistance and intensify the exercise.\n3. Plyometric Jumps: Incorporate explosive movements or combine the astride jump with other plyometric exercises like tuck jumps or star jumps to elevate the difficulty level.\n\nRemember, always listen to your body and perform exercises at a suitable intensity for your fitness level. If you experience any pain or discomfort, discontinue the exercise and consult with a healthcare professional."
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 28,
+        "completion_tokens": 635,
+        "total_tokens": 663
+    }
 }
