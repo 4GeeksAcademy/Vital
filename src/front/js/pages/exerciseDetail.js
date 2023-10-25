@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import gif from "../../img/exercise.gif";
 import "../../styles/exercise-detail.css";
 import { scrollToTop } from "../function/scrollToTop";
 import { useFetch } from "../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import { details } from "../constants/constants";
+import { generateDescription } from "../function/returnExcerciseDescription";
 
 const ExerciseDetail = () => {
   const { id } = useParams();
+  const [description, setDescription] = useState("");
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const options = {
@@ -24,7 +26,8 @@ const ExerciseDetail = () => {
 
   const data = details;
   //const { data, error, loading } = useFetch(url, options);
-  console.log(data);
+  //generateDescription(data.name, 200, data.target);
+  description && console.log(description);
   const title = data.name[0].toUpperCase() + data.name.slice(1);
   return (
     <div className="container-fluid p-0 d-flex flex-column bg-vital-gray">
@@ -76,14 +79,14 @@ const ExerciseDetail = () => {
               </div>
               <div className="d-flex flex-column pt-4 justify-content-between ">
                 <h6 className="text-vital-orange mb-2">Intructions</h6>
-                <p className="d-flex flex-row col-12 text-vital-white justify-content-between">
-                  <ul>
+                
+                  <ul className="text-vital-white">
                     {data &&
                       data.instructions.map((instruction, index) => {
                         return <li key={index}>{instruction}</li>;
                       })}
                   </ul>
-                </p>
+                
               </div>
             </div>
           </div>
@@ -99,5 +102,23 @@ const ExerciseDetail = () => {
     </div>
   );
 };
+
+// async function  generateDescription (exercise, numWords, keyWords) { 
+//   const res = await fetch("../function/returnExcerciseDescription", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       exercise,
+//       numWords,
+//       keyWords,
+//     }),
+//   });
+  
+//   const data = await res.json();
+//   console.log(data);
+//   setDescription(data.Description.trim());
+// };
 
 export default ExerciseDetail;

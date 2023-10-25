@@ -15,7 +15,8 @@
   height: auto;
 }
 
-.wrapp-cards i {
+.wrapp-cards .icon {
+  position: inherit;
   color: #ff5300;
   font-size: 2.5rem;
 }

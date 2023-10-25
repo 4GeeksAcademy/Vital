@@ -8,6 +8,7 @@ import BackgroundContainer from "../component/backgroundContainer";
 import { useFetch } from "../hooks/useFetch";
 
 import { description, data } from "../constants/constants";
+import Pagination from "../component/pagination/pagination";
 
 export const BodypartExercises = () => {
   const { bodypart } = useParams();
@@ -57,6 +58,9 @@ export const BodypartExercises = () => {
               })}
           </div>
         </div>
+      </div>
+      <div>
+        <Pagination />
       </div>
     </>
   );
