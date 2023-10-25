@@ -14,6 +14,7 @@ export const useFetch = (url, options) => {
                 if(response.ok) {
                     const dataJson = await response.json()
                     setData(dataJson)
+                    console.log(dataJson)
                 } else {
                     throw new Error(response.statusText)
                 }

@@ -9,7 +9,7 @@ const ExerciseCard = ({ exercises, id }) => {
       className="wrap-exercise-card  col-3 p-0 pb-2 bg-vital-gray mt-4 border border-1 rounded-3 border-vital-orange"
       // style={{ height: "220px" }}
     >
-      <i class="fa-regular fa-heart" style={{ color: "#ff5300" }}></i>
+      <i className="fa-regular fa-heart" style={{ color: "#ff5300" }}></i>
       <div
         className="rounded-3 image-card-exercise d-flex justify-content-center align-items-center"
         style={{
