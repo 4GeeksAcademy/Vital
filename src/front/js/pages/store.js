@@ -35,7 +35,7 @@ export const Store = () => {
         description="Esta es la tienda donde se mostraran todos los productos"
         image={Imagen}
       />
-      <div className="container-fluid p-5 bg-vital-black">
+      <div className="container-fluid p-5 bg-vital-gray">
         <div className="container d-flex  flex-column title-workout">
           <div className="row col-11 d-flex mx-auto justify-content-around">
             {products.map((product, id) => {
