@@ -11,11 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					data.forEach(product => {
 						product.price = product.price.toLocaleString("es-Es", {style: "currency", currency: "USD"});
 					});
-					console.log(data)
-					// const store = getStore()
-					// console.log(store.products)
 					setStore({ products: data })
-					// console.log(store.products)
 					return data;
 
 				}catch(error){
