@@ -26,7 +26,7 @@ export const BodypartExercises = () => {
     },
   };
 
-  //const { data, error, loading } = useFetch(url, options);
+  const { data, error, loading } = useFetch(url, options);
   //console.log(data);
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
 

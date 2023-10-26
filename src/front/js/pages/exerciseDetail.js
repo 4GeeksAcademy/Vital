@@ -10,11 +10,15 @@ import Loading from "../component/loading/loading.js";
 //import { objectIA } from "../constants/constants";
 
 const ExerciseDetail = () => {
-  const { id } = useParams();
-  const [description, setDescription] = useState("");
-  const exercise = details.name;
-  const numWords = 15;
-  const keyWords = details.keyWords;
+  const { id } = useParams(); 
+  const [openAiOptions, setOpenAiFetchOptions] = useState({
+    exercise: details.name,
+    numWords: 15,
+    keyWords: details.keyWords
+  })
+   
+
+  
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const urlIA = "https://api.openai.com/v1/chat/completions";
@@ -29,16 +33,16 @@ const ExerciseDetail = () => {
       messages: [
         {
           role: "system",
-          content: `Write a exercise description for a given exercise that is around  ${numWords} words and given keywords}`,
+          content: `Write a description for a given exercise It should have  ${openAiOptions.numWords} words and given base on this keywords}`,
         },
         {
           role: "user",
           content:
-            `exercise: ${exercise} numWords: ${numWords} keyWords: ${keyWords}`,
+            `exercise: ${openAiOptions.exercise} numWords: ${openAiOptions.numWords} keyWords: ${openAiOptions.keyWords}`,
         },
       ],
       temperature: 0.8,
-      max_tokens: 20,       
+      max_tokens: 30,       
     }),
   };
 
@@ -54,15 +58,15 @@ const ExerciseDetail = () => {
     scrollToTop();
   }, []);
 
-  const data = details;
-  const objectIA = useFetch(urlIA, optionsIA);
+  const { data, error, loading } = useFetch(url, options);
+  //const data = details; 
+ 
+  const objectIA = useFetch(urlIA, optionsIA);  
 
-  objectIA.data && console.log(objectIA.data.choices[0].message.content);
+  objectIA.data && console.log(objectIA.data.choices[0].message.content);  
 
-  //const { data, error, loading } = useFetch(url, options);
-
-  description && console.log(description);
-  const title = data.name[0].toUpperCase() + data.name.slice(1);
+  data && console.log(data);
+  const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";
   return (
     <div className="d-flex justify-content-center">
       {objectIA.loading ? (
