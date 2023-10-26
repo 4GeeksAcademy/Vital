@@ -29,6 +29,11 @@
   height: 500px;
 }
 
+a:hover {  
+  cursor: pointer;
+  color: #ff5300 !important;
+}
+
 @media screen and (max-width: 990px) {
   .frame-home div {
     min-width: 100%;

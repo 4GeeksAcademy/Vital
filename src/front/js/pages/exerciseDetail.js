@@ -37,36 +37,37 @@ const ExerciseDetail = () => {
   // }, []);
 
   useEffect(() => {
-    scrollToTop();    
-      const getData = async () => {
-        try {
-          const response = await fetch(url, options);
-          if (response.ok) {
-            const dataJson = await response.json();
-            setData(dataJson);
-            console.log(dataJson);
-            setOpenAiFetchOptions((prev) => {
-              return {
-                ...prev,
-                exercise: dataJson.name,
-                keyWords: dataJson.bodyPart,
-              };
-            });
-            console.log(openAiOptions);
-          } else {
-            throw new Error(response.statusText);
-          }
-        } catch (error) {
-          setError(error);
-        } finally {
-          setLoading(false);         
+    scrollToTop();
+    const getData = async () => {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) {
+          const dataJson = await response.json();
+          setData(dataJson);
+          console.log(dataJson);
+          setOpenAiFetchOptions((prev) => {
+            return {
+              ...prev,
+              exercise: dataJson.name,
+              keyWords: dataJson.bodyPart,
+            };
+          });
+          console.log(openAiOptions);
+        } else {
+          throw new Error(response.statusText);
         }
-      };
-      getData();  
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
   }, []);
 
   useEffect(() => {
-    if (process.env.OPENAI_API_KEY = "none") {
+    console.log(process.env.OPENAI_API_KEY);
+    if (process.env.OPENAI_API_KEY == "none") {
       setObjectAI(objectAI2);
       setLoadingAI(false);
       return;
@@ -80,12 +81,11 @@ const ExerciseDetail = () => {
       console.log(response);
       setObjectAI(response);
       setLoadingAI(false);
-    };    
+    };
     generateDescription();
   }, [openAiOptions]);
 
-
-  objectAI && console.log(objectAI.choices[0].message.content);
+  //objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";
