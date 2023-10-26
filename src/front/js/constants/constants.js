@@ -296,7 +296,7 @@ export const details = {
 }
 
 
-export const objectIA = {
+export const objectAI2 = {
     "id": "chatcmpl-8DeHGYmb3pnqyeae24OMMVeDOeG9B",
     "object": "chat.completion",
     "created": 1698263782,

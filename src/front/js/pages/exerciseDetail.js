@@ -7,45 +7,23 @@ import { useParams } from "react-router-dom";
 import { details } from "../constants/constants";
 import { getStructuredMessage } from "../function/returnExcerciseDescription";
 import Loading from "../component/loading/loading.js";
-//import { objectIA } from "../constants/constants";
+import { objectAI2 } from "../constants/constants";
 
 const ExerciseDetail = () => {
-  const { id } = useParams(); 
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingAI, setLoadingAI] = useState(true);
+  const { id } = useParams();
+  const [objectAI, setObjectAI] = useState(null);
   const [openAiOptions, setOpenAiFetchOptions] = useState({
     exercise: details.name,
     numWords: 15,
-    keyWords: details.keyWords
-  })
-   
-
-  
+    keyWords: details.bodyPart,
+  });
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const urlIA = "https://api.openai.com/v1/chat/completions";
-  const optionsIA = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: `Write a description for a given exercise It should have  ${openAiOptions.numWords} words and given base on this keywords}`,
-        },
-        {
-          role: "user",
-          content:
-            `exercise: ${openAiOptions.exercise} numWords: ${openAiOptions.numWords} keyWords: ${openAiOptions.keyWords}`,
-        },
-      ],
-      temperature: 0.8,
-      max_tokens: 30,       
-    }),
-  };
-
   const options = {
     method: "GET",
     headers: {
@@ -54,22 +32,66 @@ const ExerciseDetail = () => {
     },
   };
 
+  // useEffect(() => {
+  //   scrollToTop();
+  // }, []);
+
   useEffect(() => {
-    scrollToTop();
+    scrollToTop();    
+      const getData = async () => {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) {
+            const dataJson = await response.json();
+            setData(dataJson);
+            console.log(dataJson);
+            setOpenAiFetchOptions((prev) => {
+              return {
+                ...prev,
+                exercise: dataJson.name,
+                keyWords: dataJson.bodyPart,
+              };
+            });
+            console.log(openAiOptions);
+          } else {
+            throw new Error(response.statusText);
+          }
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(false);         
+        }
+      };
+      getData();  
   }, []);
 
-  const { data, error, loading } = useFetch(url, options);
-  //const data = details; 
- 
-  const objectIA = useFetch(urlIA, optionsIA);  
+  useEffect(() => {
+    if (process.env.OPENAI_API_KEY = "none") {
+      setObjectAI(objectAI2);
+      setLoadingAI(false);
+      return;
+    }
+    const generateDescription = async () => {
+      const response = await getStructuredMessage(
+        openAiOptions.exercise,
+        openAiOptions.numWords,
+        openAiOptions.keyWords
+      );
+      console.log(response);
+      setObjectAI(response);
+      setLoadingAI(false);
+    };    
+    generateDescription();
+  }, [openAiOptions]);
 
-  objectIA.data && console.log(objectIA.data.choices[0].message.content);  
+
+  objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";
   return (
     <div className="d-flex justify-content-center">
-      {objectIA.loading ? (
+      {loading || loadingAI ? (
         <Loading />
       ) : (
         <div className="container-fluid p-0 d-flex flex-column bg-vital-gray">
@@ -111,7 +133,7 @@ const ExerciseDetail = () => {
                   <div className="d-flex flex-column pt-4 justify-content-between ">
                     <h6 className="text-vital-orange mb-2">Description</h6>
                     <p className="d-flex flex-row col-12 text-vital-white justify-content-between">
-                      {objectIA.data && objectIA.data.choices[0].message.content}
+                      {objectAI && objectAI.choices[0].message.content}
                     </p>
                   </div>
                   <div className="d-flex flex-column pt-4 justify-content-between ">
