@@ -19,6 +19,7 @@ export const Store = () => {
 
     getDocs(productsRef)
       .then((resp) => {
+        
         setProducts(
           resp.docs.map((doc) => {
             return { ...doc.data(), id: doc.id }
@@ -42,8 +43,8 @@ export const Store = () => {
               return (
                 <ProductCard
                   key={product.id}
-                  url={product.image}
-                  name={product.title}
+                  image={product.image}
+                  title={product.title}
                   price={product.price}
                   id={product.id}
                 />
