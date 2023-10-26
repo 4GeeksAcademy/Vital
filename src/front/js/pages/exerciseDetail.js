@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import gif from "../../img/exercise.gif";
 import "../../styles/exercise-detail.css";
 import { scrollToTop } from "../function/scrollToTop";
@@ -8,6 +8,7 @@ import { details } from "../constants/constants";
 import { getStructuredMessage } from "../function/returnExcerciseDescription";
 import Loading from "../component/loading/loading.js";
 import { objectAI2 } from "../constants/constants";
+import { useAPI } from "../constants/constants";
 
 const ExerciseDetail = () => {
   const [data, setData] = useState(null);
@@ -21,6 +22,9 @@ const ExerciseDetail = () => {
     numWords: 15,
     keyWords: details.bodyPart,
   });
+
+  //true to use API, false to use local constant
+  
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const urlIA = "https://api.openai.com/v1/chat/completions";
@@ -38,6 +42,11 @@ const ExerciseDetail = () => {
 
   useEffect(() => {
     scrollToTop();
+    if (!useAPI) {
+      setData(details);
+      setLoading(false);
+      return;
+    }
     const getData = async () => {
       try {
         const response = await fetch(url, options);
@@ -72,6 +81,7 @@ const ExerciseDetail = () => {
       setLoadingAI(false);
       return;
     }
+    if (loading) return;
     const generateDescription = async () => {
       const response = await getStructuredMessage(
         openAiOptions.exercise,
@@ -83,7 +93,7 @@ const ExerciseDetail = () => {
       setLoadingAI(false);
     };
     generateDescription();
-  }, [openAiOptions]);
+  }, [loading]);
 
   //objectAI && console.log(objectAI.choices[0].message.content);
 

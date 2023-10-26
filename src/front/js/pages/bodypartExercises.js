@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import ExerciseCard from "../component/exerciseCard";
 import { scrollToTop } from "../function/scrollToTop";
 import BackgroundContainer from "../component/backgroundContainer";
+import { useAPI } from "../constants/constants";
 import { useFetch } from "../hooks/useFetch";
 
-import { description, data } from "../constants/constants";
+import { description, dataExcersises } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 
 export const BodypartExercises = () => {
@@ -25,9 +26,11 @@ export const BodypartExercises = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-
-  const { data, error, loading } = useFetch(url, options);
-  //console.log(data);
+  
+  //const { data, error, loading } = useFetch(url, options);
+  const data = dataExcersises;
+ 
+  console.log(data);
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
 
   return (

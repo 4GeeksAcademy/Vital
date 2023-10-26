@@ -1,3 +1,6 @@
+export const useAPI = true;
+
+
 export const products = [
     {
         name: "Fit9",
@@ -94,7 +97,7 @@ export const description =
     id: 8,
   },
 ];
-export const data = [
+export const dataExcersises = [
   {
       "bodyPart": "cardio",
       "equipment": "body weight",
