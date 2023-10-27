@@ -21,7 +21,7 @@ const ExerciseCard = ({ exercise, id, target, equipment }) => {
           backgroundImage: `url(${exerciseImage})`,
         }}
       >
-        <h1 className="text-vital-white text-center w-50 fw-bold">
+        <h1 className="text-vital-white text-center w-50 fw-bold excercise-title">
           <Link
             className="text-decoration-none text-vital-white"
             to={`/exercisedetail/${id}`}
