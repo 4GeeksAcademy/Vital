@@ -15,7 +15,8 @@
   height: auto;
 }
 
-.wrapp-cards i {
+.wrapp-cards .icon {
+  position: inherit;
   color: #ff5300;
   font-size: 2.5rem;
 }
@@ -26,6 +27,11 @@
 
 .image-wrap {
   height: 500px;
+}
+
+a:hover {  
+  cursor: pointer;
+  color: #ff5300 !important;
 }
 
 @media screen and (max-width: 990px) {

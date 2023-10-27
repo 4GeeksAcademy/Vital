@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/bodypart-exercises.css";
 import imageBackgroundArm from "../../img/low-arm.png";
-import { useFetch } from "../hooks/useFetch";
-
+import { useParams } from "react-router-dom";
 import ExerciseCard from "../component/exerciseCard";
 import { scrollToTop } from "../function/scrollToTop";
 import BackgroundContainer from "../component/backgroundContainer";
+import { useAPI } from "../constants/constants";
+import { useFetch } from "../hooks/useFetch";
+
+import { description, dataExcersises } from "../constants/constants";
+import Pagination from "../component/pagination/pagination";
 
 export const BodypartExercises = () => {
-  const bodyPart = "chest";
-  const url = "https://exercisedb.p.rapidapi.com/exercises";
+  const { bodypart } = useParams();
+  const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=8`;
 
   useEffect(() => {
     scrollToTop();
@@ -22,74 +26,44 @@ export const BodypartExercises = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-
-  // const { data, error, loading } = useFetch(url, options);
-  // console.log(data);
-
-  const title = "Lower arms";
-  const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan odio ut mi aliquam volutpat. Nam tincidunt quam vitae massa suscipit placerat.";
-
-  const exercises = [
-    {
-      name: "exercise 1",
-      bodyPart: "chest",
-      id: 1,
-    },
-    {
-      name: "exercise 2",
-      bodyPart: "chest",
-      id: 2,
-    },
-    {
-      name: "exercise 3",
-      bodyPart: "chest",
-      id: 3,
-    },
-    {
-      name: "exercise 4",
-      bodyPart: "chest",
-      id: 4,
-    },
-    {
-      name: "exercise 5",
-      bodyPart: "chest",
-      id: 5,
-    },
-    {
-      name: "exercise 6",
-      bodyPart: "chest",
-      id: 6,
-    },
-    {
-      name: "exercise 7",
-      bodyPart: "chest",
-      id: 7,
-    },
-    {
-      name: "exercise 8",
-      bodyPart: "chest",
-      id: 8,
-    },
-  ];
+  
+  //const { data, error, loading } = useFetch(url, options);
+  const data = dataExcersises;
+ 
+  console.log(data);
+  const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
 
   return (
     <>
-      <BackgroundContainer title={title} description={description} image={imageBackgroundArm}/>
+      <BackgroundContainer
+        title={title}
+        description={description}
+        image={imageBackgroundArm}
+      />
       <div className="container-fluid p-5 bg-vital-black">
         <div className="container d-flex  flex-column title-workout">
           <div className="row col-11 d-flex mx-auto justify-content-around">
-            {exercises.map((exercise, index) => {
-              return (
-                <ExerciseCard
-                  key={index}
-                  exercises={exercise.name}
-                  id={exercise.id}
-                />
-              );
-            })}
+            {data &&
+              data.map((exercise, index) => {
+                return (
+                  <>
+                    {data && (
+                      <ExerciseCard
+                        key={index}
+                        exercise={exercise.name}
+                        id={exercise.id}
+                        target={exercise.target}
+                        equipment={exercise.equipment}
+                      />
+                    )}
+                  </>
+                );
+              })}
           </div>
         </div>
+      </div>
+      <div>
+        <Pagination />
       </div>
     </>
   );
