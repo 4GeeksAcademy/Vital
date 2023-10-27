@@ -7,7 +7,7 @@ import { scrollToTop } from "../function/scrollToTop";
 import BackgroundContainer from "../component/backgroundContainer";
 import { useAPI } from "../constants/constants";
 import { useFetch } from "../hooks/useFetch";
-
+import { allExercises } from "../constants/allExcercises";
 import { description, dataExcersises } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
@@ -29,9 +29,12 @@ export const BodypartExercises = () => {
   };
 
   //const { data, error, loading } = useFetch(url, options);
-  const data = dataExcersises;
+  const dataFilter = allExercises.filter((exercise) => {
+    return exercise.bodyPart === bodypart;
+  });
 
-  console.log(data);
+  console.log(dataFilter);
+  const data = dataFilter.slice(0, 8);
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
 
   return (
@@ -65,8 +68,10 @@ export const BodypartExercises = () => {
         </div>
       </div>
       <div>
-        <Pagination />
+        <Pagination exercisesPerPage="8" totalExercises={dataFilter.length}/>
       </div>
     </>
   );
 };
+
+//exercisesPerPage, totalExercises

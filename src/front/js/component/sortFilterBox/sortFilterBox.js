@@ -28,9 +28,9 @@ const SortFilterBox = ({
         <div className="sort-filter-container d-flex">
           <select
             className="form-select form-select-sm rounded-pill px-3 mx-3"
-            ariaLabel=".form-select-sm example" style={{ height: "45px", width: "80px" }}
+            aria-label=".form-select-sm example" style={{ height: "45px", width: "80px" }}
           >
-            <option selected>Sort</option>
+            <option defaultValue="">Sort</option>
             <option value="1">Ascendent </option>
             <option value="2">Descendent </option>
             
