@@ -97,185 +97,174 @@ export const description =
     id: 8,
   },
 ];
+  
 export const dataExcersises = [
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/09wcyQoScDt9lg",
-      "id": "3220",
-      "name": "astride jumps (male)",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "calves"
-      ],
-      "instructions": [
-          "Stand with your feet shoulder-width apart.",
-          "Bend your knees and lower your body into a squat position.",
-          "Jump explosively upwards, extending your legs and arms.",
-          "While in the air, spread your legs apart and bring your arms out to the sides.",
-          "Land softly with your feet shoulder-width apart, bending your knees to absorb the impact.",
-          "Repeat for the desired number of repetitions."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/jPRXYPR9ZHrLWI",
-      "id": "3672",
-      "name": "back and forth step",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "glutes",
-          "calves"
-      ],
-      "instructions": [
-          "Stand with your feet shoulder-width apart.",
-          "Step forward with your right foot, bending your knee and lowering your body into a lunge position.",
-          "Push off with your right foot and step back to the starting position.",
-          "Repeat the movement with your left foot, alternating legs with each step.",
-          "Continue stepping back and forth, maintaining a steady pace.",
-          "Repeat for the desired duration or number of repetitions."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/OSz0QwygLeSfX2",
-      "id": "3360",
-      "name": "bear crawl",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "core",
-          "shoulders",
-          "triceps"
-      ],
-      "instructions": [
-          "Start on all fours with your hands directly under your shoulders and your knees directly under your hips.",
-          "Lift your knees slightly off the ground, keeping your back flat and your core engaged.",
-          "Move your right hand and left foot forward simultaneously, followed by your left hand and right foot.",
-          "Continue crawling forward, alternating your hand and foot movements.",
-          "Maintain a steady pace and keep your core tight throughout the exercise.",
-          "Continue for the desired distance or time."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/QmSCRmfSceEf3P",
-      "id": "1160",
-      "name": "burpee",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "calves",
-          "shoulders",
-          "chest"
-      ],
-      "instructions": [
-          "Start in a standing position with your feet shoulder-width apart.",
-          "Lower your body into a squat position by bending your knees and placing your hands on the floor in front of you.",
-          "Kick your feet back into a push-up position.",
-          "Perform a push-up, keeping your body in a straight line.",
-          "Jump your feet back into the squat position.",
-          "Jump up explosively, reaching your arms overhead.",
-          "Land softly and immediately lower back into a squat position to begin the next repetition."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "leverage machine",
-      "gifUrl": "https://v2.exercisedb.io/image/ZZOY0im6vjy8Vu",
-      "id": "2331",
-      "name": "cycle cross trainer",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "glutes"
-      ],
-      "instructions": [
-          "Adjust the seat height and position yourself on the cycle cross trainer.",
-          "Place your feet on the pedals and grip the handlebars.",
-          "Start pedaling in a smooth and controlled motion.",
-          "Maintain a steady pace and increase the resistance if desired.",
-          "Continue pedaling for the desired duration of your cardio workout."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "dumbbell",
-      "gifUrl": "https://v2.exercisedb.io/image/qhcfI88XjwW6Pj",
-      "id": "1201",
-      "name": "dumbbell burpee",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "calves",
-          "shoulders",
-          "triceps",
-          "core"
-      ],
-      "instructions": [
-          "Start in a standing position with your feet shoulder-width apart and a dumbbell in each hand.",
-          "Lower your body into a squat position, placing the dumbbells on the ground in front of you.",
-          "Kick your feet back into a push-up position, keeping your body in a straight line.",
-          "Perform a push-up, bending your elbows and lowering your chest towards the ground.",
-          "Jump your feet back towards your hands, landing in a squat position.",
-          "Stand up explosively, lifting the dumbbells off the ground and bringing them to your shoulders.",
-          "Press the dumbbells overhead, fully extending your arms.",
-          "Lower the dumbbells back to your shoulders and repeat the entire sequence for the desired number of repetitions."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/8n0HqHHuYM0Vxg",
-      "id": "3221",
-      "name": "half knee bends (male)",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "glutes"
-      ],
-      "instructions": [
-          "Stand with your feet shoulder-width apart.",
-          "Bend your knees and lower your body down as if you were sitting back into a chair.",
-          "Keep your chest up and your weight in your heels.",
-          "Pause for a moment at the bottom, then push through your heels to return to the starting position.",
-          "Repeat for the desired number of repetitions."
-      ]
-  },
-  {
-      "bodyPart": "cardio",
-      "equipment": "body weight",
-      "gifUrl": "https://v2.exercisedb.io/image/MmRPYL5PH6AnEN",
-      "id": "3636",
-      "name": "high knee against wall",
-      "target": "cardiovascular system",
-      "secondaryMuscles": [
-          "quadriceps",
-          "hamstrings",
-          "glutes",
-          "calves"
-      ],
-      "instructions": [
-          "Stand facing a wall with your feet hip-width apart.",
-          "Place your hands on the wall for support.",
-          "Engage your core and lift your right knee up towards your chest, while keeping your left foot on the ground.",
-          "Quickly switch legs, bringing your left knee up towards your chest and lowering your right foot back down.",
-          "Continue alternating legs in a running motion, bringing your knees up as high as possible.",
-          "Maintain a fast pace and keep your upper body stable throughout the exercise.",
-          "Repeat for the desired duration or number of repetitions."
-      ]
-  }
+    {
+        "bodyPart": "back",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/0b4OWHtGlsI-oO",
+        "id": "0007",
+        "name": "alternate lateral pulldown",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "rhomboids"
+        ],
+        "instructions": [
+            "Sit on the cable machine with your back straight and feet flat on the ground.",
+            "Grasp the handles with an overhand grip, slightly wider than shoulder-width apart.",
+            "Lean back slightly and pull the handles towards your chest, squeezing your shoulder blades together.",
+            "Pause for a moment at the peak of the movement, then slowly release the handles back to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "body weight",
+        "gifUrl": "https://v2.exercisedb.io/image/JFmU9fB5vksZ4P",
+        "id": "3293",
+        "name": "archer pull up",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms"
+        ],
+        "instructions": [
+            "Start by hanging from a pull-up bar with an overhand grip, slightly wider than shoulder-width apart.",
+            "Engage your core and pull your shoulder blades down and back.",
+            "As you pull yourself up, bend one arm and bring your elbow towards your side, while keeping the other arm straight.",
+            "Continue pulling until your chin is above the bar and your bent arm is fully flexed.",
+            "Lower yourself back down with control, straightening the bent arm and repeating the movement on the other side.",
+            "Alternate sides with each repetition."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "leverage machine",
+        "gifUrl": "https://v2.exercisedb.io/image/Stmssr7q2Q8cXP",
+        "id": "0015",
+        "name": "assisted parallel close grip pull-up",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms"
+        ],
+        "instructions": [
+            "Adjust the machine to your desired weight and height.",
+            "Place your hands on the parallel bars with a close grip, palms facing each other.",
+            "Hang from the bars with your arms fully extended and your feet off the ground.",
+            "Engage your back muscles and pull your body up towards the bars, keeping your elbows close to your body.",
+            "Continue pulling until your chin is above the bars.",
+            "Pause for a moment at the top, then slowly lower your body back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "leverage machine",
+        "gifUrl": "https://v2.exercisedb.io/image/cuGO4zNH1edoks",
+        "id": "0017",
+        "name": "assisted pull-up",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms"
+        ],
+        "instructions": [
+            "Adjust the machine to your desired weight and height settings.",
+            "Grasp the handles with an overhand grip, slightly wider than shoulder-width apart.",
+            "Hang with your arms fully extended and your feet off the ground.",
+            "Engage your back muscles and pull your body up towards the handles, keeping your elbows close to your body.",
+            "Continue pulling until your chin is above the handles.",
+            "Pause for a moment at the top, then slowly lower your body back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "leverage machine",
+        "gifUrl": "https://v2.exercisedb.io/image/EUV2-5SGxOXQPB",
+        "id": "1431",
+        "name": "assisted standing chin-up",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms"
+        ],
+        "instructions": [
+            "Adjust the machine to your desired assistance level.",
+            "Stand on the foot platform and grip the handles with an overhand grip, slightly wider than shoulder-width apart.",
+            "Keep your chest up and shoulders back, engage your core, and slightly bend your knees.",
+            "Pull your body up by flexing your elbows and driving your elbows down towards your sides.",
+            "Continue pulling until your chin is above the bar.",
+            "Pause for a moment at the top, then slowly lower your body back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "leverage machine",
+        "gifUrl": "https://v2.exercisedb.io/image/BrK95hvvCJtNCT",
+        "id": "1432",
+        "name": "assisted standing pull-up",
+        "target": "lats",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms"
+        ],
+        "instructions": [
+            "Adjust the machine to your desired weight and height settings.",
+            "Stand facing the machine with your feet shoulder-width apart.",
+            "Grasp the handles with an overhand grip, slightly wider than shoulder-width apart.",
+            "Engage your lats and biceps, and pull yourself up towards the handles.",
+            "Pause for a moment at the top, squeezing your back muscles.",
+            "Slowly lower yourself back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "stability ball",
+        "gifUrl": "https://v2.exercisedb.io/image/10Nuui8JDyxFYX",
+        "id": "1314",
+        "name": "back extension on exercise ball",
+        "target": "spine",
+        "secondaryMuscles": [
+            "glutes",
+            "hamstrings"
+        ],
+        "instructions": [
+            "Place the stability ball on the ground and lie face down on top of it, with your hips resting on the ball and your feet against a wall or other stable surface.",
+            "Position your hands behind your head or crossed over your chest.",
+            "Engage your core and slowly lift your upper body off the ball, extending your back until your body forms a straight line from your head to your heels.",
+            "Pause for a moment at the top, then slowly lower your upper body back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    },
+    {
+        "bodyPart": "back",
+        "equipment": "body weight",
+        "gifUrl": "https://v2.exercisedb.io/image/s55ykUifsJjE75",
+        "id": "3297",
+        "name": "back lever",
+        "target": "upper back",
+        "secondaryMuscles": [
+            "biceps",
+            "forearms",
+            "core"
+        ],
+        "instructions": [
+            "Start by hanging from a pull-up bar with an overhand grip, hands slightly wider than shoulder-width apart.",
+            "Engage your core and pull your shoulder blades down and back.",
+            "Bend your knees and tuck them towards your chest.",
+            "Slowly lift your legs up, keeping them straight, until your body is parallel to the ground.",
+            "Hold this position for a few seconds, then slowly lower your legs back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+        ]
+    }, 
 ]
+
+
 export const details = {
   "bodyPart": "cardio",
   "equipment": "body weight",

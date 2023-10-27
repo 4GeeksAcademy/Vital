@@ -46,9 +46,13 @@
 }
 [data-pagination] .previous,
 .next {
-  color: #777;
+  color: #f6f6f6;
   font-size: 100%;
   padding: 0.5em;
+}
+
+.number {
+  color: white;
 }
 
 [data-pagination] a:focus,
@@ -57,9 +61,10 @@
 }
 .next,
 .previous {
-  color: #777;
+  color: #f6f6f6;
 }
-.next:hover, .previous:hover {
+.next:hover,
+.previous:hover {
   color: #f60;
 }
 [data-pagination] li.current {
