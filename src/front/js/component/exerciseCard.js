@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 const ExerciseCard = ({ exercise, id, target, equipment }) => {
   console.log(exercise, id, target);
+
+  const title = target.charAt(0).toUpperCase() + target.slice(1);
+  const titleExcercise = exercise.charAt(0).toUpperCase() + exercise.slice(1);
+
   return (
     <div
       className="wrap-exercise-card  col-3 p-0 pb-2 bg-vital-gray mt-4 border border-1 rounded-3 border-vital-orange"
@@ -22,13 +26,13 @@ const ExerciseCard = ({ exercise, id, target, equipment }) => {
             className="text-decoration-none text-vital-white"
             to={`/exercisedetail/${id}`}
           >
-            {target}
+            {title}
           </Link>
         </h1>
       </div>
       <div className="d-flex-inline flex-column justify-content-start p-2 overflow-y-hidden">
         <span className="font-p text-vital-orange fw-bold">
-        {exercise}
+        {titleExcercise}
         </span>
         <br />
         <span className="font-p text-vital-white ">

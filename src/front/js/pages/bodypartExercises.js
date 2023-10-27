@@ -10,10 +10,11 @@ import { useFetch } from "../hooks/useFetch";
 
 import { description, dataExcersises } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
+import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 
 export const BodypartExercises = () => {
   const { bodypart } = useParams();
-  const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=8`;
+  const url = `https://exercisedb.p.rapidapi.com/exercises?limit=8&offset=0`; //
 
   useEffect(() => {
     scrollToTop();
@@ -26,10 +27,10 @@ export const BodypartExercises = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-  
+
   //const { data, error, loading } = useFetch(url, options);
   const data = dataExcersises;
- 
+
   console.log(data);
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
 
@@ -40,6 +41,7 @@ export const BodypartExercises = () => {
         description={description}
         image={imageBackgroundArm}
       />
+      <SortFilterBox />
       <div className="container-fluid p-5 bg-vital-black">
         <div className="container d-flex  flex-column title-workout">
           <div className="row col-11 d-flex mx-auto justify-content-around">

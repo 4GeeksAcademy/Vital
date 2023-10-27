@@ -4,6 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import imageBackground from "../../img/image-background.png";
 import CardWorkout from "../component/cardWorkout";
 import { scrollToTop } from "../function/scrollToTop";
+import {allExercises} from "../constants/allExcercises";
 
 export const Exercises = () => {
   const bodyPart = "chest";
@@ -18,6 +19,7 @@ export const Exercises = () => {
 
   useEffect(() => {
     scrollToTop()
+    console.log(allExercises.length);
   }, []);
 
   // const { data, error, loading } = useFetch(url, options);
