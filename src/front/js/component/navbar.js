@@ -79,18 +79,22 @@ export const Navbar = () => {
           </ul>
         </div>
         <div>
-          <button
-            className="btn btn-outline-vital-orange text-vital-white rounded-pill"
-            type="submit"
-          >
-            Log in
-          </button>
-          <button
-            className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
-            type="submit"
-          >
-            Sign up free
-          </button>
+          <Link to="/login">
+            <button
+              className="btn btn-outline-vital-orange text-vital-white rounded-pill"
+              type="submit"
+            >
+              Log in
+            </button>
+          </Link>
+          <Link to="/register">
+            <button
+              className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
+              type="submit"
+            >
+              Sign up free
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

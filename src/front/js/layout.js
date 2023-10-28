@@ -11,10 +11,12 @@ import injectContext from "./store/appContext";
 import GymMap from "./pages/gymMap";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Register } from "./pages/register";
 import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
+import { Login } from "./pages/login";
 
 //create your first component
 const Layout = () => {
@@ -25,6 +27,24 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
+    return (
+        <div>
+            <BrowserRouter basename={basename}>
+                <ScrollToTop>
+                    <Navbar />
+                    <Routes>
+                        <Route element={<Home />} path="/" />
+                        <Route element={<Demo />} path="/demo" />
+                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<h1>Not found!</h1>} />
+                        <Route element={<Register/>} path="/register"/>
+                        <Route element={<Login/>} path="/login"/>
+                    </Routes>
+                    <Footer />
+                </ScrollToTop>
+            </BrowserRouter>
+        </div>
+    );
   return (
     <div>
       <BrowserRouter basename={basename}>
