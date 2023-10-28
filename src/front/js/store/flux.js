@@ -20,6 +20,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+			createUser: async (user) =>{
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "api/create-user",
+					{
+						method:"POST",
+						headers:{
+							"Content-Type":"application/json"
+						},
+						body:JSON.stringify(user)
+						
+					} )
+					const data = await response.json()
+					console.log(data)
+					return true
+				}
+				catch(error){
+					console.log(error)
+					return false
+				}
+				
+
+			},
 
 			getMessage: async () => {
 				try{

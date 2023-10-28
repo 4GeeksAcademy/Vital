@@ -3,13 +3,13 @@ import "../../styles/login.css"
 import { Link } from "react-router-dom";
 
 export const Login = () => {
-    const [email,setEmail]= useState("")
-    const [password,setPassword]= useState("")
+    const [email,setEmail]= useState("");
+    const [password,setPassword]= useState("");
     return (
         <div className="bg-vital-black p-5">
             <div className="container bg-vital-gray rounded-3">
                 <div className="row">
-                    <div className="col-6 imageLogin ">Imagen</div>
+                    <div className="col-6 imageLogin "></div>
                     <div className="col-6 d-flex-column">
                         <h1 className="d-flex justify-content-center my-4 text-vital-orange">Hello welcome back!</h1>
                         <div className="mb-3">
@@ -18,7 +18,7 @@ export const Login = () => {
                         </div>
                         <div className="mb-3">
                             <label for="exampleFormControlInput1" className="form-label text-vital-white">Password</label>
-                            <input type="string" value={password} className="form-control" id="exampleFormControlInput1" onChange={(event)=>{setPassword(event.target.value)}}/>
+                            <input type="password" value={password} className="form-control" id="exampleFormControlInput1" onChange={(event)=>{setPassword(event.target.value)}}/>
                         </div>
                         <div className="mb-3 mt-4">
                             <button className="btn btn-vital-orange text-vital-white w-100">Login</button>

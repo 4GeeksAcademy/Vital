@@ -4,4 +4,6 @@
 .imageRegister{
    
    background: url('https://gimnasios.look-it.com.ar/assets/demo/signin-bg-6.jpg');
+   background-position: center;
+   background-size: cover;
 }

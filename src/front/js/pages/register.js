@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../../styles/register.css"
-
+import { Context } from "../store/appContext";
 
 
 export const Register = () => {
+    const {store, actions}= useContext(Context)
     const [user,setUser] = useState( {
-        firstname: "",
+        name: "",
         lastname: "",
         username: "",
         email: "",
         password: "",
-
-
     })
+
+    const addUser = async ()=> {
+        if(user.password == ""){
+            alert("Password can't be empty")
+            return 
+        }
+        const newUser = await actions.createUser(user)
+        if(newUser){
+            alert("User was added successfully")
+        
+        }
+        else{
+            alert("User was not created")
+        }
+        
+        
+    }
+
     return (
         <div className="bg-vital-black p-5">
 
@@ -23,20 +40,22 @@ export const Register = () => {
                     <h2 className="mb-4 mt-4 d-flex justify-content-center "><strong className= "text-vital-orange">Sign up</strong></h2>
 
 
-                    <label for="inputPassword5" className="form-label text-vital-white">First Name</label>
-                    <input type="string" value={user.firstname} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, firstname: event.target.value})}} />
+                    <label for="inputPassword5" className="form-label text-vital-white">Name</label>
+                    <input type="text" value={user.name} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, name: event.target.value})}} />
 
                     <label for="inputPassword5" className="form-label text-vital-white">Last Name</label>
-                    <input type="string" value={user.lastname} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, lastname: event.target.value})}} />
+                    <input type="text" value={user.lastname} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, lastname: event.target.value})}} />
 
                     <label for="inputPassword5" className="form-label text-vital-white">Username</label>
-                    <input type="string" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, username: event.target.value})}} />
+                    <input type="text" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event)=>{setUser({...user, username: event.target.value})}} />
 
                     <label for="inputPassword5" className="form-label text-vital-white">Email</label>
-                    <input type="string" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event=>{setUser({...user, email: event.target.value})})} />
+                    <input type="email" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event=>{setUser({...user, email: event.target.value})})} />
 
                     <label for="inputPassword5" className="form-label text-vital-white">Password</label>
-                    <input type="string" id="inputPassword5" className="form-control mb-4" aria-describedby="passwordHelpBlock" onChange={(event) =>{setUser({...user, password: event.target.value})}} />
+                    <input type="password" id="inputPassword5" className="form-control mb-4" aria-describedby="passwordHelpBlock" onChange={(event) =>{setUser({...user, password: event.target.value})}} />
+
+                    <button className="btn btn-vital-orange mb-2 w-100 text-vital-white" onClick={addUser}>Sign in </button>
 
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
