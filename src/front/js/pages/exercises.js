@@ -3,6 +3,8 @@ import "../../styles/exercises.css";
 import { useFetch } from "../hooks/useFetch";
 import imageBackground from "../../img/image-background.png";
 import CardWorkout from "../component/cardWorkout";
+import { scrollToTop } from "../function/scrollToTop";
+import {allExercises} from "../constants/allExcercises";
 
 export const Exercises = () => {
   const bodyPart = "chest";
@@ -14,6 +16,11 @@ export const Exercises = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
+
+  useEffect(() => {
+    scrollToTop()
+    console.log(allExercises.length);
+  }, []);
 
   // const { data, error, loading } = useFetch(url, options);
   // console.log(data);
@@ -53,7 +60,7 @@ export const Exercises = () => {
           </h1>
           <div className="row col-11 d-flex mx-auto justify-content-around">
             {catagories.map((item, index) => {
-              return <CardWorkout title={item} key={index} />;
+              return <CardWorkout title={item.toLowerCase()} key={index} />;
             })}
           </div>
         </div>
@@ -63,16 +70,5 @@ export const Exercises = () => {
 };
 
 {
-  /* <ul>
-                {data &&
-                  data.map((item, index) => {
-                    return (
-                      <li key={index}>
-                        {item.name}
-                        {item.instructions}
-                        <img src={item.gifUrl} />
-                      </li>
-                    );
-                  })}
-              </ul> */
+
 }

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Administrator, Favorite
+from api.models import db, User, Administrator, Favorite, Gym, Newsletter
 from api.utils import generate_sitemap, APIException
 import random
 import math
@@ -243,4 +243,160 @@ def add_favorites(username):
         return {"msg": "Favorite added successfully"}, 200
     else:
         return {"msg": "Something went wrong"}, 500
+    
+@api.route("create-gym", methods=["POST"])
+def create_gym():
+    body = request.get_json()
+    name = body.get("name", None)
+    email = body.get("email", None)
+    address = body.get("address", None)
+    latitude = body.get("latitude", None)
+    longitude = body.get("longitude", None)
+    description = body.get("description", None)
+    phone = body.get("phone", None)
+    image = body.get("image", None)
+    
+    if (
+        name is None
+        or email is None
+        or address is None
+        or latitude is None
+        or longitude is None
+        or description is None
+        or phone is None
+        or image is None 
+    ):
+        return {"msg": "Missing fields"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        try:
+            gym = Gym(
+                #name, email, address, latitude, longitude, description, phone, image
+                name=name,
+                email=email,
+                address=address,
+                latitude=latitude,
+                longitude=longitude,
+                description=description,
+                phone=phone,
+                image=image                
+            )
+            db.session.add(gym)
+            db.session.commit()
+            return {"msg": "Gym created successfully"}, 200
+        except ValueError as error:
+            return {"msg": "Something went wrong" + error}, 500
+    else:
+        return {"msg": "Gym already exists"}, 400
+    
+
+@api.route("get-gym/<email>", methods=["GET"])
+def get_gym(email):
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        return {"msg": "Gym doesn't exist"}, 400
+    return gym.serialize(), 200
+
+@api.route("get-gyms", methods=["GET"])
+def get_gyms():
+    gyms = Gym.query.all()
+    if gyms is None:
+        return {"msg": "Gyms don't exist"}, 400
+    return [gym.serialize() for gym in gyms], 200
+
+@api.route("update-gym", methods=["PUT"])
+def update_gym():
+    body = request.get_json()
+    name = body.get("name", None)
+    email = body.get("email", None)
+    address = body.get("address", None)
+    latitude = body.get("latitude", None)
+    longitude = body.get("longitude", None)
+    description = body.get("description", None)
+    phone = body.get("phone", None)
+    image = body.get("image", None)    
+    if (
+        name is None
+        or email is None
+        or address is None
+        or latitude is None
+        or longitude is None
+        or description is None
+        or phone is None
+        or image is None 
+    ):
+        return {"msg": "Missing fields"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        return {"msg": "Gym doesn't exist"}, 400
+    try:
+        gym.name = name
+        gym.email = email
+        gym.address = address
+        gym.latitude = latitude
+        gym.longitude = longitude
+        gym.description = description
+        gym.phone = phone
+        gym.image = image
+        db.session.commit()
+        return {"msg": "Gym updated successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("delete-gym/<email>", methods=["DELETE"])
+def delete_gym(email):
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        return {"msg": "Gym doesn't exist"}, 400
+    try:
+        db.session.delete(gym)
+        db.session.commit()
+        return {"msg": "Gym deleted successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("newsletter", methods=["POST"])
+def add_newsletter():
+    body = request.get_json()
+    email = body.get("email", None)
+    if email is None:
+        return {"msg": "Missing email"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    newsletter = Newsletter.query.filter_by(email=email).first()
+    if newsletter is not None:
+        newsletter.is_active = True
+        return {"msg": "Newsletter enable"}, 400
+    try:
+        newsletter = Newsletter(email=email)
+        db.session.add(newsletter)
+        db.session.commit()
+        return {"msg": "Newsletter added successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("get-newsletter", methods=["GET"])
+def get_newsletter():
+    newsletters = Newsletter.query.all()
+    if newsletters is None:
+        return {"msg": "Newsletters don't exist"}, 400
+    return [newsletter.serialize() for newsletter in newsletters], 200
+
+@api.route("disable-newsletter/<email>", methods=["PUT"])
+def disable_newsletter(email):
+    newsletter = Newsletter.query.filter_by(email=email).first()
+    if newsletter is None:
+        return {"msg": "Newsletter doesn't exist"}, 400
+    try:
+        newsletter.is_active = False
+        db.session.commit()
+        return {"msg": "Newsletter disabled successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+
+
     

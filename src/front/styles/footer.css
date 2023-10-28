@@ -7,11 +7,15 @@
   height: auto;
 }
 
-.email-wrap i {
+.email-wrap > .envelope {
   position: absolute;
   color: #ff5300;
   left: 15px;
   top: 7px;
+}
+
+a {
+  position: relative;
 }
 
 @media screen and (max-width: 560px) {
