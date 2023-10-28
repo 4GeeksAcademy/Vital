@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 1a7b2da20437
+Revision ID: 4390f179e678
 Revises: 
-Create Date: 2023-10-24 17:20:12.534326
+Create Date: 2023-10-28 00:55:28.347282
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1a7b2da20437'
+revision = '4390f179e678'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,12 +28,20 @@ def upgrade():
     sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=True),
     sa.Column('address', sa.String(length=500), nullable=False),
+    sa.Column('latitude', sa.Float(), nullable=False),
+    sa.Column('longitude', sa.Float(), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('phone', sa.String(length=20), nullable=True),
-    sa.Column('image', sa.String(length=200), nullable=True),
+    sa.Column('image', sa.String(length=1000), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
+    )
+    op.create_table('newsletter',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('email', sa.String(length=200), nullable=False),
+    sa.Column('is_active', sa.Boolean(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -91,6 +99,7 @@ def downgrade():
     op.drop_table('favorite')
     op.drop_table('administrators')
     op.drop_table('users')
+    op.drop_table('newsletter')
     op.drop_table('gyms')
     op.drop_table('favorite_back')
     # ### end Alembic commands ###
