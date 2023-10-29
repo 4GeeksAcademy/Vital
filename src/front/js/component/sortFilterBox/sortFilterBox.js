@@ -8,18 +8,17 @@ const SortFilterBox = ({ setSearch, setSort, setFilter }) => {
 
   const handleSelect = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setSort(e.target.value);
   };
   const handleFilter = (e) => {
     e.preventDefault();
-    console.log(inputFilter);
     setFilter(inputFilter);
+    setInputFilter("");
   };
   const handleSearch = (e) => {
-    e.preventDefault();
-    console.log(inputSearch);
+    e.preventDefault();    
     setSearch(inputSearch);
+    setInputSearch("");
   };
 
   return (

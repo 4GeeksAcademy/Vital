@@ -16,9 +16,9 @@ import Loading from "../component/loading/loading";
 export const BodypartExercises = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sort, setSort] = useState("ascending");
-  const [filter, setFilter] = useState("");
-  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState(searchParams.get("sort") || "asc");
+  const [filter, setFilter] = useState(searchParams.get("filter") || "");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [exercises, setExercises] = useState(null)
   const [page, setPage] = useState(1);
   // const [searchParams] = useSearchParams();
@@ -40,9 +40,7 @@ export const BodypartExercises = () => {
     }
   }, [data]);
 
-  useEffect(() => {    
-    const currentParams = Object.fromEntries([...searchParams]);
-    console.log('Updated:', currentParams);
+  useEffect(() => {        
     setSearchParams({ sort: sort, page: page, filter: filter, search: search });
   }, [sort, page, filter, search]);
 
