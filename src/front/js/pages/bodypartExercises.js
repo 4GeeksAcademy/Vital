@@ -14,6 +14,7 @@ import Loading from "../component/loading/loading";
 
 
 export const BodypartExercises = () => {
+  const [data, setDataFilter] = useState(null); //dataFilter
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState(searchParams.get("sort") || "asc");
@@ -30,19 +31,49 @@ export const BodypartExercises = () => {
   useEffect(() => {
     scrollToTop();
     setPage(currentPage);
+    const dataFilter = allExercises.filter((exercise) => {
+      return exercise.bodyPart === bodypart;
+    });
+    setDataFilter(dataFilter)
     
   }, []);
 
   useEffect(() => {
     if (data) {
-      setExercises(data);
+      setExercises(data);      
       setLoading(false);
     }
   }, [data]);
 
-  useEffect(() => {        
+  useEffect(() => {  
+    let newArray = []
+    if (data && search!="") {
+      console.log(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
+      newArray = data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))    
+      // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
+    }else {
+      newArray = data
+    }
+    if (data && filter!="") {   
+      console.log(data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase())))   
+      newArray = data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase()))
+      // setExercises(data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase())));
+    } 
+    if (data && sort) {
+      if (sort === "asc") {
+        console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
+        setExercises(newArray.sort((a, b) => a.name.localeCompare(b.name)))
+        // setExercises(data.sort((a, b) => a.name.localeCompare(b.name)));
+      } else if (sort === "desc") {
+        console.log(newArray.sort((a, b) => b.name.localeCompare(a.name)))
+        setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
+        // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
+      }
+    }    
     setSearchParams({ sort: sort, page: page, filter: filter, search: search });
   }, [sort, page, filter, search]);
+
+
 
   const options = {
     method: "GET",
@@ -59,11 +90,11 @@ export const BodypartExercises = () => {
   // const dataFilter = null
 
   //uncoment line 39-44 to see the data without fetch API and comment line 35-36
-  const dataFilter = allExercises.filter((exercise) => {
-    return exercise.bodyPart === bodypart;
-  });
+  // const dataFilter = allExercises.filter((exercise) => {
+  //   return exercise.bodyPart === bodypart;
+  // });
   //console.log(dataFilter);
-  const data = dataFilter;    
+  //const data = dataFilter;    
   
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
   const params = Object.fromEntries([...searchParams]);
@@ -94,8 +125,7 @@ export const BodypartExercises = () => {
                             exercise={exercise.name}
                             id={exercise.id}
                             target={exercise.target}
-                            equipment={exercise.equipment}
-                            
+                            equipment={exercise.equipment}                            
                           />
                         )}
                       </>
@@ -105,12 +135,11 @@ export const BodypartExercises = () => {
             </div>
           </div>
           <div>
-            <Pagination exercisesPerPage="8" totalExercises={dataFilter ? dataFilter.length : data.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams}/>
+            <Pagination exercisesPerPage="8" totalExercises={data ? data.length : data.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams}/>
           </div>
         </>
       )}
     </>
   );
 };
-
 //exercisesPerPage, totalExercises
