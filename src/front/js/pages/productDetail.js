@@ -1,21 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import gif from "../../img/exercise.gif";
 import { useFetch } from "../hooks/useFetch";
 import Loading from "../component/loading/loading.js";
 import { ArrowBackOutline } from "react-ionicons";
+import { collection, getDocs, getLocation } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 const ProductDetail = () => {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({});
   const { id } = useParams();
+
+  useEffect(() => {
+    //getDocument();
+    const productsRef = collection(db, "products");
+    console.log(productsRef);    
+    let results = [];
+    getDocs(productsRef).then((resp) => {
+      results = resp.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      //console.log(results);
+      const data = results.find((item) => item.id === id);
+      //console.log(data);
+      if (data === undefined) {
+        navigate("/store");
+      }
+      setLoading(false);
+      setData(data);
+    });
+  }, []);
 
   const navigate = useNavigate();
 
-  const { data, error, loading } = useFetch(
-    `https://fakestoreapi.com/products/${id}`
-  );
-
   return (
-    <>
+    <div className="d-flex justify-content-center">
       {loading ? (
         <Loading />
       ) : (
@@ -26,7 +46,7 @@ const ProductDetail = () => {
               onClick={() => navigate(`/store`)}
               style={{ cursor: "pointer" }}
             >
-              <ArrowBackOutline color={"#ff5300"} className="me-1"/>
+              <ArrowBackOutline color={"#ff5300"} className="me-1" />
               Go back
             </span>
           </div>
@@ -68,7 +88,7 @@ const ProductDetail = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
