@@ -58,7 +58,7 @@ export const Home = () => {
         <h1 className="text-vital-white p-5 fw-bold">¿Qué ofrece Vital?</h1>
         <div className="wrapp-cards d-flex container pb-5 justify-content-around flex-wrap">
           <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
-            <i className="fa-regular fa-calendar mt-4" />
+            <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Workout</h4>
             <p className="text-vital-white p-3">
               Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
@@ -74,7 +74,7 @@ export const Home = () => {
             </div>
           </div>
           <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
-            <i className="fa-regular fa-calendar mt-4" />
+            <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Meal Plans</h4>
             <p className="text-vital-white p-3 text-center">
               Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
@@ -89,7 +89,7 @@ export const Home = () => {
             </div>
           </div>
           <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
-            <i className="fa-regular fa-calendar mt-4" />
+            <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Find fitness centers</h4>
             <p className="text-vital-white p-3">
               Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
@@ -104,7 +104,7 @@ export const Home = () => {
             </div>
           </div>
           <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
-            <i className="fa-regular fa-calendar mt-4" />
+            <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Fitness Store</h4>
             <p className="text-vital-white p-3">
               Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
@@ -112,7 +112,7 @@ export const Home = () => {
             <div>
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
-                type="submit"
+                type="submit" onClick={()=> navigate("/store")}
               >
                 Primary Action
               </button>

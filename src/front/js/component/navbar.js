@@ -1,8 +1,10 @@
 import React from "react";
 import Logo from "../../img/logo-vital.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-ionicons";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-vital-black p-3">
       <div className="container d-flex justify-space-around">
@@ -27,8 +29,8 @@ export const Navbar = () => {
             <li className="nav-item">
               <a
                 className="nav-link text-vital-white active"
-                aria-current="page"
-                href="#"
+                aria-current="page"               
+                onClick={() => navigate("/")}
               >
                 Home
               </a>
@@ -57,19 +59,19 @@ export const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a
+            <a
                 className="nav-link text-vital-white active"
-                aria-current="page"
-                href="#"
+                aria-current="page"               
+                onClick={() => navigate("/gyms-map")}
               >
                 Gyms near me
               </a>
             </li>
             <li className="nav-item">
-              <a
+            <a
                 className="nav-link text-vital-white active"
-                aria-current="page"
-                href="#"
+                aria-current="page"               
+                onClick={() => navigate("/store")}
               >
                 Store
               </a>
@@ -77,18 +79,22 @@ export const Navbar = () => {
           </ul>
         </div>
         <div>
-          <button
-            className="btn btn-outline-vital-orange text-vital-white rounded-pill"
-            type="submit"
-          >
-            Log in
-          </button>
-          <button
-            className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
-            type="submit"
-          >
-            Sign up free
-          </button>
+          <Link to="/login">
+            <button
+              className="btn btn-outline-vital-orange text-vital-white rounded-pill"
+              type="submit"
+            >
+              Log in
+            </button>
+          </Link>
+          <Link to="/register">
+            <button
+              className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
+              type="submit"
+            >
+              Sign up free
+            </button>
+          </Link>
         </div>
       </div>
     </nav>

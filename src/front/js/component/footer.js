@@ -21,7 +21,7 @@ export const Footer = () => (
               className="rounded-pill col-6 w-100 h-100 ps-5"
               placeholder="Enter your email to get the latest news..."
             />
-            <i className="fa-regular fa-envelope fs-4"></i>
+            <i className="fa-regular fa-envelope fs-4 envelope"></i>
           </div>
           <button
             className="btn btn-vital-orange text-vital-white rounded-pill px-4"
@@ -83,7 +83,7 @@ export const Footer = () => (
             type="button"
             className="btn btn-floating text-vital-white  btn-lg rounded-circle mx-1"
           >
-            <i className="fab fa-google-plus-g "></i>
+            <i className="fab fa-google-plus-g"></i>
           </a>
         </div>
       </div>
