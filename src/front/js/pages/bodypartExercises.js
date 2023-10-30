@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../styles/bodypart-exercises.css";
 import imageBackgroundArm from "../../img/low-arm.png";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -11,9 +11,11 @@ import { description, dataExcersises } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
+import { Context } from "../store/appContext"
 
 
 export const BodypartExercises = () => {
+  const { store, actions } = useContext(Context)
   const [data, setDataFilter] = useState(null); //dataFilter
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +23,7 @@ export const BodypartExercises = () => {
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [exercises, setExercises] = useState(null)
   const [page, setPage] = useState(1);
+  const [totalExercises, setTotalExercises] = useState(0);
   // const [searchParams] = useSearchParams();
   const currentPage = searchParams.get("page") ? searchParams.get("page") : 1;
   const navigate = useNavigate();
@@ -28,6 +31,7 @@ export const BodypartExercises = () => {
   const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=150`; //
 
   useEffect(() => {
+    
     scrollToTop();
     setPage(currentPage);
     const dataFilter = allExercises.filter((exercise) => {
@@ -37,7 +41,7 @@ export const BodypartExercises = () => {
     
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {    
     if (data) {
       setExercises(data);      
       setLoading(false);
@@ -46,6 +50,7 @@ export const BodypartExercises = () => {
 
   useEffect(() => {  
     let newArray = []
+
     if (data && search!="") {
       console.log(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
       newArray = data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))    
@@ -63,10 +68,9 @@ export const BodypartExercises = () => {
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
-    }    
+    }      
     setSearchParams({ sort: sort, page: page, search: search });
   }, [sort, page, search]);
-
 
 
   const options = {
@@ -129,7 +133,7 @@ export const BodypartExercises = () => {
             </div>
           </div>
           <div>
-            <Pagination exercisesPerPage="8" totalExercises={data ? data.length : data.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams}/>
+            <Pagination exercisesPerPage="8" totalExercises={exercises?.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams}/>
           </div>
         </>
       )}
