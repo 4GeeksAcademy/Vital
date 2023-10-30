@@ -16,6 +16,7 @@ import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
+import { ShoppingCart } from "./pages/shoppingCart";
 import { Login } from "./pages/login";
 
 //create your first component
@@ -27,24 +28,6 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
-    return (
-        <div>
-            <BrowserRouter basename={basename}>
-                <ScrollToTop>
-                    <Navbar />
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
-                        <Route element={<Register/>} path="/register"/>
-                        <Route element={<Login/>} path="/login"/>
-                    </Routes>
-                    <Footer />
-                </ScrollToTop>
-            </BrowserRouter>
-        </div>
-    );
   return (
     <div>
       <BrowserRouter basename={basename}>
@@ -56,6 +39,7 @@ const Layout = () => {
             <Route element={<BodypartExercises />} path="/bodypart/:bodypart" />
             <Route element={<ExerciseDetail />} path="/exercisedetail/:id"/>
             <Route element={<ProductDetail />} path="/product-detail/:id"/>
+            <Route element={<ProductDetail />} path="/shopping-cart"/>
             <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
             <Route element={<Single />} path="/single/:theid" />
