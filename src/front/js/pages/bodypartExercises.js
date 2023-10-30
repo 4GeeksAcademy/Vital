@@ -17,8 +17,7 @@ export const BodypartExercises = () => {
   const [data, setDataFilter] = useState(null); //dataFilter
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sort, setSort] = useState(searchParams.get("sort") || "asc");
-  const [filter, setFilter] = useState(searchParams.get("filter") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "asc");  
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [exercises, setExercises] = useState(null)
   const [page, setPage] = useState(1);
@@ -54,11 +53,6 @@ export const BodypartExercises = () => {
     }else {
       newArray = data
     }
-    if (data && filter!="") {   
-      console.log(data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase())))   
-      newArray = data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase()))
-      // setExercises(data.filter((exercise) => exercise.target.toLowerCase().includes(filter.toLowerCase())));
-    } 
     if (data && sort) {
       if (sort === "asc") {
         console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
@@ -70,8 +64,8 @@ export const BodypartExercises = () => {
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
     }    
-    setSearchParams({ sort: sort, page: page, filter: filter, search: search });
-  }, [sort, page, filter, search]);
+    setSearchParams({ sort: sort, page: page, search: search });
+  }, [sort, page, search]);
 
 
 
@@ -111,7 +105,7 @@ export const BodypartExercises = () => {
             description={description}
             image={imageBackgroundArm}
           />
-          <SortFilterBox setSort={setSort} setFilter={setFilter} setSearch={setSearch}/>
+          <SortFilterBox setSort={setSort} setSearch={setSearch}/>
           <div className="container-fluid p-5 bg-vital-black">
             <div className="container d-flex  flex-column title-workout">
               <div className="row col-11 d-flex mx-auto justify-content-around">
