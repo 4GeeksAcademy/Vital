@@ -6,7 +6,7 @@ const AdminPanel = () => {
             <div className="container-fluid">
                 <div className="row flex-nowrap">
                     <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                        <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">                            
+                        <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                             <ul
                                 className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                                 id="menu"
@@ -31,30 +31,30 @@ const AdminPanel = () => {
                                         id="submenu1"
                                         data-bs-parent="#menu"
                                     >
-                                        
+
                                         <li>
-                                            <a href="#" className="text-vite-white  nav-link px-0">                                                
+                                            <a href="#" className="text-vite-white  nav-link px-0">
                                                 <span className="d-none d-sm-inline">Manage User</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" className="nav-link px-0">                                                
-                                                <span className="d-none d-sm-inline">Manage Admin User</span> 
+                                            <a href="#" className="nav-link px-0">
+                                                <span className="d-none d-sm-inline">Manage Admin User</span>
                                             </a>
                                         </li>
                                         <li className="w-100 bg-vite-white">
-                                            <a href="#" className="   nav-link px-0">                                                
+                                            <a href="#" className="   nav-link px-0">
                                                 <span className="d-none d-sm-inline">Manage Gyms</span>
                                             </a>
-                                        </li>                                        
+                                        </li>
                                         <li>
-                                            <a href="#" className="text-vite-white  nav-link px-0">                                                
+                                            <a href="#" className="text-vite-white  nav-link px-0">
                                                 <span className="d-none d-sm-inline">Manage User</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#" className=" text-vite-white nav-link px-0">
-                                                
+
                                                 <span className="d-none d-sm-inline">Manage Newsletter subscriptions</span>
                                             </a>
                                         </li>
@@ -113,7 +113,21 @@ const AdminPanel = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col py-3">Content area...</div>
+                    <div className="col p-3 bg-vital-gray d-flex justify-content-around">
+                        <div className="card col-5 d-flex flex-row" style={{height: "200px"}}>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJoBkWxNNHvLpW4knNYlRPtXfn9pRdijE0ow&usqp=CAU" className="card-img-top w-25" alt="..." />
+                            <div className="card-body" style={{backgroundColor: "#052B47"}}>
+                                <h1 className="text-vital-white">Welcome Back, Admin</h1>
+                                <h5 className="text-vital-white">Admin Dashboard</h5>
+                            </div>
+                        </div>
+                        <div className="card col-5 d-flex flex-row" style={{height: "200px"}}>                           
+                            <div className="card-body" style={{backgroundColor: "#363839"}}>
+                                <h1 className="text-vital-white">Welcome Back, Admin</h1>
+                                <h5 className="text-vital-white">Admin Dashboard</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
