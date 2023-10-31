@@ -16,7 +16,7 @@ import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
-import { ShoppingCart } from "./pages/shoppingCart";
+import ShoppingCart  from "./pages/shoppingCart/shoppingCart"
 import { Login } from "./pages/login";
 
 //create your first component
