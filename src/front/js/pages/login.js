@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "../../styles/login.css"
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -8,6 +8,10 @@ export const Login = () => {
     const {store, actions}=useContext(Context)
     const [username,setUsername]= useState("");
     const [password,setPassword]= useState("");
+
+    useEffect(()=>{
+        store.token && navigate("/")
+    })
 
     const loginUser = () =>{
         if(username ==  "" || password == ""){
@@ -19,11 +23,8 @@ export const Login = () => {
                 alert("Login Successfully")
                 navigate("/")
 
-            }
-            
-        
-        
-        
+            }                   
+                
     }
     
     return (

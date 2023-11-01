@@ -54,6 +54,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}	
 			},
 
+			logout: () =>{				
+					localStorage.removeItem("token")
+					setStore({token: null})					
+					return true				
+			},
+
 			getProducts: async () => {
 				try{
 					const resp = await fetch("https://fakestoreapi.com/products")
