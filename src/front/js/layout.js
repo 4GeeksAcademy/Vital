@@ -18,6 +18,7 @@ import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
 import { Login } from "./pages/login";
 import AdminPanel from "./pages/adminPanel";
+import { AdminLogin } from "./pages/adminLogin";
 
 //create your first component
 const Layout = () => {
@@ -46,7 +47,8 @@ const Layout = () => {
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<Register/>} path="/register"/>
             <Route element={<Login/>} path="/login"/>
-            <Route element={<AdminPanel />} path="/admin" />
+            <Route element={<AdminLogin />} path="/admin-login" />
+            <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
