@@ -16,16 +16,16 @@ const ShoppingCart = () => {
             <div className="col-sm-6">
               <Link
                 to="/store"
-                className="btn btn-link text-muted"
+                className="btn btn-link text-vital-white"
               >
-                <i className="mdi mdi-arrow-left me-1 text-vital-white"></i> Continue adding
+                <i className="mdi mdi-arrow-left me-1"></i> Continue adding
                 products{" "}
               </Link>
             </div>{" "}
             {/* end col */}
             <div className="col-sm-6">
               <div className="text-sm-end mt-2 mt-sm-0">
-                <a href="ecommerce-checkout.html" className="btn btn-vital-orange text-vital-whote">
+                <a href="ecommerce-checkout.html" className="btn btn-vital-orange text-vital-white">
                   <i className="mdi mdi-cart-outline me-1"></i> Checkout{" "}
                 </a>
               </div>
@@ -38,7 +38,7 @@ const ShoppingCart = () => {
         <div className="col-xl-4 bg-vital-gray">
           <div className="mt-5 mt-lg-0">
             <div className="card border shadow-none bg-vital-black">
-              <div className="card-header bg-transparent border-bottom py-3 px-4">
+              <div className="card-header bg-transparent border-bottom mt-2 py-3 px-4">
                 <h5 className="font-size-16 mb-0 text-vital-white">
                   Order Summary{" "}
                   <span className="float-end">
@@ -51,24 +51,24 @@ const ShoppingCart = () => {
                   <table className="table mb-0">
                     <tbody>
                       <tr>
-                        <td className="text-vital-white">Sub Total:</td>
-                        <td className="text-end text-vital-white">$ 780</td>
+                        <td className="bg-vital-black text-vital-white">Sub Total:</td>
+                        <td className="bg-vital-black text-end text-vital-white">$ 780</td>
                       </tr>
                       <tr>
-                        <td className="text-vital-white">Discount: </td>
-                        <td className="text-end text-vital-white">- $ 78</td>
+                        <td className="bg-vital-black text-vital-white">Discount: </td>
+                        <td className="bg-vital-black text-end text-vital-white">- $ 78</td>
                       </tr>
                       <tr>
-                        <td className="text-vital-white">Delivery Charge :</td>
-                        <td className="text-end text-vital-white">$ 25</td>
+                        <td className="bg-vital-black text-vital-white">Delivery Charge :</td>
+                        <td className="bg-vital-black text-end text-vital-white">$ 25</td>
                       </tr>
                       <tr>
-                        <td className="text-vital-white">Tax: </td>
-                        <td className="text-end text-vital-white">$ 18.20</td>
+                        <td className="bg-vital-black text-vital-white">Tax: </td>
+                        <td className="bg-vital-black text-end text-vital-white">$ 18.20</td>
                       </tr>
                       <tr className="bg-light">
-                        <th className="text-vital-white">Total :</th>
-                        <td className="text-end text-vital-white">
+                        <th className="bg-vital-black text-vital-white">Total :</th>
+                        <td className="bg-vital-black text-end text-vital-white">
                           <span className="fw-bold">$ 745.2</span>
                         </td>
                       </tr>
