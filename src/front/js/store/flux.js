@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
-			products: []
+			products: [],
+			favorites: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -68,7 +69,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch(error){
 					console.log("Error loading message from backend", error)
 				}
-			}
+			},
+			addFavorites: (exercise) => {
+				const store = getStore();
+				const newFavorites = [...store.favorites, exercise];
+				setStore({ favorites: newFavorites });
+			},
+			removeFavorites: (exercise) => {
+				const store = getStore();
+				const newFavorites = store.favorites.filter((favorite) => favorite.id !== exercise.id);
+				setStore({ favorites: newFavorites });
+			},		
+
 		}
 		
 	}
