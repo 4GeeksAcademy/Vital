@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Logo from "../../img/logo-vital.png";
 import { Link, useNavigate } from "react-router-dom";
 import {Context} from "../store/appContext"
+import { BagHandleOutline } from "react-ionicons";
 
 export const Navbar = () => {
   const {store, actions} = useContext(Context)
@@ -30,7 +31,7 @@ export const Navbar = () => {
             <li className="nav-item">
               <a
                 className="nav-link text-vital-white active"
-                aria-current="page"               
+                aria-current="page"
                 onClick={() => navigate("/")}
               >
                 Home
@@ -60,18 +61,18 @@ export const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-            <a
+              <a
                 className="nav-link text-vital-white active"
-                aria-current="page"               
+                aria-current="page"
                 onClick={() => navigate("/gyms-map")}
               >
                 Gyms near me
               </a>
             </li>
             <li className="nav-item">
-            <a
+              <a
                 className="nav-link text-vital-white active"
-                aria-current="page"               
+                aria-current="page"
                 onClick={() => navigate("/store")}
               >
                 Store
@@ -92,6 +93,11 @@ export const Navbar = () => {
           ) : (
 
         <div>
+          <Link to="/shopping-cart">
+            <span className="me-3">
+              <BagHandleOutline color={"#ff5300"} />
+            </span>
+          </Link>
           <Link to="/login">
             <button
               className="btn btn-outline-vital-orange text-vital-white rounded-pill"

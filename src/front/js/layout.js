@@ -16,6 +16,7 @@ import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
+import ShoppingCart  from "./pages/shoppingCart/shoppingCart"
 import { Login } from "./pages/login";
 import AdminPanel from "./pages/adminPanel";
 import { AdminLogin } from "./pages/adminLogin";
@@ -40,6 +41,7 @@ const Layout = () => {
             <Route element={<BodypartExercises />} path="/bodypart/:bodypart" />
             <Route element={<ExerciseDetail />} path="/exercisedetail/:id"/>
             <Route element={<ProductDetail />} path="/product-detail/:id"/>
+            <Route element={<ShoppingCart />} path="/shopping-cart"/>
             <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
             <Route element={<Register/>} path="/register"/>
