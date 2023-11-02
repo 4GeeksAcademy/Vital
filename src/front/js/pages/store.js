@@ -23,9 +23,7 @@ export const Store = () => {
         const products = resp.docs.map((doc) => {
           return { ...doc.data(), id: doc.id }
         })
-        setProducts(products)    
-        store.products = products   
-        
+        setProducts(products)
       })
 
   }, []);
