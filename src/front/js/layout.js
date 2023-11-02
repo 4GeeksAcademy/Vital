@@ -18,6 +18,8 @@ import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
 import ShoppingCart  from "./pages/shoppingCart/shoppingCart"
 import { Login } from "./pages/login";
+import AdminPanel from "./pages/adminPanel";
+import { AdminLogin } from "./pages/adminLogin";
 
 //create your first component
 const Layout = () => {
@@ -42,8 +44,13 @@ const Layout = () => {
             <Route element={<ShoppingCart />} path="/shopping-cart"/>
             <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
+            <Route element={<Register/>} path="/register"/>
+                        <Route element={<Login/>} path="/login"/>
             <Route element={<Single />} path="/single/:theid" />
-
+            <Route element={<Register/>} path="/register"/>
+            <Route element={<Login/>} path="/login"/>
+            <Route element={<AdminLogin />} path="/admin-login" />
+            <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

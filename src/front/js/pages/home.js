@@ -21,7 +21,7 @@ export const Home = () => {
         <section className="container d-flex justify-content-between align-items-center bg-vital-black">
           <div className="col-5 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
             <h1 className="text-vital-orange fw-bold fs-sm-2 p-sm-5 p-md-5">
-              Todo relacionado al ejercicio en un solo lugar
+              Build your Body Transform your life
             </h1>
             <p className="text-vital-white fs-md-5 fs-sd-5 p-sm-5 p-md-5">
               Unlock your potential with a fitness membership that gives you
@@ -55,13 +55,13 @@ export const Home = () => {
         className="container-fluid text-center bg-vital-gray mt-0"
         //style={{ height: "600px" }}
       >
-        <h1 className="text-vital-white p-5 fw-bold">¿Qué ofrece Vital?</h1>
+        <h1 className="text-vital-white p-5 fw-bold">All that you can get in one place!</h1>
         <div className="wrapp-cards d-flex container pb-5 justify-content-around flex-wrap">
           <div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black">
             <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Workout</h4>
             <p className="text-vital-white p-3">
-              Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
+              looks for routines, and start you journey know
             </p>
             <div>
               <button
@@ -69,7 +69,7 @@ export const Home = () => {
                 type="submit"
                 onClick={handleClick}
               >
-                Primary Action
+                Get Exercises
               </button>
             </div>
           </div>
@@ -77,14 +77,14 @@ export const Home = () => {
             <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Meal Plans</h4>
             <p className="text-vital-white p-3 text-center">
-              Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
+              Find recipes base in your goals
             </p>
             <div>
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
                 type="submit"
               >
-                Primary Action
+                Get recipes
               </button>
             </div>
           </div>
@@ -92,14 +92,14 @@ export const Home = () => {
             <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Find fitness centers</h4>
             <p className="text-vital-white p-3">
-              Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
+              See Gyms partners around you
             </p>
             <div>
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
                 type="submit"
               >
-                Primary Action
+                Wacth now!
               </button>
             </div>
           </div>
@@ -107,14 +107,14 @@ export const Home = () => {
             <i className="icon fa-regular fa-calendar mt-4" />
             <h4 className="fs-6 text-vital-white mt-3">Fitness Store</h4>
             <p className="text-vital-white p-3">
-              Egestas elit dui scelerisque ut eu purus aliquam vitae habitasse.
+              Buy fitness product and aply for awsome discounts
             </p>
             <div>
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
                 type="submit" onClick={()=> navigate("/store")}
               >
-                Primary Action
+                buy now!
               </button>
             </div>
           </div>

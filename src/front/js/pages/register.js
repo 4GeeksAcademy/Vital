@@ -1,16 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../styles/register.css"
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 export const Register = () => {
     const {store, actions}= useContext(Context)
+    const navigate = useNavigate()
     const [user,setUser] = useState( {
         name: "",
         lastname: "",
         username: "",
         email: "",
         password: "",
+    })
+
+    useEffect(()=>{
+        store.token && navigate("/")
     })
 
     const addUser = async ()=> {
