@@ -1,8 +1,20 @@
-import React from "react";
-
+import React, {useContext, useEffect, useState} from "react";
+import {Context} from "../store/appContext";
+import Loading from "../component/loading/loading";
 const Dashboard = (props) => {
+    const {store, actions} = useContext(Context);
+    const [loading, setLoading] = useState(false);
+
+    
+
+    const usersQuantity = store.users && store.users.length;
+    const gymsQuantity = store.gyms && store.gyms.length;
+    const newsletterQuantity = store.newsletter && store.newsletter.length;    
+    
     return (
         <>
+        {
+            loading ? <Loading /> : ( <>
         <h1 className="h2 text-vital-orange">Dashboard</h1>
                         <p className="text-vital-white">
                             Home page to manage the website
@@ -12,7 +24,7 @@ const Dashboard = (props) => {
                                 <div className="card bg-vital-black">
                                     <h5 className="card-header text-vital-orange">Users</h5>
                                     <div className="card-body text-vital-white bg-dark">
-                                        <h5 className="card-title">345k</h5>
+                                        <h5 className="card-title">{usersQuantity}</h5>
                                         <p className="card-text">Feb 1 - Apr 1, United States</p>
                                         <p className="card-text text-success">
                                             10.2% increase since last month
@@ -24,7 +36,7 @@ const Dashboard = (props) => {
                                 <div className="card bg-vital-black">
                                     <h5 className="card-header text-vital-orange">Gyms</h5>
                                     <div className="card-body text-vital-white bg-dark">
-                                        <h5 className="card-title">4k</h5>
+                                        <h5 className="card-title">{gymsQuantity}</h5>
                                         <p className="card-text">Feb 1 - Apr 1, United States</p>
                                         <p className="card-text text-success">
                                             3.6% increase since last month
@@ -34,9 +46,9 @@ const Dashboard = (props) => {
                             </div>
                             <div className="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
                                 <div className="card bg-vital-black">
-                                    <h5 className="card-header text-vital-orange">Newsletter subcriptions</h5>
+                                    <h5 className="card-header text-vital-orange">Newsletter account</h5>
                                     <div className="card-body text-vital-white bg-dark">
-                                        <h5 className="card-title">43</h5>
+                                        <h5 className="card-title">{newsletterQuantity}</h5>
                                         <p className="card-text">Feb 1 - Apr 1, United States</p>
                                         <p className="card-text text-success">
                                             1.6% increase since last month
@@ -77,7 +89,7 @@ const Dashboard = (props) => {
                                                 <tbody>
                                                     {   props.products &&
                                                         props.products.map((product, index) => {
-                                                            console.log(product)
+                                                            //console.log(product)
                                                             return (
                                                                 <tr key={index}>
                                                                     <th scope="row">{product.id}</th>
@@ -114,6 +126,8 @@ const Dashboard = (props) => {
                                 </div>
                             </div>
                         </div>  
+    </>)
+        }
         </>
     )
 }

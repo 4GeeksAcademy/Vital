@@ -12,6 +12,7 @@ class User(db.Model):
     username = db.Column(db.String(30), unique=True, nullable=False)
     name = db.Column(db.String(30), unique=False, nullable=False)
     lastname = db.Column(db.String(30), unique=False, nullable=False)
+    role = db.Column(db.String(50), nullable=False)
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
     def __init__(self, email, password, username, name, lastname):
@@ -20,6 +21,7 @@ class User(db.Model):
         self.username = username
         self.name = name
         self.lastname = lastname
+        self.role = "user"
         self.is_active = True
 
     def __repr__(self):
@@ -31,6 +33,8 @@ class User(db.Model):
             "name": self.name,
             "lastname": self.lastname,
             "email": self.email,
+            "username": self.username,
+            "is_active": self.is_active,
         }
 
 
@@ -110,7 +114,7 @@ class Administrator(User):
 
     role = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, email, password, username, name, lastname, role):
+    def __init__(self, email, password, username, name, lastname):
         super().__init__(
             email=email,
             password=password,
@@ -118,7 +122,7 @@ class Administrator(User):
             name=name,
             lastname=lastname,
         )
-        self.role = role
+        self.role = "admin"
 
     def __repr__(self):
         return f"<Administrator {self.id} {self.name} {self.lastname}, {self.role}>"

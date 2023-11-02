@@ -4,6 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			products: [],
 			favorites: [],
+			users: [],
+			gyms: [],
+			newsletter: [],
 		},
 		actions: {
 			createUser: async (user) => {
@@ -146,7 +149,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const newFavorites = store.favorites.filter((favorite) => favorite.id !== exercise.id);
 				setStore({ favorites: newFavorites });
-			},		
+			},	
+			getData: async () => {
+				const response = await fetch(process.env.BACKEND_URL + "api/users");
+				const data = await response.json();
+				setStore({ users: data });	
+				const gyms = await fetch(process.env.BACKEND_URL + "api/get-gyms");
+				const dataGyms = await gyms.json();
+				setStore({ gyms: dataGyms });
+				const newsletter = await fetch(process.env.BACKEND_URL + "api/get-newsletter");
+				const dataNewsletter = await newsletter.json();
+				setStore({ newsletter: dataNewsletter });
+				const admins = await fetch(process.env.BACKEND_URL + "api/get-admins");
+				const dataAdmins = await admins.json();
+				setStore({ admins: dataAdmins });
+				return false;
+
+			}
 
 		}
 

@@ -1,15 +1,18 @@
 import React from "react";
 import "../../styles/admin-panel.css"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config"
 import Dashboard from "../component/dashboard";
 import ManageUser from "../component/manageUser";
 import ManageAdminUsers from "../component/manageAdminUsers";
 import ManageGyms from "../component/manageGyms";
+import { Context } from "../store/appContext";
+
 
 const AdminPanel = () => {
    const [products, setProducts] = useState([])
+   const { store, actions } = useContext(Context);
    const [menu, setMenu] = useState({
     dashboard: true,
     manageUser: false,
@@ -32,7 +35,8 @@ const AdminPanel = () => {
             })              
             setProducts(products)  
             
-          })
+          })          
+            actions.getData();                
     
       }, []);
 
