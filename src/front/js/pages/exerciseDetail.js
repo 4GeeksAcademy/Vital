@@ -36,9 +36,6 @@ const ExerciseDetail = () => {
     },
   };
 
-  // useEffect(() => {
-  //   scrollToTop();
-  // }, []);
 
   useEffect(() => {
     scrollToTop();
