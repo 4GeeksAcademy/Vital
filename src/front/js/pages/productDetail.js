@@ -23,7 +23,7 @@ const ProductDetail = () => {
       });
       //console.log(results);
       const data = results.find((item) => item.id === id);
-      //console.log(data);
+      console.log(data);
       if (data === undefined) {
         navigate("/store");
       }

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 const ProductCard = ({ title, price, image, id }) => {
   const navigate = useNavigate();
 
+  const { store, actions } = useContext(Context)
+
   return (
     <div className="card bg-vital-black m-1" style={{ width: "18rem" }}>
       <img
@@ -23,12 +25,12 @@ const ProductCard = ({ title, price, image, id }) => {
           {title}
         </h5>
         <p className="card-text text-vital-white">${price}</p>
-        <a
-          href="#"
+        <button
+          onClick={() => actions.addToCart()}
           className="btn btn-vital-orange rounded-3 text-vital-white fw-bold"
         >
           Add to cart
-        </a>
+        </button>
       </div>
     </div>
   );

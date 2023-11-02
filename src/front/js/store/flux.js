@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
-			products: []
+			products: [],
+			cart: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -28,8 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 					return false
 				}
-				
-
 			},
 			loginUser: async (username, password) =>{
 				try{
@@ -68,7 +67,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch(error){
 					console.log("Error loading message from backend", error)
 				}
-			}
+			},
+
+			// addToCart: (product) => {
+			// 	const store = getStore()
+			// 	setStore({ ...})
+			// }
 		}
 		
 	}

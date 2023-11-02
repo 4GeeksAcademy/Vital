@@ -2,6 +2,7 @@ import React from "react";
 import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
+import {products} from "../../constants/constants"
 
 const ShoppingCart = () => {
     const navigate = useNavigate();
@@ -9,9 +10,11 @@ const ShoppingCart = () => {
     <div className="container bg-vital-gray">
       <div className="row">
         <div className="col-xl-8">
-          {/*Do a Map of the products here*/}
-          <CartItem />
-          {/*End Map of the map*/}
+          {
+            products.map((product, index) => {
+              return <CartItem key={index} name={product.name} price={product.price} url={product.url}/>
+            })
+          }
           <div className="row my-4">
             <div className="col-sm-6">
               <Link
