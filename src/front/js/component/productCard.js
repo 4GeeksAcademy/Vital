@@ -26,7 +26,7 @@ const ProductCard = ({ title, price, image, id }) => {
         </h5>
         <p className="card-text text-vital-white">${price}</p>
         <button
-          onClick={() => actions.addToCart()}
+          onClick={() => actions.addToCart(title, price, image, id)}
           className="btn btn-vital-orange rounded-3 text-vital-white fw-bold"
         >
           Add to cart

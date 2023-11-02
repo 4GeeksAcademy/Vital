@@ -69,10 +69,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// addToCart: (product) => {
-			// 	const store = getStore()
-			// 	setStore({ ...})
-			// }
+			addToCart: (title, price, image, id) => {
+				const store = getStore()
+				setStore({products: [{title: title, price: price, image: image, id: id}, ...store.products]})
+			}
 		}
 		
 	}
