@@ -3,25 +3,25 @@ import "../../styles/login.css"
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Login = () => {
+export const AdminLogin = () => {
     const navigate = useNavigate()
     const {store, actions}=useContext(Context)
     const [username,setUsername]= useState("");
     const [password,setPassword]= useState("");
 
     useEffect(()=>{
-        store.token && navigate("/")
+        store.token && navigate("/dashboard")
     })
 
-    const loginUser = () =>{
+    const loginAdmin = () =>{
         if(username ==  "" || password == ""){
             alert("inputs can't be empty")
             return 
         }
-        const isValid =  actions.loginUser(username, password)
+        const isValid =  actions.loginAdmin(username, password)
             if(isValid){
                 alert("Login Successfully")
-                navigate("/")
+                navigate("/dashboard")
 
             }                   
                 
@@ -33,7 +33,7 @@ export const Login = () => {
                 <div className="row">
                     <div className="col-6 imageLogin "></div>
                     <div className="col-6 d-flex-column">
-                        <h1 className="d-flex justify-content-center my-4 text-vital-orange">Hello welcome back!</h1>
+                        <h1 className="d-flex justify-content-center my-4 text-vital-orange">AdminLogin WebPage!</h1>
                         <div className="mb-3">
                             <label for="exampleFormControlInput1" className="form-label text-vital-white">Username</label>
                             <input type="string" value={username} className="form-control" id="exampleFormControlInput1" onChange={(event)=>{setUsername( event.target.value)}}/>
@@ -43,14 +43,8 @@ export const Login = () => {
                             <input type="password" value={password} className="form-control" id="exampleFormControlInput1" onChange={(event)=>{setPassword(event.target.value)}}/>
                         </div>
                         <div className="mb-3 mt-4">
-                            <button className="btn btn-vital-orange text-vital-white w-100" onClick={loginUser}>Login</button>
-                        </div>
-                        <div className="d-flex-column justify-content-center mb-4">
-
-                            <span className="d-flex justify-content-center text-vital-white">Don't have an account?</span>
-                            <Link to='/register' className="d-flex justify-content-center text-vital-orange text-decoration-none">Create one here</Link>
-                            
-                        </div>
+                            <button className="btn btn-vital-orange text-vital-white w-100" onClick={loginAdmin}>Login</button>
+                        </div>                        
                     </div>
                 </div>
             </div>

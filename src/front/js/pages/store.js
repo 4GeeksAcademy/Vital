@@ -20,12 +20,12 @@ export const Store = () => {
 
     getDocs(productsRef)
       .then((resp) => {
+        const products = resp.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id }
+        })
+        setProducts(products)    
+        store.products = products   
         
-        setProducts(
-          resp.docs.map((doc) => {
-            return { ...doc.data(), id: doc.id }
-          })
-        )
       })
 
   }, []);

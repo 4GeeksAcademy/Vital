@@ -55,6 +55,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}	
 			},
 
+			logout: () =>{				
+					localStorage.removeItem("token")
+					setStore({token: null})					
+					return true				
+			},
+
+			loginAdmin: async (username, password) =>{
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
+					{
+						method:"POST",
+						headers:{
+							"Content-Type":"application/json"
+						},
+						body:JSON.stringify({username, password})
+						
+					} )
+					const data = await response.json()
+					localStorage.setItem("token", data.token )
+					setStore({token: data.token})
+					console.log(data)
+					return true
+				}
+				catch(error){
+					console.log(error)
+					return false
+				}	
+			},
+
 			getProducts: async () => {
 				try{
 					const resp = await fetch("https://fakestoreapi.com/products")

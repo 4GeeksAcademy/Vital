@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../../img/logo-vital.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Navigate } from "react-ionicons";
+import {Context} from "../store/appContext"
 
 export const Navbar = () => {
+  const {store, actions} = useContext(Context)
   const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-vital-black p-3">
@@ -45,7 +46,7 @@ export const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-vital-white" href="#">
+              <a className="nav-link text-vital-white" onClick={() => navigate("/exercises")}>
                 Workout
               </a>
             </li>
@@ -53,7 +54,7 @@ export const Navbar = () => {
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
-                href="#"
+                
               >
                 Meal plans
               </a>
@@ -78,6 +79,18 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
+        {store.token ? console.log("true",store.token) : console.log("false", store.token)}
+        {
+          store.token ? (
+            <button
+              className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
+              type="submit"
+              onClick={() => actions.logout()}
+            >
+              Logout
+            </button>
+          ) : (
+
         <div>
           <Link to="/login">
             <button
@@ -96,6 +109,8 @@ export const Navbar = () => {
             </button>
           </Link>
         </div>
+          )
+        }
       </div>
     </nav>
   );

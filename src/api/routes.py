@@ -52,6 +52,24 @@ def create_token():
         }, 200
     return {"message": "Access no granted"}, 501
 
+@api.route("/token-admin", methods=["POST"])
+def create_token_admin():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)    
+    if username is None or password is None:
+        return {"message": "parameters missing"}, 400
+    admin = Administrator.query.filter_by(username=username).one_or_none()
+    if admin is None:
+        return {"message": "user doesn't exist"}, 400
+    password_byte = bytes(password, "utf-8")   
+    if bcrypt.checkpw(password_byte, admin.password.encode("utf-8")):
+        return {
+            "token": create_access_token(
+                identity=admin.username, expires_delta=timedelta(hours=3)
+            )
+        }, 200
+    return {"message": "Access no granted"}, 501
+
 
 @api.route("/users", methods=["GET"])
 def handle_users():

@@ -11,6 +11,8 @@ const Map = () => {
     googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
   });
 
+  console.log(isLoaded)
+
   return (
     
     <>
