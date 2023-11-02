@@ -95,7 +95,7 @@ const ExerciseDetail = () => {
     generateDescription();
   }, [loading]);
 
-  //objectAI && console.log(objectAI.choices[0].message.content);
+  objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";
