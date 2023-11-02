@@ -7,6 +7,8 @@ const ProductCard = ({ title, price, image, id }) => {
 
   const { store, actions } = useContext(Context)
 
+  // const quantity = 1
+
   return (
     <div className="card bg-vital-black m-1" style={{ width: "18rem" }}>
       <img
@@ -26,7 +28,7 @@ const ProductCard = ({ title, price, image, id }) => {
         </h5>
         <p className="card-text text-vital-white">${price}</p>
         <button
-          onClick={() => actions.addToCart(title, price, image, id)}
+          onClick={() => actions.addToCart(title, price, image, id, 1)}
           className="btn btn-vital-orange rounded-3 text-vital-white fw-bold"
         >
           Add to cart

@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
-import {products} from "../../constants/constants"
+// import {products} from "../../constants/constants"
+import { Context } from "../../store/appContext";
 
 const ShoppingCart = () => {
     const navigate = useNavigate();
+
+    const {store, actions} = useContext(Context)
+
+    const products = store.products
+
   return (
     <div className="container bg-vital-gray">
       <div className="row">
         <div className="col-xl-8">
           {
             products.map((product, index) => {
-              return <CartItem key={index} name={product.name} price={product.price} url={product.url}/>
+              return <CartItem key={index} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id}/>
             })
           }
           <div className="row my-4">

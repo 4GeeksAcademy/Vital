@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import gif from "../../img/exercise.gif";
 import { useFetch } from "../hooks/useFetch";
@@ -6,8 +6,18 @@ import Loading from "../component/loading/loading.js";
 import { ArrowBackOutline } from "react-ionicons";
 import { collection, getDocs, getLocation } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import { Context } from "../store/appContext.js";
 
 const ProductDetail = () => {
+  const { store, actions } = useContext(Context)
+  const [quantity, setQuantity] = useState(1)
+
+  const handleQuantity = (e) => {
+    if (e.target.value > 1) {
+      setQuantity(e.target.value)
+    } else setQuantity(1)
+  }
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const { id } = useParams();
@@ -73,11 +83,14 @@ const ProductDetail = () => {
                     type="number"
                     className="form-control"
                     placeholder="Qty"
+                    value={quantity}
+                    onChange={(e) => handleQuantity(e)}
                   />
                 </div>
                 <div className="col-sm-6 col-12">
                   <button
                     type="button"
+                    onClick={() => actions.addToCart(data.title, data.price, data.image, data.id, quantity)}
                     className="btn btn-vital-orange text-vital-white rounded-5 px-4"
                   >
                     Add to cart
