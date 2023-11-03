@@ -8,9 +8,11 @@ export const Footer = () => {
   const navigate = useNavigate();
   const {store, actions} = useContext(Context);
   const [newsletters, setNewsletters] = useState(null);
-
+  
   const handleNewsletter = async () => {
-      const isSuccess = actions.addNewsletter(newsletters);
+     
+      const isSuccess = await actions.addNewsletter(newsletters);
+      console.log(isSuccess)
       isSuccess ? alert("Thank you for subscribing!") : alert("Something went wrong, please try again");
   };
 

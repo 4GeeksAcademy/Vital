@@ -70,6 +70,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					} )
 					const data = await response.json()
+					if (data.msg == "Invalid credentials"){
+						return false
+					}
 					localStorage.setItem("token", data.token )
 					setStore({token: data.token})
 					console.log(data)
@@ -99,10 +102,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					} )
 					const data = await response.json()
+					if (data.msg == "Invalid credentials"){	
+						return false
+					}
 					localStorage.setItem("token", data.token )
 					setStore({token: data.token})
-					console.log(data)
-					return true
+					console.log(data)					
+						return true			
+										
 				}
 				catch(error){
 					console.log(error)
@@ -176,8 +183,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})	
 				const data = await response.json();
 				console.log(data)
-				
-				return true;			
+				if (data.msg == "Newsletter added successfully"){
+					return true
+				}					
+					return false			
 			},
 
 		}
