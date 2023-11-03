@@ -70,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					} )
 					const data = await response.json()
-					if (data.msg == "Invalid credentials"){
+					if (!data.token){
 						return false
 					}
 					localStorage.setItem("token", data.token )
@@ -88,33 +88,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.removeItem("token")
 					setStore({token: null})					
 					return true				
-			},
-
-			loginAdmin: async (username, password) =>{
-				try{
-					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-					{
-						method:"POST",
-						headers:{
-							"Content-Type":"application/json"
-						},
-						body:JSON.stringify({username, password})
-						
-					} )
-					const data = await response.json()
-					if (data.msg == "Invalid credentials"){	
-						return false
-					}
-					localStorage.setItem("token", data.token )
-					setStore({token: data.token})
-					console.log(data)					
-						return true			
-										
-				}
-				catch(error){
-					console.log(error)
-					return false
-				}	
 			},
 
 			getProducts: async () => {

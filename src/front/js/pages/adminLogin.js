@@ -13,17 +13,20 @@ export const AdminLogin = () => {
         store.token && navigate("/dashboard")
     })
 
-    const loginAdmin = () =>{
+    const loginAdmin = async () =>{
         if(username ==  "" || password == ""){
             alert("inputs can't be empty")
             return 
         }
-        const isValid =  actions.loginAdmin(username, password)
+        const isValid =  await actions.loginAdmin(username, password)
             if(isValid){
                 alert("Login Successfully")
                 navigate("/dashboard")
-
-            }                   
+            }  else {
+                alert("Invalid credentials")
+                setPassword("")
+                setUsername("")
+            }                 
                 
     }
     

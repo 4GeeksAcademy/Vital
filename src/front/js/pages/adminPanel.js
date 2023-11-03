@@ -9,11 +9,13 @@ import ManageAdminUsers from "../component/manageAdminUsers";
 import ManageGyms from "../component/manageGyms";
 import Newsletters from "../component/newsletters";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 const AdminPanel = () => {
    const [products, setProducts] = useState([])
    const { store, actions } = useContext(Context);
+   const navigate = useNavigate()
    const [menu, setMenu] = useState({
     dashboard: true,
     manageUser: false,
@@ -25,7 +27,7 @@ const AdminPanel = () => {
 
     useEffect(() => {
         // actions.getProducts();
-    
+        !store.token && navigate("/")
         const productsRef = collection(db, "products")
         console.log(productsRef);
     
