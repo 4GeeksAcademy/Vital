@@ -66,7 +66,7 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                         <div className="col-md-4">
                             <div className="mt-3">
                                 <p className="mb-2 text-vital-white">Price</p>
-                                <h5 className="mb-0 mt-2 text-vital-white"><span className="me-2"></span>{price}</h5>
+                                <h5 className="mb-0 mt-2 text-vital-white"><span className="me-2"></span>${price}</h5>
                             </div>
                         </div>
                         <div className="col-md-5">
@@ -80,7 +80,7 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                         <div className="col-md-3">
                             <div className="mt-3">
                                 <p className="text-vital-white mb-2">Total</p>
-                                <h5 className="text-vital-white">{total}</h5>
+                                <h5 className="text-vital-white">${total}</h5>
                             </div>
                         </div>
                     </div>

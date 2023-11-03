@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
-// import {products} from "../../constants/constants"
 import { Context } from "../../store/appContext";
 
 const ShoppingCart = () => {
@@ -11,6 +10,8 @@ const ShoppingCart = () => {
     const {store, actions} = useContext(Context)
 
     const products = store.products
+
+    const [total, setTotal] = useState(0)
 
   return (
     <div className="container bg-vital-gray">
@@ -46,10 +47,10 @@ const ShoppingCart = () => {
         {/*Order Summary row*/}
         <div className="col-xl-4 bg-vital-gray">
           <div className="mt-5 mt-lg-0">
-            <div className="card border shadow-none bg-vital-black">
-              <div className="card-header bg-transparent border-bottom mt-2 py-3 px-4">
+            <div className="card shadow-none bg-vital-black">
+              <div className="card-header bg-transparent border-bottom border-vital-gray mt-2 py-3 px-4">
                 <h5 className="font-size-16 mb-0 text-vital-white">
-                  Order Summary{" "}
+                  Order summary{" "}
                   <span className="float-end">
                     {/*Could be change for a Order number*/}0245896
                   </span>
@@ -59,26 +60,26 @@ const ShoppingCart = () => {
                 <div className="table-responsive">
                   <table className="table mb-0">
                     <tbody>
-                      <tr>
-                        <td className="bg-vital-black text-vital-white">Sub Total:</td>
+                      <tr className="d-none">
+                        <td className="bg-vital-black text-vital-white">Sub total:</td>
                         <td className="bg-vital-black text-end text-vital-white">$ 780</td>
                       </tr>
-                      <tr>
+                      <tr className="d-none">
                         <td className="bg-vital-black text-vital-white">Discount: </td>
                         <td className="bg-vital-black text-end text-vital-white">- $ 78</td>
                       </tr>
-                      <tr>
-                        <td className="bg-vital-black text-vital-white">Delivery Charge :</td>
+                      <tr className="d-none">
+                        <td className="bg-vital-black text-vital-white">Delivery harge :</td>
                         <td className="bg-vital-black text-end text-vital-white">$ 25</td>
                       </tr>
-                      <tr>
+                      <tr className="d-none">
                         <td className="bg-vital-black text-vital-white">Tax: </td>
-                        <td className="bg-vital-black text-end text-vital-white">$ 18.20</td>
+                        <td className="bg-vital-black text-end text-vital-white">$18.20</td>
                       </tr>
                       <tr className="bg-light">
-                        <th className="bg-vital-black text-vital-white">Total :</th>
+                        <th className="bg-vital-black text-vital-white">Total:</th>
                         <td className="bg-vital-black text-end text-vital-white">
-                          <span className="fw-bold">$ 745.2</span>
+                          <span className="fw-bold">${total}</span>
                         </td>
                       </tr>
                     </tbody>
