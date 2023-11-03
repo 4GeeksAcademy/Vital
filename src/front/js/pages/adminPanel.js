@@ -7,6 +7,7 @@ import Dashboard from "../component/dashboard";
 import ManageUser from "../component/manageUser";
 import ManageAdminUsers from "../component/manageAdminUsers";
 import ManageGyms from "../component/manageGyms";
+import Newsletters from "../component/newsletters";
 import { Context } from "../store/appContext";
 
 
@@ -143,19 +144,27 @@ const AdminPanel = () => {
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <a className="nav-link" onClick={() => setMenu({
+                                        dashboard: false,
+                                        manageUser: false,
+                                        manageAdminUsers: false,
+                                        manageGyms: false,
+                                        manageNewsletter: true,
+                                        integrations: false                                    
+                                    })
+                                    }>
                                         
                                         <span className="ml-2">Manage Newsletter subcriptions</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <a className="nav-link" >
                                        
                                         <span className="ml-2">Promotions</span>
                                     </a>
                                 </li>  
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <a className="nav-link" >
                                        
                                         <span className="ml-2">Integrations Store</span>
                                     </a>
@@ -165,8 +174,8 @@ const AdminPanel = () => {
                     </nav>
                     <main className="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">    
                     {
-                        menu.dashboard ? <Dashboard products={products}/> : menu.manageUser ? <ManageUser products={products}/> : menu.manageAdminUsers ? <ManageAdminUsers products={products}/>
-                        : menu.manageGyms ? <ManageGyms products={products}/> : <Dashboard products={products}/>                  
+                        menu.dashboard ? <Dashboard /> : menu.manageUser ? <ManageUser /> : menu.manageAdminUsers ? <ManageAdminUsers />
+                        : menu.manageGyms ? <ManageGyms /> : menu.manageNewsletter ? <Newsletters /> : <Dashboard />                  
                     }                   
                                             
                     </main>

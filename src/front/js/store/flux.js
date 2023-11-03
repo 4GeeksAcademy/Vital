@@ -165,7 +165,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ admins: dataAdmins });
 				return false;
 
-			}
+			},
+			addNewsletter: async (email) => {
+				const response = await fetch(process.env.BACKEND_URL + "api/newsletter",{
+					method:"POST",
+					headers:{
+						"Content-Type":"application/json"
+					},
+					body:JSON.stringify({email: email})
+				})	
+				const data = await response.json();
+				console.log(data)
+				
+				return true;			
+			},
 
 		}
 

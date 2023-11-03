@@ -420,6 +420,18 @@ def disable_newsletter(email):
         return {"msg": "Newsletter disabled successfully"}, 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("enable-newsletter/<email>", methods=["PUT"])
+def enable_newsletter(email):
+    newsletter = Newsletter.query.filter_by(email=email).first()
+    if newsletter is None:
+        return {"msg": "Newsletter doesn't exist"}, 400
+    try:
+        newsletter.is_active = True
+        db.session.commit()
+        return {"msg": "Newsletter disabled successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
 
 
     
