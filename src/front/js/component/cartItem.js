@@ -31,7 +31,7 @@ const CartItem = ({ title, price, image, id, quantity }) => {
             <div className="card-body">
                 <div className="d-flex align-items-start border-bottom pb-3">
                     <div className="me-4">
-                        <img src={image} style={{ width: "10rem", height: "10rem" }} alt="" className="rounded" />
+                        <img src={image} style={{ width: "10rem", height: "10rem", objectFit: "cover" }} alt="" className="rounded" />
                     </div>
                     <div className="flex-grow-1 align-self-center overflow-hidden">
                         <div>
