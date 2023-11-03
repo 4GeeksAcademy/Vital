@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { TrashOutline } from "react-ionicons";
 
 const CartItem = ({ title, price, image, id, quantity }) => {
 
@@ -34,15 +35,9 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                         <img src={image} style={{ width: "10rem", height: "10rem", objectFit: "cover" }} alt="" className="rounded" />
                     </div>
                     <div className="flex-grow-1 align-self-center overflow-hidden">
-                        <div>
+                        <div className="d-flex justify-content-between">
                             <h5 className="text-truncate font-size-18 text-vital-white"><a href="#" className="text-vital-orange">{title}</a></h5>
-                            <p className="text-vital-white mb-0">
-                                <i className="bx bxs-star text-warning"></i>
-                                <i className="bx bxs-star text-warning"></i>
-                                <i className="bx bxs-star text-warning"></i>
-                                <i className="bx bxs-star text-warning"></i>
-                                <i className="bx bxs-star-half text-warning"></i>
-                            </p>
+                            <TrashOutline color={"#ff5300"} style={{ cursor: "pointer" }}/>
                         </div>
                     </div>
                     <div className="flex-shrink-0 ms-2">

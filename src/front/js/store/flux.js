@@ -128,6 +128,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })
 				alert(`Added to cart`)
 			},
+			removeFromCart: (product) => {
+				const store = getStore()
+				console.log(`products antes de filtrar: ${store.products}`)
+				setStore({
+					products: store.products.filter((item) => item != product),
+				});
+				console.log(`products despues de filtrar: ${store.products}`)
+			},
 			setQuantity: (id, quantity) => {
 				const store = getStore()
 				console.log(store.products)
