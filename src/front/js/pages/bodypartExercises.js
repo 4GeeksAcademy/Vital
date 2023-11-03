@@ -6,12 +6,10 @@ import ExerciseCard from "../component/exerciseCard";
 import { scrollToTop } from "../function/scrollToTop";
 import BackgroundContainer from "../component/backgroundContainer";
 import { allExercises } from "../constants/allExcercises";
-import { description, dataExcersises } from "../constants/constants";
+import { description, dataExcersises, useAPI } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
-
-
 
 export const BodypartExercises = () => {
 
@@ -38,9 +36,14 @@ export const BodypartExercises = () => {
     
     scrollToTop();
     setPage(currentPage);
-    const dataFilter = allExercises.filter((exercise) => {
-      return exercise.bodyPart === bodypart;
-    });   
+    if (!useAPI) {
+      const dataFilter = allExercises.filter((exercise) => {
+        return exercise.bodyPart === bodypart;
+      });  
+      setExercises(dataFilter);
+      setLoading(false);
+      return 
+    }
     try {
       const getData = async () => {
         const response = await fetch(url, options);
@@ -59,17 +62,17 @@ export const BodypartExercises = () => {
   useEffect(() => {  
     let newArray = []
     console.log(exercises)
-    if (exercises && search!="") {
+    if (exercises) {
       console.log(exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
       newArray = exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))    
       // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
     }
     if (exercises && sort) {
-      if (sort === "asc") {
+      if (sort == "asc") {
         console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
         setExercises(newArray.sort((a, b) => a.name.localeCompare(b.name)))
         // setExercises(data.sort((a, b) => a.name.localeCompare(b.name)));
-      } else if (sort === "desc") {
+      } else if (sort == "desc") {
         console.log(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));

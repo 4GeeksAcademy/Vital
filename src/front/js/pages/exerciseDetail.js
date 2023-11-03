@@ -72,8 +72,8 @@ const ExerciseDetail = () => {
   }, []);
 
   useEffect(() => {
-    console.log(process.env.OPENAI_API_KEY);
-    if (process.env.OPENAI_API_KEY == "none") {
+    //console.log(process.env.OPENAI_API_KEY);
+    if (!useAPI) {
       setObjectAI(objectAI2);
       setLoadingAI(false);
       return;
