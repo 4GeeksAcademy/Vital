@@ -16,7 +16,7 @@ export const Store = () => {
     // actions.getProducts();
 
     const productsRef = collection(db, "products")
-    console.log(productsRef);
+    // console.log(productsRef);
 
     getDocs(productsRef)
       .then((resp) => {

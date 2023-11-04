@@ -36,23 +36,12 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                     </div>
                     <div className="flex-grow-1 align-self-center overflow-hidden">
                         <div className="d-flex justify-content-between">
-                            <h5 className="text-truncate font-size-18 text-vital-white"><a href="#" className="text-vital-orange">{title}</a></h5>
-                            <TrashOutline color={"#ff5300"} style={{ cursor: "pointer" }}/>
+                            <h5 className="text-truncate nfont-size-18 text-vital-white"><a href="#" className="text-vital-orange">{title}</a></h5>
+                            <TrashOutline
+                            color={"#ff5300"}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => actions.removeFromCart(id)} />
                         </div>
-                    </div>
-                    <div className="flex-shrink-0 ms-2">
-                        <ul className="list-inline mb-0 font-size-16">
-                            <li className="list-inline-item">
-                                <a href="#" className="text-vital-white px-1">
-                                    <i className="mdi mdi-trash-can-outline"></i>
-                                </a>
-                            </li>
-                            <li className="list-inline-item">
-                                <a href="#" className="text-vital-white px-1">
-                                    <i className="mdi mdi-heart-outline"></i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
 
@@ -61,7 +50,9 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                         <div className="col-md-4">
                             <div className="mt-3">
                                 <p className="mb-2 text-vital-white">Price</p>
-                                <h5 className="mb-0 mt-2 text-vital-white"><span className="me-2"></span>${price}</h5>
+                                <h5 className="mb-0 mt-2 text-vital-white">
+                                    <span className="me-2"></span>${price}
+                                </h5>
                             </div>
                         </div>
                         <div className="col-md-5">
