@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from "../store/appContext";
 import { TrashOutline } from "react-ionicons";
 
-const CartItem = ({ title, price, image, id, quantity, calculateTotal, totalItem }) => {
+const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
 
     const { store, actions } = useContext(Context)
     
@@ -25,7 +25,7 @@ const CartItem = ({ title, price, image, id, quantity, calculateTotal, totalItem
     }, [quantityItem])
     
     const removeItemFromCart = () => {
-        actions.removeFromCart(id)
+        deleteItem(id)
     }
 
     const handleQuantity = (e) => {

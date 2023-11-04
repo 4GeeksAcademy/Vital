@@ -11,7 +11,8 @@ const ShoppingCart = () => {
 
     const products = store.products
 
-    const [total, setTotal] = useState(0)
+
+   
 
   return (
     <div className="container bg-vital-gray">
@@ -20,7 +21,7 @@ const ShoppingCart = () => {
           {
             products.map((product, index) => {
               console.log({quantityMap: product.quantity})
-              return <CartItem key={index} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id} calculateTotal={setTotal} totalItem={total}/>
+              return <CartItem key={product.id} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id} deleteItem={actions.removeFromCart} />
             })
           }
           <div className="row my-4">
