@@ -54,6 +54,7 @@ export const Navbar = () => {
                 className="nav-link text-vital-white active"
                 aria-current="page"
                 href="#"
+                onClick={()=> navigate("/mealPlans")}
               >
                 Meal plans
               </a>
