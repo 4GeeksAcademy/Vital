@@ -1,14 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from "../store/appContext";
 import { TrashOutline } from "react-ionicons";
 
-const CartItem = ({ title, price, image, id, quantity }) => {
+const CartItem = ({ title, price, image, id, quantity, calculateTotal, totalItem }) => {
 
     const { store, actions } = useContext(Context)
-
+    
     const [quantityItem, setQuantityItem] = useState(quantity)
+    
+    const [total, setTotal] = useState(price * quantityItem)
 
-    const [total, setTotal] = useState(0)
+    console.log({quantity: quantity})
+    
+    useEffect(() => {
+        setTotal(price * quantityItem)
+        setQuantityItem(quantity)
+        actions.calculateTotalCart()
+    }, [])
+    
+    useEffect(() => {
+        setTotal(price * quantityItem)
+        actions.calculateTotalCart()
+        console.log("cuando se cambia quantityItem")
+    }, [quantityItem])
+    
+    const removeItemFromCart = () => {
+        actions.removeFromCart(id)
+    }
 
     const handleQuantity = (e) => {
         if (e.target.value > 1) {
@@ -18,14 +36,8 @@ const CartItem = ({ title, price, image, id, quantity }) => {
             setQuantityItem(1)
         }
     }
+    
 
-    useEffect(() => {
-        setTotal(price * quantityItem)
-    }, [quantityItem])
-
-    // useEffect(() => {
-    //     setQuantityItem(quantity)
-    // }, [])
 
     return (
         <div className="card shadow-none bg-vital-black mt-2">
@@ -40,7 +52,7 @@ const CartItem = ({ title, price, image, id, quantity }) => {
                             <TrashOutline
                             color={"#ff5300"}
                             style={{ cursor: "pointer" }}
-                            onClick={() => actions.removeFromCart(id)} />
+                            onClick={() => removeItemFromCart()} />
                         </div>
                     </div>
                 </div>

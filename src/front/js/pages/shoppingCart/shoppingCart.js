@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,7 +19,8 @@ const ShoppingCart = () => {
         <div className="col-xl-8">
           {
             products.map((product, index) => {
-              return <CartItem key={index} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id}/>
+              console.log({quantityMap: product.quantity})
+              return <CartItem key={index} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id} calculateTotal={setTotal} totalItem={total}/>
             })
           }
           <div className="row my-4">
@@ -79,7 +80,7 @@ const ShoppingCart = () => {
                       <tr className="bg-light">
                         <th className="bg-vital-black text-vital-white">Total:</th>
                         <td className="bg-vital-black text-end text-vital-white">
-                          <span className="fw-bold">${total}</span>
+                          <span className="fw-bold">${store.totalShoppingCart}</span>
                         </td>
                       </tr>
                     </tbody>

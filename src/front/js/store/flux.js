@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null || localStorage.getItem("token"),
 			products: [],
+			totalShoppingCart: 0,
 			favorites: [],
 		},
 		actions: {
@@ -130,14 +131,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			removeFromCart: (id) => {
 				const store = getStore()
-				console.log(store.products.filter((item) => item.id != id))
 				setStore({
 					products: store.products.filter((item) => item.id != id),
-				});
+				})
+				getActions().calculateTotalCart();
+			},
+			calculateTotalCart: () => {
+				const store = getStore()
+
+				const totalValue = store.products.map(product => product.price * product.quantity).reduce((accumulator, currentValue) => accumulator + currentValue)
+
+				setStore({ totalShoppingCart: totalValue })
 			},
 			setQuantity: (id, quantity) => {
 				const store = getStore()
-				console.log(store.products)
 				console.log(id)
 				store.products.forEach((item, index) => {
 					if(item.id == id) {
