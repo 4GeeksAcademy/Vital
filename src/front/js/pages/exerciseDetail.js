@@ -36,9 +36,6 @@ const ExerciseDetail = () => {
     },
   };
 
-  // useEffect(() => {
-  //   scrollToTop();
-  // }, []);
 
   useEffect(() => {
     scrollToTop();
@@ -75,8 +72,8 @@ const ExerciseDetail = () => {
   }, []);
 
   useEffect(() => {
-    console.log(process.env.OPENAI_API_KEY);
-    if (process.env.OPENAI_API_KEY == "none") {
+    //console.log(process.env.OPENAI_API_KEY);
+    if (!useAPI) {
       setObjectAI(objectAI2);
       setLoadingAI(false);
       return;
@@ -95,7 +92,7 @@ const ExerciseDetail = () => {
     generateDescription();
   }, [loading]);
 
-  //objectAI && console.log(objectAI.choices[0].message.content);
+  objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";

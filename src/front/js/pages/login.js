@@ -13,12 +13,12 @@ export const Login = () => {
         store.token && navigate("/")
     })
 
-    const loginUser = () =>{
+    const loginUser = async () =>{
         if(username ==  "" || password == ""){
             alert("inputs can't be empty")
             return 
         }
-        const isValid =  actions.loginUser(username, password)
+        const isValid = await actions.loginUser(username, password)
             if(isValid){
                 alert("Login Successfully")
                 navigate("/")

@@ -4,6 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			products: [],
 			favorites: [],
+			users: [],
+			gyms: [],
+			newsletter: [],
 		},
 		actions: {
 			createUser: async (user) => {
@@ -67,6 +70,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					} )
 					const data = await response.json()
+					if (!data.token){
+						return false
+					}
 					localStorage.setItem("token", data.token )
 					setStore({token: data.token})
 					console.log(data)
@@ -82,29 +88,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.removeItem("token")
 					setStore({token: null})					
 					return true				
-			},
-
-			loginAdmin: async (username, password) =>{
-				try{
-					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-					{
-						method:"POST",
-						headers:{
-							"Content-Type":"application/json"
-						},
-						body:JSON.stringify({username, password})
-						
-					} )
-					const data = await response.json()
-					localStorage.setItem("token", data.token )
-					setStore({token: data.token})
-					console.log(data)
-					return true
-				}
-				catch(error){
-					console.log(error)
-					return false
-				}	
 			},
 
 			getProducts: async () => {
@@ -146,7 +129,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const newFavorites = store.favorites.filter((favorite) => favorite.id !== exercise.id);
 				setStore({ favorites: newFavorites });
-			},		
+			},	
+			getData: async () => {
+				const response = await fetch(process.env.BACKEND_URL + "api/users");
+				const data = await response.json();
+				setStore({ users: data });	
+				const gyms = await fetch(process.env.BACKEND_URL + "api/get-gyms");
+				const dataGyms = await gyms.json();
+				setStore({ gyms: dataGyms });
+				const newsletter = await fetch(process.env.BACKEND_URL + "api/get-newsletter");
+				const dataNewsletter = await newsletter.json();
+				setStore({ newsletter: dataNewsletter });
+				const admins = await fetch(process.env.BACKEND_URL + "api/get-admins");
+				const dataAdmins = await admins.json();
+				setStore({ admins: dataAdmins });
+				return false;
+
+			},
+			addNewsletter: async (email) => {
+				const response = await fetch(process.env.BACKEND_URL + "api/newsletter",{
+					method:"POST",
+					headers:{
+						"Content-Type":"application/json"
+					},
+					body:JSON.stringify({email: email})
+				})	
+				const data = await response.json();
+				console.log(data)
+				if (data.msg == "Newsletter added successfully"){
+					return true
+				}					
+					return false			
+			},
 
 		}
 

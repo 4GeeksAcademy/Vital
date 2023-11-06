@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import Pagination from "./pagination/pagination";
+import { Context } from "../store/appContext";
 
 const ManageUser = (props) => {
+    const {store, actions} = useContext(Context);
     return (
         <>
         <h1 className="h2 text-vital-orange">Manage User</h1>
@@ -19,23 +21,21 @@ const ManageUser = (props) => {
                                                     <tr >
                                                         <th scope="col">Username</th>
                                                         <th scope="col">Email</th>
-                                                        <th scope="col">Address</th>
-                                                        <th scope="col">Date</th>
                                                         <th scope="col">Status</th>
+                                                        <th scope="col">Date</th>                                                        
                                                         <th scope="col" />
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {   props.products &&
-                                                        props.products.map((product, index) => {
-                                                            console.log(product)
+                                                    {   store.users &&
+                                                        store.users.map((user, index) => {
+                                                            console.log(user)
                                                             return (
                                                                 <tr key={index}>
-                                                                    <th scope="row">{product.id}</th>
-                                                                    <td>{product.title}</td>
-                                                                    <td>{product.category}</td>
-                                                                    <td>{product.price}</td>
-                                                                    <td>{Date()}</td>
+                                                                    <td>{user.username}</td>
+                                                                    <td>{user.email}</td>
+                                                                    <td>{user.is_active}</td>
+                                                                    <td>{Date()}</td>                                                                    
                                                                     <td>
                                                                         <span href="#" className="btn btn-sm text-vital-white btn-vital-orange">
                                                                             View

@@ -74,7 +74,7 @@ def create_token_admin():
 @api.route("/users", methods=["GET"])
 def handle_users():
     try:
-        users = User.query.all()
+        users = User.query.filter_by(role="user").all()
         print(users)
         return [user.serialize() for user in users], 200
     except ValueError as error:
@@ -151,15 +151,13 @@ def create_admin():
     password = body.get("password", None)
     username = body.get("username", None)
     name = body.get("name", None)
-    lastname = body.get("lastname", None)
-    role = body.get("role", None)
+    lastname = body.get("lastname", None)    
     if (
         email is None
         or password is None
         or username is None
         or name is None
-        or lastname is None
-        or role is None
+        or lastname is None       
     ):
         return {"msg": "Missing fields"}, 400
     if check(email) == False:
@@ -177,8 +175,7 @@ def create_admin():
                 password=hashed.decode("utf-8"),
                 username=username,
                 name=name,
-                lastname=lastname,
-                role=role,
+                lastname=lastname,                
             )            
             db.session.add(admin)            
             db.session.commit()
@@ -187,6 +184,14 @@ def create_admin():
             return {"msg": "Something went wrong" + error}, 500
     else:
         return {"msg": "Admin User already exists"}, 400
+    
+@api.route("get-admins", methods=["GET"])
+def get_admins():   
+    admins = Administrator.query.all()
+    if admins is None:
+        return {"msg": "Admins don't exist"}, 400
+    return [admin.serialize() for admin in admins], 200
+
     
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
@@ -411,6 +416,18 @@ def disable_newsletter(email):
         return {"msg": "Newsletter doesn't exist"}, 400
     try:
         newsletter.is_active = False
+        db.session.commit()
+        return {"msg": "Newsletter disabled successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("enable-newsletter/<email>", methods=["PUT"])
+def enable_newsletter(email):
+    newsletter = Newsletter.query.filter_by(email=email).first()
+    if newsletter is None:
+        return {"msg": "Newsletter doesn't exist"}, 400
+    try:
+        newsletter.is_active = True
         db.session.commit()
         return {"msg": "Newsletter disabled successfully"}, 200
     except ValueError as error:
