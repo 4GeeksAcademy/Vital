@@ -38,7 +38,6 @@ const CartItem = ({ title, price, image, id, quantity, calculateTotal, totalItem
     }
     
 
-
     return (
         <div className="card shadow-none bg-vital-black mt-2">
             <div className="card-body">
