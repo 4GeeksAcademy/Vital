@@ -184,7 +184,32 @@ def create_admin():
             return {"msg": "Something went wrong" + error}, 500
     else:
         return {"msg": "Admin User already exists"}, 400
-    
+
+@api.route("create-main-admin", methods=["POST"])
+def create_main_admin():
+    admin_user = Administrator.query.filter_by(username="admin").first()    
+    bpassword = bytes("12345", "utf-8")       
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(bpassword, salt)
+    if admin_user is None:
+        try:
+            admin = Administrator( 
+                email="admin@vital.com",               
+                password=hashed.decode("utf-8"),
+                username="admin",
+                name="Admin",
+                lastname="Vital",                
+            )            
+            db.session.add(admin)            
+            db.session.commit()
+            return {"msg": "Admin created successfully"}, 200
+        except ValueError as error:
+            return {"msg": "Something went wrong" + error}, 500
+    else:
+        return {"msg": "Admin User already exists"}, 400
+
+
+
 @api.route("get-admins", methods=["GET"])
 def get_admins():   
     admins = Administrator.query.all()
