@@ -27,7 +27,7 @@ export const Register = () => {
         const newUser = await actions.createUser(user)
         if(newUser){
             alert("User was added successfully")
-        
+            navigate("/login")
         }
         else{
             alert("User was not created")
