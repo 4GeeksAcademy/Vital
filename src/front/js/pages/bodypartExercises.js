@@ -12,7 +12,7 @@ import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
 
 export const BodypartExercises = () => {
-
+  const [fetchExercises, setFetchExercises] = useState(null)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,6 +49,7 @@ export const BodypartExercises = () => {
         const response = await fetch(url, options);
         const dataJson = await response.json();
         setExercises(dataJson);
+        setFetchExercises(dataJson)
         setLoading(false);
       }
       getData()
@@ -64,9 +65,10 @@ export const BodypartExercises = () => {
     console.log(exercises)
     if (exercises) {
       console.log(exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
-      newArray = exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))    
+      newArray = exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
+      
       // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
-    }
+    } 
     if (exercises && sort) {
       if (sort == "asc") {
         console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
@@ -77,7 +79,8 @@ export const BodypartExercises = () => {
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
-    }      
+    }  
+    search == '' && setExercises(fetchExercises)   
     setSearchParams({ sort: sort, page: page, search: search });
   }, [sort, page, search]);
 
