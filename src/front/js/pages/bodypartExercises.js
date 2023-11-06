@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/bodypart-exercises.css";
 import imageBackgroundArm from "../../img/low-arm.png";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -12,6 +13,7 @@ import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
 
 export const BodypartExercises = () => {
+  const { store, actions } = useContext(Context);
   const [fetchExercises, setFetchExercises] = useState(null)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +35,7 @@ export const BodypartExercises = () => {
   };  
 
   useEffect(() => {
-    
+    !store.token && navigate("/login")
     scrollToTop();
     setPage(currentPage);
     if (!useAPI) {

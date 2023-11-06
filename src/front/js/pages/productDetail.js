@@ -8,10 +8,10 @@ import { collection, getDocs, getLocation } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Context } from "../store/appContext.js";
 
-const ProductDetail = () => {
+const ProductDetail = () => {  
   const { store, actions } = useContext(Context)
   const [quantity, setQuantity] = useState(1)
-
+  const navigate = useNavigate();
   const handleQuantity = (e) => {
     if (e.target.value > 1) {
       setQuantity(e.target.value)
@@ -24,6 +24,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     //getDocument();
+    !store.token && navigate("/login")
     const productsRef = collection(db, "products");
     console.log(productsRef);    
     let results = [];
@@ -41,8 +42,7 @@ const ProductDetail = () => {
       setData(data);
     });
   }, []);
-
-  const navigate = useNavigate();
+ 
 
   return (
     <div className="d-flex justify-content-center">

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
+import { Context } from "../store/appContext";
 import "../../styles/exercises.css";
 import { useFetch } from "../hooks/useFetch";
 import imageBackground from "../../img/image-background.png";
 import CardWorkout from "../component/cardWorkout";
 import { scrollToTop } from "../function/scrollToTop";
 import { allExercises } from "../constants/allExcercises";
+import { useNavigate } from "react-router-dom";
 
 export const Exercises = () => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
   const bodyPart = "chest";
   const url = "https://exercisedb.p.rapidapi.com/exercises";
   const options = {
@@ -18,6 +22,7 @@ export const Exercises = () => {
   };
 
   useEffect(() => {
+    !store.token && navigate("/login")
     scrollToTop()
     console.log(allExercises.length);
   }, []);

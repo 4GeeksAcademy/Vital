@@ -11,6 +11,9 @@ const ShoppingCart = () => {
 
     const products = store.products
 
+    useEffect(() => {
+        !store.token && navigate("/login")
+    }, [])
 
    
 
