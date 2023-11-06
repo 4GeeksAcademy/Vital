@@ -34,9 +34,9 @@ const ShoppingCart = () => {
             {/* end col */}
             <div className="col-sm-6">
               <div className="text-sm-end mt-2 mt-sm-0">
-                <a href="ecommerce-checkout.html" className="btn btn-vital-orange text-vital-white">
+                <span className="btn btn-vital-orange text-vital-white">
                   <i className="mdi mdi-cart-outline me-1"></i> Checkout{" "}
-                </a>
+                </span>
               </div>
             </div>{" "}
             {/* end col */}

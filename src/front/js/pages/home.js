@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/exercises");
