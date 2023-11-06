@@ -17,13 +17,13 @@ export const Footer = () => {
   };
 
   return (
-  <footer className="text-white text-center text-lg-start bg-vital-gray">
+  <footer className="text-white text-center text-lg-start bg-dark">
     <div className="container pt-4">
       <div className="d-flex pt-4">
         <div className="col-3 h-50 logo">
           <img
             src={Logo}
-            className="img-fluid object-fit-cover d-none d-sm-block d-sm-block bg-vital-gray d-md-block"
+            className="img-fluid object-fit-cover d-none d-sm-block d-sm-block bg-dark d-md-block"
             alt="logo-vital"
             border="0"
           />
