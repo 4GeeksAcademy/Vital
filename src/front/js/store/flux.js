@@ -177,6 +177,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false			
 			},
 
+			addGym: async (gym) => {
+				const response = await fetch(process.env.BACKEND_URL + "api/create-gym",{
+					method:"POST",
+					headers:{
+						"Content-Type":"application/json"
+					},
+					body:JSON.stringify({gymData: gym})
+				})
+				const data = await response.json();
+				console.log(data)
+				if (data.msg == "Gym added successfully"){
+					return true
+				}					
+					return false
+			}
+
+
 		}
 
 	}

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Administrator, Favorite, Gym, Newsletter
+from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles
 from api.utils import generate_sitemap, APIException
 import random
 import math
@@ -301,8 +301,7 @@ def create_gym():
     latitude = body.get("latitude", None)
     longitude = body.get("longitude", None)
     description = body.get("description", None)
-    phone = body.get("phone", None)
-    image = body.get("image", None)
+    phone = body.get("phone", None)    
     
     if (
         name is None
@@ -311,8 +310,7 @@ def create_gym():
         or latitude is None
         or longitude is None
         or description is None
-        or phone is None
-        or image is None 
+        or phone is None        
     ):
         return {"msg": "Missing fields"}, 400
     if check(email) == False:
@@ -328,8 +326,7 @@ def create_gym():
                 latitude=latitude,
                 longitude=longitude,
                 description=description,
-                phone=phone,
-                image=image                
+                phone=phone,                              
             )
             db.session.add(gym)
             db.session.commit()
@@ -363,8 +360,7 @@ def update_gym():
     latitude = body.get("latitude", None)
     longitude = body.get("longitude", None)
     description = body.get("description", None)
-    phone = body.get("phone", None)
-    image = body.get("image", None)    
+    phone = body.get("phone", None)       
     if (
         name is None
         or email is None
@@ -372,8 +368,7 @@ def update_gym():
         or latitude is None
         or longitude is None
         or description is None
-        or phone is None
-        or image is None 
+        or phone is None      
     ):
         return {"msg": "Missing fields"}, 400
     if check(email) == False:
@@ -388,8 +383,7 @@ def update_gym():
         gym.latitude = latitude
         gym.longitude = longitude
         gym.description = description
-        gym.phone = phone
-        gym.image = image
+        gym.phone = phone        
         db.session.commit()
         return {"msg": "Gym updated successfully"}, 200
     except ValueError as error:
@@ -458,5 +452,19 @@ def enable_newsletter(email):
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
 
-
+@api.route("upload-file", methods=["POST"])
+def upload_file():
+    body = request.get_json()
+    title = body.get("title", None)
+    file = request.files['pdf_file']
+    date = body.get("date", None)
+    if title is None or file is None or date is None:
+        return {"msg": "Missing fields"}, 400
+    try:
+        newsletter_file = NewsletterFiles(title=title, file=file, date=date)
+        db.session.add(newsletter_file)
+        db.session.commit()
+        return {"msg": "File uploaded successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
     

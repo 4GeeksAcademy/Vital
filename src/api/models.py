@@ -141,26 +141,34 @@ class Gym(db.Model):
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    phone = db.Column(db.String(20), nullable=True)
-    image = db.Column(db.String(1000), nullable=True)
+    phone = db.Column(db.String(20), nullable=True)    
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, name, email, address, latitude, longitude, description, phone, image):
+    def __init__(self, name, email, address, latitude, longitude, description, phone):
         self.name = name
         self.email = email
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
-        self.phone = phone
-        self.image = image
+        self.phone = phone       
         self.is_active = True
 
     def __repr__(self):
         return f"<Gym {self.id} {self.name}>"
 
     def serialize(self):
-        return {"id": self.id, "name": self.name, "email": self.email}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "address": self.address,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "description": self.description,
+            "phone": self.phone,
+            "is_active": self.is_active,            
+            }
 
 
 class Profile(db.Model):
@@ -215,3 +223,21 @@ class Newsletter(db.Model):
 
     def serialize(self):
         return {"email": self.email, "Active": self.is_active}
+    
+class NewsletterFiles(db.Model):
+    __tablename__ = "newsletterfiles"
+    id = db.Column(db.Integer, primary_key=True)        
+    title = db.Column(db.String(500), nullable=False)
+    file = db.column(db.BINARY)
+    date = db.Column(db.DateTime, nullable=False)   
+
+    def __init__(self, newsletter_file):
+        
+        self.newsletter_file = newsletter_file        
+        self.is_active = True
+
+    def __repr__(self):
+        return f"<Gym {self.id} {self.newsletter_file}>"
+
+    def serialize(self):
+        return {"newsletter file": self.file, "Date": self.date}
