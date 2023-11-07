@@ -2,8 +2,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
-			products: []
+			products: [],
+			meals: []
 		},
+
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
@@ -52,6 +54,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 					return false
 				}	
+			},
+
+			getMeals: async (url) => {
+				try{
+					const resp = await fetch(url)
+					const data = await resp.json()
+					console.log(data)
+				//	const {image,label,ingredients,calories} = data.hits[0].recipe
+					const recipes = data.hits
+					console.log(data.hits)
+					 setStore({meals: recipes })
+				}
+				catch(error){
+					console.log(error)
+				}
 			},
 
 			getProducts: async () => {
