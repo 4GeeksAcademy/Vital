@@ -171,7 +171,7 @@ class Gym(db.Model):
             }
 
 
-class Profile(db.Model):
+class Profile(User):
     __tablename__ = "profile"
     id = db.Column(db.Integer, primary_key=True)
 
@@ -241,3 +241,30 @@ class NewsletterFiles(db.Model):
 
     def serialize(self):
         return {"newsletter file": self.file, "Date": self.date}
+
+class Transactions(db.Model):
+    __tablename__ = "transactions"
+    id = db.Column(db.Integer, primary_key=True)
+    order = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    comission = db.Column(db.Float, nullable=False)
+
+    def __init__(self, order, date, amount, commission):
+
+        self.order = order
+        self.date = date
+        self.amount = amount
+        self.comission = commission
+
+    def __repr__(self):
+        return f"<Transaction {self.id}, {self.date}>"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "order": self.order,
+            "date": self.date,
+            "amount": self.amount,
+            "comission": self.comission
+        }

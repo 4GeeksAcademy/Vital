@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles
+from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles, Transactions
 from api.utils import generate_sitemap, APIException
 import random
 import math
@@ -468,3 +468,33 @@ def upload_file():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
+@api.route("add-transactions", methods=["POST"])
+def add_transactions():
+    body = request.get_json()
+    order = body.get("order", None)
+    date = body.get("date", None)
+    amount = body.get("amount", None)
+    commission = body.get("commission", None)
+
+    if order is None or date is None or amount is None or commission is None:
+        return {"msg": "Missing fields"}, 400
+    
+    try:
+        transaction = Transactions(order=order, date=date, amount=amount, commission=commission)
+        db.session.add(transaction)
+        db.session.commit()
+        return {"msg": "Transaction added succesfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+
+
+
+
+
+
+@api.route("get-transactions", methods=["GET"])
+def get_transactions():
+    transactions = Transactions.query.all()
+    if transactions is None:
+        return {"msg": "There are not transactions yet"}, 400
+    return [transaction.serialize() for transaction in transactions], 200
