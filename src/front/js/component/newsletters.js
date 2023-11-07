@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Pagination from "./pagination/pagination";
 import { Context } from "../store/appContext";
 const Newsletters = () => {
@@ -11,8 +11,7 @@ const Newsletters = () => {
             <h1 className="h2 text-vital-orange">Manage Newsletters</h1>
             <p className="text-vital-white">
                 Page to manage admin newsletters
-            </p>  
-            <input type="file" accept=".pdf" onChange={(e) => this.setState({ selectedFile: e.target.files[0] })} />          
+            </p>                      
             <div className="row d-flex justify-content-center">
                 <div className="col-12 col-xl-8 mb-4 mb-lg-0">
                     <div className="card bg-vital-black">
