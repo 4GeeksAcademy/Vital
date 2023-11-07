@@ -171,7 +171,7 @@ class Gym(db.Model):
             }
 
 
-class Profile(db.Model):
+class Profile(User):
     __tablename__ = "profile"
     id = db.Column(db.Integer, primary_key=True)
 
