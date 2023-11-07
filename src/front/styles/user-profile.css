@@ -2,3 +2,8 @@
     width: 8rem;
     height: 8rem;
 }
+
+i:hover {
+    cursor: pointer;
+    color: white;
+}
