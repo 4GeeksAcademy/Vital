@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Logo from "../../img/logo-vital.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext"
-import { BagHandleOutline } from "react-ionicons";
+// import { BagHandleOutline } from "react-ionicons";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
@@ -81,9 +81,10 @@ export const Navbar = () => {
           </ul>
         </div>
         <Link to="/shopping-cart">
-          <span className="me-3">
+        <i className="fa-solid fa-cart-shopping text-vital-orange fs-5" ></i>
+          {/* <span className="me-3">
             <BagHandleOutline color={"#ff5300"} />
-          </span>
+          </span> */}
         </Link>
         {store.token ? console.log("true", store.token) : console.log("false", store.token)}
         {
