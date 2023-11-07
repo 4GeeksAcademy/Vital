@@ -4,9 +4,9 @@ import "../../../front/styles/user-profile.css"
 export const UserProfile = () => {
   return (
     <div className='container bg-vital-gray'>
-      <div className='card bg-vital-black w-75 my-2'>
+      <div className='card bg-vital-black w-50 my-2'>
         <div className='card-body'>
-          <div className='d-flex flex-row'>
+          <div className='top-car border-bottom-vital-white d-flex flex-row'>
             <div className=''>
               <img src='https://avatars.githubusercontent.com/u/136831607?v=4' className="profile-image rounded-circle" alt='Profile photo of user' />
             </div>
@@ -20,7 +20,33 @@ export const UserProfile = () => {
               </div>
             </div>
           </div>
-          <div className='PARTE-INFERIOR'></div>
+          <hr className='text-vital-orange'size='3px'/>
+          <div className='mt-4'>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Username</h2>
+              <p className='col fs-6 text-vital-white text-end'>carloscorona</p>
+            </div>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Name</h2>
+              <p className='col fs-6 text-vital-white text-end'>Carlos</p>
+            </div>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Last name</h2>
+              <p className='col fs-6 text-vital-white text-end'>Corona</p>
+            </div>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Email</h2>
+              <p className='col fs-6 text-vital-white text-end'>carlos@vital.com</p>
+            </div>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Phone</h2>
+              <p className='col fs-6 text-vital-white text-end'>+58 414 1234567</p>
+            </div>
+            <div className='row'>
+              <h2 className='col fs-6 fw-bold text-vital-white text-start'>Hobbies</h2>
+              <p className='col fs-6 text-vital-white text-end'>Patinar, comer</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,13 @@
 .profile-image {
-    width: 8rem;
-    height: 8rem;
+    width: 6rem;
+    height: 6rem;
 }
 
 i:hover {
     cursor: pointer;
     color: white;
 }
+
+/* arriba {
+    border-bottom: 4px solid red;
+} */
