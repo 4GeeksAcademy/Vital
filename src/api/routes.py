@@ -468,6 +468,28 @@ def upload_file():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
+@api.route("add-transactions", methods=["POST"])
+def add_transactions():
+    body = request.get_json()
+    order = body.get("order", None)
+    date = body.get("date", None)
+    amount = body.get("amount", None)
+    commission = body.get("commission", None)
+
+    if order is None or date is None or amount is None or commission is None:
+        return {"msg": "Missing fields"}, 400
+    
+    try:
+        transaction = Transactions(order=order, date=date, amount=amount, commission=commission)
+        db.session.add(transaction)
+        db.session.commit()
+        return {"msg": "Transaction added succesfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+
+
+
+
 
 
 @api.route("get-transactions", methods=["GET"])

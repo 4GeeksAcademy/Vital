@@ -250,12 +250,12 @@ class Transactions(db.Model):
     amount = db.Column(db.Float, nullable=False)
     comission = db.Column(db.Float, nullable=False)
 
-    def __init__(self, order, date, amount, comission):
+    def __init__(self, order, date, amount, commission):
 
         self.order = order
         self.date = date
         self.amount = amount
-        self.comission = comission
+        self.comission = commission
 
     def __repr__(self):
         return f"<Transaction {self.id}, {self.date}>"
