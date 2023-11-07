@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import gif from "../../img/exercise.gif";
 import { useFetch } from "../hooks/useFetch";
 import Loading from "../component/loading/loading.js";
-import { ArrowBackOutline } from "react-ionicons";
+// import { ArrowBackOutline } from "react-ionicons";
 import { collection, getDocs, getLocation } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Context } from "../store/appContext.js";
@@ -43,7 +43,6 @@ const ProductDetail = () => {
     });
   }, []);
  
-
   return (
     <div className="d-flex justify-content-center">
       {loading ? (
@@ -56,7 +55,8 @@ const ProductDetail = () => {
               onClick={() => navigate(`/store`)}
               style={{ cursor: "pointer" }}
             >
-              <ArrowBackOutline color={"#ff5300"} className="me-1" />
+              <i class="fa-solid fa-arrow-left text-vital-orange"></i>
+              {/* <ArrowBackOutline color={"#ff5300"} className="me-1" /> */}
               Go back
             </span>
           </div>

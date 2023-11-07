@@ -26,8 +26,7 @@ const ExerciseDetail = () => {
     keyWords: details.bodyPart,
   });
 
-  //true to use API, false to use local constant
-  
+  //true to use API, false to use local constant  
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const urlIA = "https://api.openai.com/v1/chat/completions";
@@ -38,7 +37,6 @@ const ExerciseDetail = () => {
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
-
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -76,7 +74,7 @@ const ExerciseDetail = () => {
   }, []);
 
   useEffect(() => {
-    //console.log(process.env.OPENAI_API_KEY);
+    console.log(process.env.OPENAI_API_KEY);
     if (!useAPI) {
       setObjectAI(objectAI2);
       setLoadingAI(false);
@@ -96,7 +94,7 @@ const ExerciseDetail = () => {
     generateDescription();
   }, [loading]);
 
-  objectAI && console.log(objectAI.choices[0].message.content);
+ objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";
