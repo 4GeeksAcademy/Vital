@@ -3,6 +3,7 @@ import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext";
+import Checkout from "../checkout";
 
 const ShoppingCart = () => {
     const navigate = useNavigate();
@@ -13,11 +14,10 @@ const ShoppingCart = () => {
 
     useEffect(() => {
         !store.token && navigate("/login")
-    }, [])
-
-   
+    }, [])  
 
   return (
+    <>
     <div className="container bg-vital-gray">
       <div className="row">
         <div className="col-xl-8">
@@ -40,7 +40,7 @@ const ShoppingCart = () => {
             {/* end col */}
             <div className="col-sm-6">
               <div className="text-sm-end mt-2 mt-sm-0">
-                <span className="btn btn-vital-orange text-vital-white">
+                <span className="btn btn-vital-orange text-vital-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <i className="mdi mdi-cart-outline me-1"></i> Checkout{" "}
                 </span>
               </div>
@@ -98,6 +98,10 @@ const ShoppingCart = () => {
       </div>
       {/* end row */}
     </div>
+    <div className="modal fade bg-vital-gray" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <Checkout />
+            </div>
+    </>
   );
 };
 
