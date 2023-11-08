@@ -3,6 +3,7 @@ import "./shoppingCart.css";
 import CartItem from "../../component/cartItem";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext";
+import Checkout from "../checkout";
 
 const ShoppingCart = () => {
     const navigate = useNavigate();
@@ -98,52 +99,7 @@ const ShoppingCart = () => {
       {/* end row */}
     </div>
     <div className="modal fade bg-vital-gray" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content bg-black">
-                        <div className="modal-header border-bottom border-vital-orange">
-                            <h1 className="modal-title fs-5 text-vital-orange" id="exampleModalLabel">Add Gym</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body bg-vital-black">
-                            <form>
-                                <div className="mb-3">
-                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
-                                    <input type="text" className="form-control"/>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Description</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="message-text" className="col-form-label text-vital-white">Email:</label>
-                                    <input type="text" className="form-control"  />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="message-text" className="col-form-label text-vital-white">Address:</label>
-                                    <input type="text" className="form-control"  />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="message-text" className="col-form-label text-vital-white">Phone:</label>
-                                    <input type="text" className="form-control"/>
-                                </div>
-                                <div className="mb-3 d-flex">
-                                    <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" />
-                                    </div>
-                                    <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-vital-orange text-vital-white">Add Gym</button>
-                        </div>
-                    </div>
-                </div>
+                <Checkout />
             </div>
     </>
   );

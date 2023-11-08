@@ -503,19 +503,22 @@ def get_transactions():
 def pay():  
   data = request.get_json()
   intent = None
-  try:
-    print("llegue aqui")
+  print(data)
+  try: 
     if 'payment_method_id' in data:
       # Create the PaymentIntent
       intent = stripe.PaymentIntent.create(
         payment_method = data['payment_method_id'],
         amount = data['amount'],
-        currency = 'usd',
-        confirmation_method = 'manual',
-        confirm = True,        
+        currency = 'USD', 
+        confirmation_method = 'manual',  
+        confirm = True,   
+        return_url='https://vital-gym.netlify.app/payment-success'                 
       )
+      #return {"msg": "Payment done successfully"}, 200
     elif 'payment_intent_id' in data:
       intent = stripe.PaymentIntent.confirm(data['payment_intent_id'])
+
   except stripe.error.CardError as e:
     # Display error on client
     return {'error': e.user_message}, 200
@@ -525,6 +528,7 @@ def pay():
 def generate_response(intent):
   # Note that if your API version is before 2019-02-11, 'requires_action'
   # appears as 'requires_source_action'.
+  print(intent.status)
   if intent.status == 'requires_action' and intent.next_action.type == 'use_stripe_sdk':
     # Tell the client to handle the action
     return {
@@ -534,7 +538,7 @@ def generate_response(intent):
   elif intent.status == 'succeeded':
     # The payment didn’t need any additional actions and completed!
     # Handle post-payment fulfillment
-    return {'success': True}, 200
+    return {'success': True}, 200  
   else:
     # Invalid status
     return {'error': 'Invalid PaymentIntent status'}, 500
