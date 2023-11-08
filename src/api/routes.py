@@ -10,7 +10,9 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from datetime import timedelta
 import re
 import bcrypt
+import stripe
 
+stripe.api_key = "sk_test_51Nv9PcKpc9PSomxGEipel1aWPJxzGHNS7W0K4zN9k0QGAKumWU8KKRXrNAx6lT7sUJ641GQRqYR6e0xd8adhcie9007AnUr8nu"
 
 def check(email):
     regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b"
@@ -489,12 +491,52 @@ def add_transactions():
 
 
 
-
-
-
 @api.route("get-transactions", methods=["GET"])
 def get_transactions():
     transactions = Transactions.query.all()
     if transactions is None:
         return {"msg": "There are not transactions yet"}, 400
     return [transaction.serialize() for transaction in transactions], 200
+
+
+@api.route("payment", methods=["POST"])
+def pay():  
+  data = request.get_json()
+  intent = None
+  try:
+    print("llegue aqui")
+    if 'payment_method_id' in data:
+      # Create the PaymentIntent
+      intent = stripe.PaymentIntent.create(
+        payment_method = data['payment_method_id'],
+        amount = data['amount'],
+        currency = 'usd',
+        confirmation_method = 'manual',
+        confirm = True,        
+      )
+    elif 'payment_intent_id' in data:
+      intent = stripe.PaymentIntent.confirm(data['payment_intent_id'])
+  except stripe.error.CardError as e:
+    # Display error on client
+    return {'error': e.user_message}, 200
+  
+  return generate_response(intent)
+
+def generate_response(intent):
+  # Note that if your API version is before 2019-02-11, 'requires_action'
+  # appears as 'requires_source_action'.
+  if intent.status == 'requires_action' and intent.next_action.type == 'use_stripe_sdk':
+    # Tell the client to handle the action
+    return {
+      'requires_action': True,
+      'payment_intent_client_secret': intent.client_secret,
+    }, 200
+  elif intent.status == 'succeeded':
+    # The payment didn’t need any additional actions and completed!
+    # Handle post-payment fulfillment
+    return {'success': True}, 200
+  else:
+    # Invalid status
+    return {'error': 'Invalid PaymentIntent status'}, 500
+    
+    
