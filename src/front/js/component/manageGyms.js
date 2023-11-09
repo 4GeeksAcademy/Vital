@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Pagination from "./pagination/pagination";
 import { Context } from "../store/appContext";
 const ManageGyms = () => {
@@ -11,6 +11,10 @@ const ManageGyms = () => {
         longitude: "",
         phone: "",
     })
+
+    useEffect(() => {
+        actions.getData()
+    }, [store.gyms])
  //26.269592486566175, -81.7530943755124
     const addGym = async () => {
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
@@ -19,6 +23,7 @@ const ManageGyms = () => {
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
+            alert("Gym was added succesfully")
         setGymData({
             name: "",
             description: "",
