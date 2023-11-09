@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			users: [],
 			gyms: [],
 			newsletter: [],
+			profile: null
 		},
 		actions: {
 			createUser: async (user) => {
@@ -43,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					localStorage.setItem("token", data.token)
-					setStore({ token: data.token })
+					setStore({ token: data.token, profile: data.user })
 					console.log(data)
 					return true
 				}

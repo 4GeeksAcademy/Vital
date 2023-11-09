@@ -42,15 +42,18 @@ def create_token():
     password = request.json.get("password", None)    
     if username is None or password is None:
         return {"message": "parameters missing"}, 400
+    
     user = User.query.filter_by(username=username).one_or_none()
     if user is None:
         return {"message": "user doesn't exist"}, 400
     password_byte = bytes(password, "utf-8")   
+
     if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
         return {
             "token": create_access_token(
                 identity=user.username, expires_delta=timedelta(hours=3)
-            )
+            ),
+            "user": user.serialize()
         }, 200
     return {"message": "Access no granted"}, 501
 
@@ -71,7 +74,6 @@ def create_token_admin():
             )
         }, 200
     return {"message": "Access no granted"}, 501
-
 
 @api.route("/users", methods=["GET"])
 def handle_users():
@@ -100,7 +102,6 @@ def get_favorites(username):
     if favorites is None:
         return {"msg": "User doesn't have favorites"}, 400    
     return favorites.serialize() , 200
-
 
 @api.route("create-user", methods=["POST"])
 def create_user():
@@ -148,7 +149,6 @@ def create_user():
             return {"msg": "Something went wrong" + error}, 500
     else:
         return {"msg": "User already exists"}, 400
-
 
 @api.route("create-admin", methods=["POST"])
 def create_admin():
@@ -214,15 +214,12 @@ def create_main_admin():
     else:
         return {"msg": "Admin User already exists"}, 400
 
-
-
 @api.route("get-admins", methods=["GET"])
 def get_admins():   
     admins = Administrator.query.all()
     if admins is None:
         return {"msg": "Admins don't exist"}, 400
     return [admin.serialize() for admin in admins], 200
-
     
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
@@ -344,7 +341,6 @@ def create_gym():
     else:
         return {"msg": "Gym already exists"}, 400
     
-
 @api.route("get-gym/<email>", methods=["GET"])
 def get_gym(email):
     gym = Gym.query.filter_by(email=email).first()
@@ -495,15 +491,12 @@ def add_transactions():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
 
-
-
 @api.route("get-transactions", methods=["GET"])
 def get_transactions():
     transactions = Transactions.query.all()
     if transactions is None:
         return {"msg": "There are not transactions yet"}, 400
     return [transaction.serialize() for transaction in transactions], 200
-
 
 @api.route("payment", methods=["POST"])
 def pay():  
@@ -549,4 +542,36 @@ def generate_response(intent):
     # Invalid status
     return {'error': 'Invalid PaymentIntent status'}, 500
     
+@api.route("my-profile/<username>", methods=["GET"])
+def get_profile(username):
+    user = User.query.filter_by(username=username).first()
+    profile = Profile.query.filter_by(user=user).first()
+    if user is None or profile is None:
+        return {"msg": "User doesn't exist"}, 400
+    return profile.serialize(), 200
+
+@api.route("update-profile/<username>", methods=["PUT"])
+def update_profile(username):
+    body = request.get_json()
+    jobies = body.get("jobies", None)
+    profile_image = body.get("profile_image", None)
+    description = body.get("description", None)
+    phone = body.get("phone", None)
+
+    if jobies is None or profile_image is None or description is None or phone is None:
+        return {"msg": "Missing fields"}, 400
+    user = User.query.filter_by(username=username).first()
+    print(user)
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
     
+    try:
+        user.jobies = jobies
+        user.profile_image = profile_image
+        user.description = description
+        user.phone = phone
+        print(user.jobies, user.description, user.phone)
+        db.session.commit()
+        return {"msg": "Profile updated succesfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
