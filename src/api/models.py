@@ -182,9 +182,9 @@ class Profile(db.Model):
     profile_image = db.Column(db.String(500), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, jobies, profile_image, description, phone):
+    def __init__(self, user, jobies, profile_image, description, phone):
+        self.user = user
         self.jobies = jobies
         self.profile_image = profile_image
         self.description = description
