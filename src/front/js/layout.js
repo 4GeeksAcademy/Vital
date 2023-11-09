@@ -21,6 +21,7 @@ import { Login } from "./pages/login";
 import AdminPanel from "./pages/adminPanel";
 import { AdminLogin } from "./pages/adminLogin";
 import PageViewerPDF from "./pages/pageViewerPDF";
+import { UserProfile } from "./pages/userProfile";
 import Checkout from "./pages/checkout";
 
 //create your first component
@@ -52,6 +53,7 @@ const Layout = () => {
             <Route element={<Register/>} path="/register"/>
             <Route element={<Login/>} path="/login"/>
             <Route element={<AdminLogin />} path="/admin-login" />
+            <Route element={<UserProfile />} path="/my-profile" />
             <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<PageViewerPDF />} path="/pdfviewer" />
             <Route element={<Checkout />} path="/checkout" />

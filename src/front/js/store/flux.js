@@ -178,13 +178,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			addGym: async (gym) => {
+				const store = getStore()
 				const response = await fetch(process.env.BACKEND_URL + "api/create-gym",{
 					method:"POST",
 					headers:{
 						"Content-Type":"application/json"
 					},
-					body:JSON.stringify({gymData: gym})
+					body:JSON.stringify(gym)
 				})
+
+				// setStore({gym: [gym, ...store.gym]})
+
 				const data = await response.json();
 				console.log(data)
 				if (data.msg == "Gym added successfully"){

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles, Transactions
+from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles, Transactions, Profile
 from api.utils import generate_sitemap, APIException
 import random
 import math
@@ -136,8 +136,12 @@ def create_user():
             )            
             db.session.add(user)
             db.session.commit()
-            favorite = Favorite(user=user,favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
+            favorite = Favorite(user=user, favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
             db.session.add(favorite)
+            db.session.commit()
+            # return {"msg": "antes del profile"}
+            profile = Profile(user=user, jobies="", profile_image="", description="", phone="")
+            db.session.add(profile)
             db.session.commit()
             return {"msg": "User created successfully"}, 200
         except ValueError as error:
@@ -303,8 +307,10 @@ def create_gym():
     latitude = body.get("latitude", None)
     longitude = body.get("longitude", None)
     description = body.get("description", None)
-    phone = body.get("phone", None)    
-    
+    phone = body.get("phone", None)
+
+    print(body)
+
     if (
         name is None
         or email is None
