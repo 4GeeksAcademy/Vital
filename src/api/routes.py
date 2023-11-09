@@ -307,8 +307,10 @@ def create_gym():
     latitude = body.get("latitude", None)
     longitude = body.get("longitude", None)
     description = body.get("description", None)
-    phone = body.get("phone", None)    
-    
+    phone = body.get("phone", None)
+
+    print(body)
+
     if (
         name is None
         or email is None

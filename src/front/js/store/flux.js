@@ -183,7 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers:{
 						"Content-Type":"application/json"
 					},
-					body:JSON.stringify({gymData: gym})
+					body:JSON.stringify(gym)
 				})
 				const data = await response.json();
 				console.log(data)
