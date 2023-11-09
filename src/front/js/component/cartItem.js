@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useMemo } from "react";
 import { Context } from "../store/appContext";
-import { TrashOutline } from "react-ionicons";
+// import { TrashOutline } from "react-ionicons";
 
 const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
 
@@ -48,10 +48,11 @@ const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
                     <div className="flex-grow-1 align-self-center overflow-hidden">
                         <div className="d-flex justify-content-between">
                             <h5 className="text-truncate nfont-size-18 text-vital-white"><a href="#" className="text-vital-orange">{title}</a></h5>
-                            <TrashOutline
+                            <i className="fa-solid fa-trash-can text-vital-orange" ></i>
+                            {/* <TrashOutline
                             color={"#ff5300"}
                             style={{ cursor: "pointer" }}
-                            onClick={() => removeItemFromCart()} />
+                            onClick={() => removeItemFromCart()} /> */}
                         </div>
                     </div>
                 </div>
