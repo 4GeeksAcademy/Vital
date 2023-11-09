@@ -522,8 +522,15 @@ def pay():
   except stripe.error.CardError as e:
     # Display error on client
     return {'error': e.user_message}, 200
-  
-  return generate_response(intent)
+  try :
+    # save the transaction
+    transaction = Transactions(payment_id=intent.id, order=data["order"], amount=intent.amount)
+    db.session.add(transaction)
+    db.session.commit()
+    return generate_response(intent)
+  except Exception as error:
+        stripe.PaymentIntent.cancel(intent.id)
+        return {"msg": "Something went wrong" + error}, 500
 
 def generate_response(intent):
   # Note that if your API version is before 2019-02-11, 'requires_action'
@@ -536,8 +543,10 @@ def generate_response(intent):
       'payment_intent_client_secret': intent.client_secret,
     }, 200
   elif intent.status == 'succeeded':
-    # The payment didn’t need any additional actions and completed!
-    # Handle post-payment fulfillment
+    # the transaction need to be save in the database
+    # save the transaction
+    
+    
     return {'success': True}, 200  
   else:
     # Invalid status

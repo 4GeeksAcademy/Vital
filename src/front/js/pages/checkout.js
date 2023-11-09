@@ -77,7 +77,7 @@ const CheckoutForm = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ payment_method_id: result.paymentMethod.id, amount: store.totalShoppingCart * 100 })
+      body: JSON.stringify({ payment_method_id: result.paymentMethod.id, amount: store.totalShoppingCart * 100, order: 8547625 })
     });
     const paymentResponse = await response.json();
     handleServerResponse(paymentResponse);
