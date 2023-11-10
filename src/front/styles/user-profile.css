@@ -4,7 +4,6 @@
 }
 
 edit-icon:hover {
-    cursor: pointer;
     color: white;
 }
 
@@ -12,4 +11,9 @@ edit-icon {
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
+}
+
+input:focus {
+    border-color: ##ff5300;
 }
