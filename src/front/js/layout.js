@@ -23,6 +23,7 @@ import { AdminLogin } from "./pages/adminLogin";
 import PageViewerPDF from "./pages/pageViewerPDF";
 import { UserProfile } from "./pages/userProfile";
 import Checkout from "./pages/checkout";
+import { Favorites } from "./pages/favorites";
 
 //create your first component
 const Layout = () => {
@@ -54,6 +55,7 @@ const Layout = () => {
             <Route element={<Login/>} path="/login"/>
             <Route element={<AdminLogin />} path="/admin-login" />
             <Route element={<UserProfile />} path="/my-profile" />
+            <Route element={<Favorites />} path="/favorites" />
             <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<PageViewerPDF />} path="/pdfviewer" />
             <Route element={<Checkout />} path="/checkout" />
