@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Pagination from "./pagination/pagination";
 import { Context } from "../store/appContext";
 const ManageGyms = () => {
@@ -13,12 +13,15 @@ const ManageGyms = () => {
     })
  //26.269592486566175, -81.7530943755124
     const addGym = async () => {
+        const closeRef = useRef();
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
             alert("Please fill all the fields")
             return
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
+        closeRef.current.click()
+        alert("Gym added successfully")
         setGymData({
             name: "",
             description: "",
@@ -154,7 +157,7 @@ const ManageGyms = () => {
                             </form>
                         </div>
                         <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
                             <button type="button" className="btn btn-vital-orange text-vital-white" onClick={addGym}>Add Gym</button>
                         </div>
                     </div>

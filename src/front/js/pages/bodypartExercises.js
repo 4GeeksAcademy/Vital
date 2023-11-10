@@ -66,11 +66,12 @@ export const BodypartExercises = () => {
     let newArray = []
     console.log(exercises)
     if (exercises) {
-      console.log(exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
-      newArray = exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
+      console.log(fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
+      newArray = fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
       
       // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
     } 
+    //search == '' && setExercises(fetchExercises)
     if (exercises && sort) {
       if (sort == "asc") {
         console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
@@ -81,8 +82,7 @@ export const BodypartExercises = () => {
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
-    }  
-    search == '' && setExercises(fetchExercises)   
+    }         
     setSearchParams({ sort: sort, page: page, search: search });
   }, [sort, page, search]);
 
