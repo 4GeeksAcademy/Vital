@@ -74,7 +74,12 @@ def create_token_admin():
 
 
 @api.route("/users", methods=["GET"])
+@jwt_required()
 def handle_users():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     try:
         users = User.query.filter_by(role="user").all()
         print(users)
@@ -213,7 +218,12 @@ def create_main_admin():
 
 
 @api.route("get-admins", methods=["GET"])
+@jwt_required()
 def get_admins():   
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     admins = Administrator.query.all()
     if admins is None:
         return {"msg": "Admins don't exist"}, 400
@@ -347,7 +357,12 @@ def get_gym(email):
     return gym.serialize(), 200
 
 @api.route("get-gyms", methods=["GET"])
+@jwt_required()
 def get_gyms():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     gyms = Gym.query.all()
     if gyms is None:
         return {"msg": "Gyms don't exist"}, 400
@@ -424,7 +439,12 @@ def add_newsletter():
         return {"msg": "Something went wrong" + error}, 500
     
 @api.route("get-newsletter", methods=["GET"])
+@jwt_required()
 def get_newsletter():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     newsletters = Newsletter.query.all()
     if newsletters is None:
         return {"msg": "Newsletters don't exist"}, 400
@@ -524,7 +544,7 @@ def pay():
     return {'error': e.user_message}, 200
   try :
     # save the transaction
-    transaction = Transactions(payment_id=intent.id, order=data["order"], amount=intent.amount)
+    transaction = Transactions(payment_id=intent.id, order=data["order"], amount=intent.amount/100)
     db.session.add(transaction)
     db.session.commit()
     return generate_response(intent)
@@ -551,5 +571,6 @@ def generate_response(intent):
   else:
     # Invalid status
     return {'error': 'Invalid PaymentIntent status'}, 500
+  
     
-    
+

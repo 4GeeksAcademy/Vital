@@ -20,9 +20,9 @@ export const Login = () => {
         }
         const isValid = await actions.loginUser(username, password)
             if(isValid){
+                actions.setUsername(username)
                 alert("Login Successfully")
                 navigate("/")
-
             }                   
                 
     }

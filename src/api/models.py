@@ -256,7 +256,7 @@ class Transactions(db.Model):
         self.order = order
         self.date = datetime.now()
         self.amount = amount
-        self.comission = amount * 0.5
+        self.comission = amount * 0.05
 
     def __repr__(self):
         return f"<Transaction {self.id}, {self.date}>"

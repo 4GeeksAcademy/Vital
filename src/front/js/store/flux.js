@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
+			username: null,
 			products: [],
 			totalShoppingCart: 0,
 			favorites: [],
@@ -10,6 +11,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			newsletter: [],
 		},
 		actions: {
+			setUsername: (username) => {
+				setStore({ username: username })
+			},
 			createUser: async (user) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "api/create-user",
@@ -55,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () =>{				
 					localStorage.removeItem("token")
-					setStore({token: null})					
+					setStore({token: null, username: null})					
 					return true				
 			},
 
@@ -146,16 +150,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ favorites: newFavorites });
 			},	
 			getData: async () => {
-				const response = await fetch(process.env.BACKEND_URL + "api/users");
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/users?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
 				const data = await response.json();
 				setStore({ users: data });	
-				const gyms = await fetch(process.env.BACKEND_URL + "api/get-gyms");
+				const gyms = await fetch(process.env.BACKEND_URL + `api/get-gyms?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
 				const dataGyms = await gyms.json();
 				setStore({ gyms: dataGyms });
-				const newsletter = await fetch(process.env.BACKEND_URL + "api/get-newsletter");
+				const newsletter = await fetch(process.env.BACKEND_URL + `api/get-newsletter?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
 				const dataNewsletter = await newsletter.json();
 				setStore({ newsletter: dataNewsletter });
-				const admins = await fetch(process.env.BACKEND_URL + "api/get-admins");
+				const admins = await fetch(process.env.BACKEND_URL + `api/get-admins?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
 				const dataAdmins = await admins.json();
 				setStore({ admins: dataAdmins });
 				return false;
@@ -191,6 +228,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true
 				}					
 					return false
+			},
+			clearCart: () => {
+				setStore({ products: [] });
 			}
 
 
