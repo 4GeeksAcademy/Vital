@@ -84,15 +84,6 @@ def handle_users():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
-@api.route("/users/favorites/<username>", methods=["GET"])
-def favorites_get(username):          
-    try:
-        favorites = Favorite.query.filter_by(username=username).first()
-        response_body = [favorite.serialize() for favorite in favorites]
-        return response_body, 200
-    except Exception as error:
-        return jsonify({"message": str(error)}), 400   
-    
 @api.route("favorites/<username>", methods=["GET"])
 def get_favorites(username):
     user = User.query.filter_by(username=username).first()
@@ -222,7 +213,9 @@ def get_admins():
     return [admin.serialize() for admin in admins], 200
     
 @api.route("add-favorite/<username>", methods=["PUT"])
+@jwt_required()
 def add_favorites(username):
+
     args = request.args
     body_part = args.get("body_part", None, type=str)
     exercise = args.get("exercise", None, type=str)
@@ -561,17 +554,22 @@ def update_profile(username):
     if jobies is None or profile_image is None or description is None or phone is None:
         return {"msg": "Missing fields"}, 400
     user = User.query.filter_by(username=username).first()
-    print(user)
+    profile = Profile.query.filter_by(user=user).first()
+
+    print(profile)
+
     if user is None:
         return {"msg": "User doesn't exist"}, 400
     
     try:
-        user.jobies = jobies
-        user.profile_image = profile_image
-        user.description = description
-        user.phone = phone
-        print(user.jobies, user.description, user.phone)
+        profile.jobies = jobies
+        profile.profile_image = profile_image
+        profile.description = description
+        profile.phone = phone
+        print(profile.jobies, profile.description, profile.phone)
         db.session.commit()
-        return {"msg": "Profile updated succesfully"}, 200
+        return {
+            "msg": "Profile updated succesfully",
+            "profile": profile.serialize()}, 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500

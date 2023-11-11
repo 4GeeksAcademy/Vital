@@ -191,7 +191,7 @@ class Profile(db.Model):
         self.phone = phone
 
     def __repr__(self):
-        return f"<Profile {self.id} {self.name}>"
+        return f"<Profile {self.id}>"
 
     def serialize(self):
         return {
