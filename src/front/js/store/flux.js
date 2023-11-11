@@ -291,6 +291,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}					
 					return false				
 			},
+			getGyms: async () => {
+				const store = getStore()
+				const response = await fetch(process.env.BACKEND_URL + `api/get-gyms?username=${store.username}`,{
+					method:"GET",
+					headers:{
+						"Content-Type":"application/json",
+						"Authorization": "Bearer " + store.token
+					}
+				})
+				const data = await response.json();
+				setStore({gyms: data})
+				return false
+			},
+			changeStatus: async (email) => {
+				const store = getStore()
+				const response = await fetch(process.env.BACKEND_URL + `api/update-status?username=${store.username}`,{
+					method:"PUT",
+					headers:{
+						"Content-Type":"application/json",
+						"Authorization": "Bearer " + store.token
+					},
+					body:JSON.stringify({email: email})
+				})
+				const data = await response.json();
+				console.log(data)
+				if (data.msg == "Gym updated successfully"){
+					
+					return true
+				}					
+					return false				
+			},
 			clearCart: () => {
 				setStore({ products: [] });
 			},

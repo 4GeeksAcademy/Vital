@@ -79,6 +79,23 @@ const ManageGyms = () => {
             })
         }
     }
+
+    const changeStatus = async (email) => {
+        const status = confirm("Are you sure you want to change the status of this gym?")
+        if (status) {            
+                const resp = actions.changeStatus(email)
+                if (resp) {
+                    actions.getGyms()
+                    alert("Status changed successfully")
+                }
+                else {
+                    alert("Something went wrong")
+                }
+            }
+            return
+        }
+    
+
     //name, email, address, latitude, longitude, description, phone, image
     //console.log(store.gyms)
     return (
@@ -124,7 +141,7 @@ const ManageGyms = () => {
                                                         <td>{gym.email}</td>
                                                         <td>{gym.address}</td>
                                                         <td>{gym.phone}</td>
-                                                        <td>{gym.is_active ? <i className="fa-solid fa-check text-success"></i> : <i className="fa-solid fa-x text-danger"></i>}</td>
+                                                        <td>{gym.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{cursor: "pointer"}} onClick={() => changeStatus(gym.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{pointer: ""}} onClick={()=>changeStatus(gym.email)}></i>}</td>
                                                         <td>
                                                             <span className="btn btn-sm text-vital-white btn-vital-orange" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
                                                                 Edit

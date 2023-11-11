@@ -418,6 +418,25 @@ def delete_gym(email):
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
+@api.route("update-status", methods=["PUT"])
+@jwt_required()
+def update_status():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    body = request.get_json()
+    email = body.get("email", None)
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        return {"msg": "Gym doesn't exist"}, 400
+    try:
+        gym.is_active = not gym.is_active
+        db.session.commit()
+        return {"msg": "Gym updated successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
 @api.route("newsletter", methods=["POST"])
 def add_newsletter():
     body = request.get_json()
