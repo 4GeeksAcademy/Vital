@@ -364,7 +364,12 @@ def get_gyms():
     return [gym.serialize() for gym in gyms], 200
 
 @api.route("update-gym", methods=["PUT"])
+@jwt_required()
 def update_gym():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     body = request.get_json()
     name = body.get("name", None)
     email = body.get("email", None)

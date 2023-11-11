@@ -271,6 +271,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}					
 					return false
 			},
+			editGym: async (gym) => {
+				const store = getStore()
+				const response = await fetch(process.env.BACKEND_URL + `api/update-gym?username=${store.username}`,{
+					method:"PUT",
+					headers:{
+						"Content-Type":"application/json",
+						"Authorization": "Bearer " + store.token
+					},
+					body:JSON.stringify(gym)
+				})
+				const data = await response.json();
+				//console.log(data)
+				if (data.msg == "Gym edited successfully"){
+					const newGyms = {...store.gyms, [gym.id]: gym}
+					setStore({gyms: newGyms})
+
+					return true
+				}					
+					return false				
+			},
 			clearCart: () => {
 				setStore({ products: [] });
 			},
