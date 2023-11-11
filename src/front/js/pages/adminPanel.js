@@ -72,7 +72,7 @@ const AdminPanel = () => {
                 </div>
                 <div className="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
                     <div className="btn-group dropstart ">
-                        <span className="btn btn-secondary dropdown-toggle bg-vital-orange" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span className="btn btn-secondary dropdown-toggle bg-vital-orange rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Hello, Admin
                         </span>
 

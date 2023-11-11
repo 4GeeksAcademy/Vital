@@ -16,7 +16,7 @@ export const UserProfile = () => {
                 <p className='text-vital-white'>Soy un disenador grafico estudiando programacion. Me apasiona la tecnologia y la gastronomia. Me gusta mucho viajar.</p>
               </div>
             </div>
-              <i className="edit-icon fa-regular fa-pen-to-square text-vital-orange fs-5"></i>
+              <i className="edit-icon fa-regular fa-pen-to-square text-vital-orange fs-5" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
           </div>
           <div className='mt-4'>
             <div className='row'>
@@ -46,6 +46,53 @@ export const UserProfile = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <div className="modal fade bg-vital-gray" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content bg-black">
+                        <div className="modal-header border-bottom border-vital-orange">
+                            <h1 className="modal-title fs-5 text-vital-orange fw-bold" id="exampleModalLabel">Edit your information</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body bg-vital-black">
+                            <form>
+                                <div className="mb-3">
+                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Username</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Last name</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="recipient-name" className="col-form-label text-vital-white">Description</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label for="message-text" className="col-form-label text-vital-white">Email</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="message-text" className="col-form-label text-vital-white">Phone</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="message-text" className="col-form-label text-vital-white">Hobbies</label>
+                                    <input type="text" className="form-control bg-vital-gray text-vital-white"/>
+                                </div>
+                            </form>
+                        </div>
+                        <div className="modal-footer border-top border-vital-orange">
+                            <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-vital-orange rounded-pill text-vital-white">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
   )
 }

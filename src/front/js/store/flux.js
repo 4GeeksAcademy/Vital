@@ -4,10 +4,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			products: [],
 			totalShoppingCart: 0,
-			favorites: [],
 			users: [],
 			gyms: [],
 			newsletter: [],
+			profile: null,
+			favorites: {
+				back: [],
+				cardio: [],
+				chest: [],
+				neck: [],
+				shoulders: [],
+				upperarms: [],
+				lowerarms: [],
+				upperlegs: [],
+				lowerlegs: [],
+				waist: []
+			}
 		},
 		actions: {
 			createUser: async (user) => {
@@ -43,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					localStorage.setItem("token", data.token)
-					setStore({ token: data.token })
+					setStore({ token: data.token, profile: data.user })
 					console.log(data)
 					return true
 				}
@@ -135,15 +147,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 			},
-			addFavorites: (exercise) => {
+			addFavExercise: (bodypart, exercise) => {
+				// Eliminar espacios en blanco de bodypart
+				const newBodypart = bodypart.replace(/\s/g, '')
 				const store = getStore();
-				const newFavorites = [...store.favorites, exercise];
-				setStore({ favorites: newFavorites });
+				if (store.favorites[newBodypart].includes(exercise)) return
+				
+				if (store.favorites.hasOwnProperty(newBodypart)) {
+					const newFavorite = {...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
+					setStore({ favorites: newFavorite })
+				} else {
+					console.log(`no existe el key en el objeto`)
+				}
 			},
-			removeFavorites: (exercise) => {
-				const store = getStore();
-				const newFavorites = store.favorites.filter((favorite) => favorite.id !== exercise.id);
-				setStore({ favorites: newFavorites });
+			removeFavExercise: (bodypart, exercise) => {
+				const newBodypart = bodypart.replace(/\s/g, '')
+				const store = getStore()
+				if (store.favorites.hasOwnProperty(newBodypart)) {
+					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
+					setStore({ favorites: newFavorite });
+				}
 			},	
 			getData: async () => {
 				const response = await fetch(process.env.BACKEND_URL + "api/users");
