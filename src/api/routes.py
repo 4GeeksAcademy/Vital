@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles, Transactions
+from api.models import db, User, Administrator, Favorite, Gym, Newsletter, NewsletterFiles, Transactions, Profile
 from api.utils import generate_sitemap, APIException
 import random
 import math
@@ -42,15 +42,18 @@ def create_token():
     password = request.json.get("password", None)    
     if username is None or password is None:
         return {"message": "parameters missing"}, 400
+    
     user = User.query.filter_by(username=username).one_or_none()
     if user is None:
         return {"message": "user doesn't exist"}, 400
     password_byte = bytes(password, "utf-8")   
+
     if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
         return {
             "token": create_access_token(
                 identity=user.username, expires_delta=timedelta(hours=3)
-            )
+            ),
+            "user": user.serialize()
         }, 200
     return {"message": "Access no granted"}, 501
 
@@ -72,7 +75,6 @@ def create_token_admin():
         }, 200
     return {"message": "Access no granted"}, 501
 
-
 @api.route("/users", methods=["GET"])
 @jwt_required()
 def handle_users():
@@ -87,15 +89,6 @@ def handle_users():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
-@api.route("/users/favorites/<username>", methods=["GET"])
-def favorites_get(username):          
-    try:
-        favorites = Favorite.query.filter_by(username=username).first()
-        response_body = [favorite.serialize() for favorite in favorites]
-        return response_body, 200
-    except Exception as error:
-        return jsonify({"message": str(error)}), 400   
-    
 @api.route("favorites/<username>", methods=["GET"])
 def get_favorites(username):
     user = User.query.filter_by(username=username).first()
@@ -105,7 +98,6 @@ def get_favorites(username):
     if favorites is None:
         return {"msg": "User doesn't have favorites"}, 400    
     return favorites.serialize() , 200
-
 
 @api.route("create-user", methods=["POST"])
 def create_user():
@@ -141,15 +133,18 @@ def create_user():
             )            
             db.session.add(user)
             db.session.commit()
-            favorite = Favorite(user=user,favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
+            favorite = Favorite(user=user, favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
             db.session.add(favorite)
+            db.session.commit()
+            # return {"msg": "antes del profile"}
+            profile = Profile(user=user, jobies="", profile_image="", description="", phone="")
+            db.session.add(profile)
             db.session.commit()
             return {"msg": "User created successfully"}, 200
         except ValueError as error:
             return {"msg": "Something went wrong" + error}, 500
     else:
         return {"msg": "User already exists"}, 400
-
 
 @api.route("create-admin", methods=["POST"])
 def create_admin():
@@ -215,8 +210,6 @@ def create_main_admin():
     else:
         return {"msg": "Admin User already exists"}, 400
 
-
-
 @api.route("get-admins", methods=["GET"])
 @jwt_required()
 def get_admins():   
@@ -228,10 +221,10 @@ def get_admins():
     if admins is None:
         return {"msg": "Admins don't exist"}, 400
     return [admin.serialize() for admin in admins], 200
-
     
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
+
     args = request.args
     body_part = args.get("body_part", None, type=str)
     exercise = args.get("exercise", None, type=str)
@@ -313,8 +306,10 @@ def create_gym():
     latitude = body.get("latitude", None)
     longitude = body.get("longitude", None)
     description = body.get("description", None)
-    phone = body.get("phone", None)    
-    
+    phone = body.get("phone", None)
+
+    print(body)
+
     if (
         name is None
         or email is None
@@ -348,7 +343,6 @@ def create_gym():
     else:
         return {"msg": "Gym already exists"}, 400
     
-
 @api.route("get-gym/<email>", methods=["GET"])
 def get_gym(email):
     gym = Gym.query.filter_by(email=email).first()
@@ -509,15 +503,12 @@ def add_transactions():
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
 
-
-
 @api.route("get-transactions", methods=["GET"])
 def get_transactions():
     transactions = Transactions.query.all()
     if transactions is None:
         return {"msg": "There are not transactions yet"}, 400
     return [transaction.serialize() for transaction in transactions], 200
-
 
 @api.route("payment", methods=["POST"])
 def pay():  
@@ -573,4 +564,41 @@ def generate_response(intent):
     return {'error': 'Invalid PaymentIntent status'}, 500
   
     
+@api.route("my-profile/<username>", methods=["GET"])
+def get_profile(username):
+    user = User.query.filter_by(username=username).first()
+    profile = Profile.query.filter_by(user=user).first()
+    if user is None or profile is None:
+        return {"msg": "User doesn't exist"}, 400
+    return profile.serialize(), 200
 
+@api.route("update-profile/<username>", methods=["PUT"])
+def update_profile(username):
+    body = request.get_json()
+    jobies = body.get("jobies", None)
+    profile_image = body.get("profile_image", None)
+    description = body.get("description", None)
+    phone = body.get("phone", None)
+
+    if jobies is None or profile_image is None or description is None or phone is None:
+        return {"msg": "Missing fields"}, 400
+    user = User.query.filter_by(username=username).first()
+    profile = Profile.query.filter_by(user=user).first()
+
+    print(profile)
+
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    
+    try:
+        profile.jobies = jobies
+        profile.profile_image = profile_image
+        profile.description = description
+        profile.phone = phone
+        print(profile.jobies, profile.description, profile.phone)
+        db.session.commit()
+        return {
+            "msg": "Profile updated succesfully",
+            "profile": profile.serialize()}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
