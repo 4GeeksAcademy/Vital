@@ -213,7 +213,6 @@ def get_admins():
     return [admin.serialize() for admin in admins], 200
     
 @api.route("add-favorite/<username>", methods=["PUT"])
-@jwt_required()
 def add_favorites(username):
 
     args = request.args

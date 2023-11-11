@@ -64,7 +64,6 @@ export const BodypartExercises = () => {
 
   useEffect(() => {  
     let newArray = []
-    console.log(exercises)
     if (exercises) {
       console.log(exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
       newArray = exercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
@@ -92,8 +91,7 @@ export const BodypartExercises = () => {
   
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
   const params = Object.fromEntries([...searchParams]);
-  console.log('Mounted:', params);
-
+  
   return (
     <>
       {loading ? (
@@ -119,7 +117,8 @@ export const BodypartExercises = () => {
                             exercise={exercise.name}
                             id={exercise.id}
                             target={exercise.target}
-                            equipment={exercise.equipment}                            
+                            equipment={exercise.equipment}
+                            bodypart={bodypart}                         
                           />
                         )}
                       </>
