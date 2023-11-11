@@ -355,6 +355,7 @@ def get_gym(email):
 def get_gyms():
     front_username = request.args.get("username", None)
     username = get_jwt_identity()
+    print(username)
     if username != front_username:
         return {"msg": "User not authorized"}, 501
     gyms = Gym.query.all()
@@ -504,7 +505,12 @@ def add_transactions():
         return {"msg": "Something went wrong" + error}, 500
 
 @api.route("get-transactions", methods=["GET"])
+@jwt_required()
 def get_transactions():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     transactions = Transactions.query.all()
     if transactions is None:
         return {"msg": "There are not transactions yet"}, 400

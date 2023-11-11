@@ -2,11 +2,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
-			username: null,
+			username: null || localStorage.getItem("username"),
 			products: [],
 			totalShoppingCart: 0,
 			users: [],
 			gyms: [],
+			transactions: [],
 			newsletter: [],
 			profile: null,
 			favorites: {
@@ -59,6 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					localStorage.setItem("token", data.token)
+					localStorage.setItem("username", username)
 					setStore({ token: data.token, profile: data.user })
 					console.log(data)
 					return true
@@ -71,6 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () =>{				
 					localStorage.removeItem("token")
+					localStorage.removeItem("username")
 					setStore({token: null, username: null})					
 					return true				
 			},
@@ -91,6 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false
 					}
 					localStorage.setItem("token", data.token )
+					localStorage.setItem("username", username)
 					setStore({token: data.token})
 					console.log(data)
 					return true
@@ -218,6 +222,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				);
 				const dataAdmins = await admins.json();
 				setStore({ admins: dataAdmins });
+				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
+				const dataTransactions = await transactions.json();
+				setStore({ transactions: dataTransactions });
 				return false;
 
 			},
@@ -258,6 +273,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			clearCart: () => {
 				setStore({ products: [] });
+			},
+			getTransactions: async () => {
+				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+				}
+				);
+				const dataTransactions = await transactions.json();
+				setStore({ transactions: dataTransactions });
+				return false;
 			}
 
 
