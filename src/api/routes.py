@@ -76,7 +76,12 @@ def create_token_admin():
     return {"message": "Access no granted"}, 501
 
 @api.route("/users", methods=["GET"])
+@jwt_required()
 def handle_users():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     try:
         users = User.query.filter_by(role="user").all()
         print(users)
@@ -206,7 +211,12 @@ def create_main_admin():
         return {"msg": "Admin User already exists"}, 400
 
 @api.route("get-admins", methods=["GET"])
+@jwt_required()
 def get_admins():   
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     admins = Administrator.query.all()
     if admins is None:
         return {"msg": "Admins don't exist"}, 400
@@ -341,14 +351,25 @@ def get_gym(email):
     return gym.serialize(), 200
 
 @api.route("get-gyms", methods=["GET"])
+@jwt_required()
 def get_gyms():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    print(username)
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     gyms = Gym.query.all()
     if gyms is None:
         return {"msg": "Gyms don't exist"}, 400
     return [gym.serialize() for gym in gyms], 200
 
 @api.route("update-gym", methods=["PUT"])
+@jwt_required()
 def update_gym():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     body = request.get_json()
     name = body.get("name", None)
     email = body.get("email", None)
@@ -397,6 +418,25 @@ def delete_gym(email):
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
     
+@api.route("update-status", methods=["PUT"])
+@jwt_required()
+def update_status():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    body = request.get_json()
+    email = body.get("email", None)
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    gym = Gym.query.filter_by(email=email).first()
+    if gym is None:
+        return {"msg": "Gym doesn't exist"}, 400
+    try:
+        gym.is_active = not gym.is_active
+        db.session.commit()
+        return {"msg": "Gym updated successfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
 @api.route("newsletter", methods=["POST"])
 def add_newsletter():
     body = request.get_json()
@@ -418,7 +458,12 @@ def add_newsletter():
         return {"msg": "Something went wrong" + error}, 500
     
 @api.route("get-newsletter", methods=["GET"])
+@jwt_required()
 def get_newsletter():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     newsletters = Newsletter.query.all()
     if newsletters is None:
         return {"msg": "Newsletters don't exist"}, 400
@@ -484,7 +529,12 @@ def add_transactions():
         return {"msg": "Something went wrong" + error}, 500
 
 @api.route("get-transactions", methods=["GET"])
+@jwt_required()
 def get_transactions():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     transactions = Transactions.query.all()
     if transactions is None:
         return {"msg": "There are not transactions yet"}, 400
@@ -513,8 +563,15 @@ def pay():
   except stripe.error.CardError as e:
     # Display error on client
     return {'error': e.user_message}, 200
-  
-  return generate_response(intent)
+  try :
+    # save the transaction
+    transaction = Transactions(payment_id=intent.id, order=data["order"], amount=intent.amount/100)
+    db.session.add(transaction)
+    db.session.commit()
+    return generate_response(intent)
+  except Exception as error:
+        stripe.PaymentIntent.cancel(intent.id)
+        return {"msg": "Something went wrong" + error}, 500
 
 def generate_response(intent):
   # Note that if your API version is before 2019-02-11, 'requires_action'
@@ -527,12 +584,15 @@ def generate_response(intent):
       'payment_intent_client_secret': intent.client_secret,
     }, 200
   elif intent.status == 'succeeded':
-    # The payment didn’t need any additional actions and completed!
-    # Handle post-payment fulfillment
+    # the transaction need to be save in the database
+    # save the transaction
+    
+    
     return {'success': True}, 200  
   else:
     # Invalid status
     return {'error': 'Invalid PaymentIntent status'}, 500
+  
     
 @api.route("my-profile/<username>", methods=["GET"])
 def get_profile(username):

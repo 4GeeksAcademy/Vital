@@ -20,6 +20,7 @@ export const AdminLogin = () => {
         }
         const isValid =  await actions.loginAdmin(username, password)
             if(isValid){
+                actions.setUsername(username)
                 alert("Login Successfully")
                 navigate("/dashboard")
             }  else {
