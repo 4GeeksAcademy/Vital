@@ -4,7 +4,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			products: [],
 			meals: [],
-			favorites: [],
+			totalShoppingCart: 0,
+			users: [],
+			gyms: [],
+			newsletter: [],
+			profile: null,
+			favorites: {
+				back: [],
+				cardio: [],
+				chest: [],
+				neck: [],
+				shoulders: [],
+				upperarms: [],
+				lowerarms: [],
+				upperlegs: [],
+				lowerlegs: [],
+				waist: []
+			}
 		},
 
 		actions: {
@@ -41,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					localStorage.setItem("token", data.token)
-					setStore({ token: data.token })
+					setStore({ token: data.token, profile: data.user })
 					console.log(data)
 					return true
 				}
@@ -69,6 +85,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 					} )
 					const data = await response.json()
+					if (!data.token){
+						return false
+					}
 					localStorage.setItem("token", data.token )
 					setStore({token: data.token})
 					console.log(data)
@@ -142,10 +161,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			addToCart: (title, price, image, id, quantity) => {
 				const store = getStore()
 				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })
+				alert(`Added to cart`)
+			},
+			removeFromCart: (id) => {
+				const store = getStore()
+				setStore({
+					products: store.products.filter((item) => item.id != id),
+				})
+				getActions().calculateTotalCart();
+			},
+			calculateTotalCart: () => {
+				const store = getStore()
+
+				const totalValue = store.products.map(product => product.price * product.quantity).reduce((accumulator, currentValue) => accumulator + currentValue)
+
+				setStore({ totalShoppingCart: totalValue })
 			},
 			setQuantity: (id, quantity) => {
 				const store = getStore()
-				console.log(store.products)
 				console.log(id)
 				store.products.forEach((item, index) => {
 					if(item.id == id) {
@@ -153,16 +186,79 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 			},
-			addFavorites: (exercise) => {
+			addFavExercise: (bodypart, exercise) => {
+				// Eliminar espacios en blanco de bodypart
+				const newBodypart = bodypart.replace(/\s/g, '')
 				const store = getStore();
-				const newFavorites = [...store.favorites, exercise];
-				setStore({ favorites: newFavorites });
+				if (store.favorites[newBodypart].includes(exercise)) return
+				
+				if (store.favorites.hasOwnProperty(newBodypart)) {
+					const newFavorite = {...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
+					setStore({ favorites: newFavorite })
+				} else {
+					console.log(`no existe el key en el objeto`)
+				}
 			},
-			removeFavorites: (exercise) => {
-				const store = getStore();
-				const newFavorites = store.favorites.filter((favorite) => favorite.id !== exercise.id);
-				setStore({ favorites: newFavorites });
-			},		
+			removeFavExercise: (bodypart, exercise) => {
+				const newBodypart = bodypart.replace(/\s/g, '')
+				const store = getStore()
+				if (store.favorites.hasOwnProperty(newBodypart)) {
+					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
+					setStore({ favorites: newFavorite });
+				}
+			},	
+			getData: async () => {
+				const response = await fetch(process.env.BACKEND_URL + "api/users");
+				const data = await response.json();
+				setStore({ users: data });	
+				const gyms = await fetch(process.env.BACKEND_URL + "api/get-gyms");
+				const dataGyms = await gyms.json();
+				setStore({ gyms: dataGyms });
+				const newsletter = await fetch(process.env.BACKEND_URL + "api/get-newsletter");
+				const dataNewsletter = await newsletter.json();
+				setStore({ newsletter: dataNewsletter });
+				const admins = await fetch(process.env.BACKEND_URL + "api/get-admins");
+				const dataAdmins = await admins.json();
+				setStore({ admins: dataAdmins });
+				return false;
+
+			},
+			addNewsletter: async (email) => {
+				const response = await fetch(process.env.BACKEND_URL + "api/newsletter",{
+					method:"POST",
+					headers:{
+						"Content-Type":"application/json"
+					},
+					body:JSON.stringify({email: email})
+				})	
+				const data = await response.json();
+				console.log(data)
+				if (data.msg == "Newsletter added successfully"){
+					return true
+				}					
+					return false			
+			},
+
+			addGym: async (gym) => {
+				const store = getStore()
+				const response = await fetch(process.env.BACKEND_URL + "api/create-gym",{
+					method:"POST",
+					headers:{
+						"Content-Type":"application/json"
+					},
+					body:JSON.stringify(gym)
+				})
+
+				// setStore({gym: [gym, ...store.gym]})
+
+				const data = await response.json();
+				console.log(data)
+				if (data.msg == "Gym added successfully"){
+					return true
+				}					
+					return false
+			}
+
 
 		}
 

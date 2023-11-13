@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4390f179e678
+Revision ID: 883ec98bdab8
 Revises: 
-Create Date: 2023-10-28 00:55:28.347282
+Create Date: 2023-11-07 03:02:20.009268
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4390f179e678'
+revision = '883ec98bdab8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,6 @@ def upgrade():
     sa.Column('longitude', sa.Float(), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('phone', sa.String(length=20), nullable=True),
-    sa.Column('image', sa.String(length=1000), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
@@ -43,6 +42,20 @@ def upgrade():
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('newsletterfiles',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('title', sa.String(length=500), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('transactions',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('order', sa.Integer(), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('amount', sa.Float(), nullable=False),
+    sa.Column('comission', sa.Float(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
@@ -50,6 +63,7 @@ def upgrade():
     sa.Column('username', sa.String(length=30), nullable=False),
     sa.Column('name', sa.String(length=30), nullable=False),
     sa.Column('lastname', sa.String(length=30), nullable=False),
+    sa.Column('role', sa.String(length=50), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('username')
@@ -99,6 +113,8 @@ def downgrade():
     op.drop_table('favorite')
     op.drop_table('administrators')
     op.drop_table('users')
+    op.drop_table('transactions')
+    op.drop_table('newsletterfiles')
     op.drop_table('newsletter')
     op.drop_table('gyms')
     op.drop_table('favorite_back')

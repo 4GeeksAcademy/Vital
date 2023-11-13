@@ -22,6 +22,10 @@ import { MealPlans } from "./pages/mealPlans";
 import { ShowRecipes } from "./pages/showRecipes";
 import AdminPanel from "./pages/adminPanel";
 import { AdminLogin } from "./pages/adminLogin";
+import PageViewerPDF from "./pages/pageViewerPDF";
+import { UserProfile } from "./pages/userProfile";
+import Checkout from "./pages/checkout";
+import { Favorites } from "./pages/favorites";
 
 //create your first component
 const Layout = () => {
@@ -53,7 +57,11 @@ const Layout = () => {
             <Route element={<MealPlans/>}path="/mealPlans" />
             <Route element={<Login/>} path="/login"/>
             <Route element={<AdminLogin />} path="/admin-login" />
+            <Route element={<UserProfile />} path="/my-profile" />
+            <Route element={<Favorites />} path="/favorites" />
             <Route element={<AdminPanel />} path="/dashboard" />
+            <Route element={<PageViewerPDF />} path="/pdfviewer" />
+            <Route element={<Checkout />} path="/checkout" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
           </Routes>

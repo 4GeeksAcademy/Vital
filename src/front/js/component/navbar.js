@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import Logo from "../../img/logo-vital.png";
 import { Link, useNavigate } from "react-router-dom";
-import {Context} from "../store/appContext"
-import { BagHandleOutline } from "react-ionicons";
+import { Context } from "../store/appContext"
+// import { BagHandleOutline } from "react-ionicons";
 
 export const Navbar = () => {
-  const {store, actions} = useContext(Context)
+  const { store, actions } = useContext(Context)
   const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-vital-black p-3">
@@ -81,7 +81,13 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
-        {store.token ? console.log("true",store.token) : console.log("false", store.token)}
+        <Link to="/shopping-cart">
+        <i className="fa-solid fa-cart-shopping text-vital-orange fs-5" ></i>
+          {/* <span className="me-3">
+            <BagHandleOutline color={"#ff5300"} />
+          </span> */}
+        </Link>
+        {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
           store.token ? (
             <button
@@ -93,29 +99,24 @@ export const Navbar = () => {
             </button>
           ) : (
 
-        <div>
-          <Link to="/shopping-cart">
-            <span className="me-3">
-              <BagHandleOutline color={"#ff5300"} />
-            </span>
-          </Link>
-          <Link to="/login">
-            <button
-              className="btn btn-outline-vital-orange text-vital-white rounded-pill"
-              type="submit"
-            >
-              Log in
-            </button>
-          </Link>
-          <Link to="/register">
-            <button
-              className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
-              type="submit"
-            >
-              Sign up free
-            </button>
-          </Link>
-        </div>
+            <div>
+              <Link to="/login">
+                <button
+                  className="btn btn-outline-vital-orange text-vital-white rounded-pill"
+                  type="submit"
+                >
+                  Log in
+                </button>
+              </Link>
+              <Link to="/register">
+                <button
+                  className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
+                  type="submit"
+                >
+                  Sign up free
+                </button>
+              </Link>
+            </div>
           )
         }
       </div>

@@ -1,4 +1,4 @@
-export const useAPI = false;
+export const useAPI = true;
 
 export const chooseMeal = {
     highFiber: {

@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
+import { Context } from "../store/appContext.js";
 import gif from "../../img/exercise.gif";
 import "../../styles/exercise-detail.css";
 import { scrollToTop } from "../function/scrollToTop";
 import { useFetch } from "../hooks/useFetch";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { details } from "../constants/constants";
 import { getStructuredMessage } from "../function/returnExcerciseDescription";
 import Loading from "../component/loading/loading.js";
@@ -11,6 +12,8 @@ import { objectAI2 } from "../constants/constants";
 import { useAPI } from "../constants/constants";
 
 const ExerciseDetail = () => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -23,8 +26,7 @@ const ExerciseDetail = () => {
     keyWords: details.bodyPart,
   });
 
-  //true to use API, false to use local constant
-  
+  //true to use API, false to use local constant  
 
   const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`;
   const urlIA = "https://api.openai.com/v1/chat/completions";
@@ -36,11 +38,8 @@ const ExerciseDetail = () => {
     },
   };
 
-  // useEffect(() => {
-  //   scrollToTop();
-  // }, []);
-
   useEffect(() => {
+    !store.token && navigate("/login")
     scrollToTop();
     if (!useAPI) {
       setData(details);
@@ -76,7 +75,7 @@ const ExerciseDetail = () => {
 
   useEffect(() => {
     console.log(process.env.OPENAI_API_KEY);
-    if (process.env.OPENAI_API_KEY == "none") {
+    if (!useAPI) {
       setObjectAI(objectAI2);
       setLoadingAI(false);
       return;
@@ -95,7 +94,7 @@ const ExerciseDetail = () => {
     generateDescription();
   }, [loading]);
 
-  //objectAI && console.log(objectAI.choices[0].message.content);
+ objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";

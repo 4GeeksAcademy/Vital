@@ -5,8 +5,10 @@ import BackgroundContainer from "../component/backgroundContainer";
 import Imagen from "../../img/store-background.png";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config"
+import { useNavigate } from "react-router-dom";
 
 export const Store = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context)
   // const productos = store.products;
 
@@ -14,9 +16,9 @@ export const Store = () => {
 
   useEffect(() => {
     // actions.getProducts();
-
+    !store.token && navigate("/login")
     const productsRef = collection(db, "products")
-    console.log(productsRef);
+    // console.log(productsRef);
 
     getDocs(productsRef)
       .then((resp) => {

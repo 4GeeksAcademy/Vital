@@ -1,18 +1,29 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import Logo from "../../img/logo-vital.png";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 import "../../styles/footer.css";
 
 export const Footer = () => {
   const navigate = useNavigate();
+  const {store, actions} = useContext(Context);
+  const [newsletters, setNewsletters] = useState(null);
+  
+  const handleNewsletter = async () => {
+     
+      const isSuccess = await actions.addNewsletter(newsletters);
+      console.log(isSuccess)
+      isSuccess ? alert("Thank you for subscribing!") : alert("Something went wrong, please try again");
+  };
+
   return (
-  <footer className="text-white text-center text-lg-start bg-vital-gray">
+  <footer className="text-white text-center text-lg-start bg-dark">
     <div className="container pt-4">
       <div className="d-flex pt-4">
         <div className="col-3 h-50 logo">
           <img
             src={Logo}
-            className="img-fluid object-fit-cover d-none d-sm-block d-sm-block bg-vital-gray d-md-block"
+            className="img-fluid object-fit-cover d-none d-sm-block d-sm-block bg-dark d-md-block"
             alt="logo-vital"
             border="0"
           />
@@ -23,12 +34,15 @@ export const Footer = () => {
               type="email"
               className="rounded-pill col-6 w-100 h-100 ps-5"
               placeholder="Enter your email to get the latest news..."
+              value={newsletters}
+              onChange={(e) => setNewsletters(e.target.value)}
             />
             <i className="fa-regular fa-envelope fs-4 envelope"></i>
           </div>
           <button
             className="btn btn-vital-orange text-vital-white rounded-pill px-4"
             type="submit"
+            onClick={handleNewsletter}
           >
             Subscribe
           </button>

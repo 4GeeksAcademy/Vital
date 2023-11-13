@@ -12,6 +12,7 @@ class User(db.Model):
     username = db.Column(db.String(30), unique=True, nullable=False)
     name = db.Column(db.String(30), unique=False, nullable=False)
     lastname = db.Column(db.String(30), unique=False, nullable=False)
+    role = db.Column(db.String(50), nullable=False)
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
     def __init__(self, email, password, username, name, lastname):
@@ -20,6 +21,7 @@ class User(db.Model):
         self.username = username
         self.name = name
         self.lastname = lastname
+        self.role = "user"
         self.is_active = True
 
     def __repr__(self):
@@ -31,6 +33,8 @@ class User(db.Model):
             "name": self.name,
             "lastname": self.lastname,
             "email": self.email,
+            "username": self.username,
+            "is_active": self.is_active,
         }
 
 
@@ -110,7 +114,7 @@ class Administrator(User):
 
     role = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, email, password, username, name, lastname, role):
+    def __init__(self, email, password, username, name, lastname):
         super().__init__(
             email=email,
             password=password,
@@ -118,7 +122,7 @@ class Administrator(User):
             name=name,
             lastname=lastname,
         )
-        self.role = role
+        self.role = "admin"
 
     def __repr__(self):
         return f"<Administrator {self.id} {self.name} {self.lastname}, {self.role}>"
@@ -137,58 +141,62 @@ class Gym(db.Model):
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    phone = db.Column(db.String(20), nullable=True)
-    image = db.Column(db.String(1000), nullable=True)
+    phone = db.Column(db.String(20), nullable=True)    
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, name, email, address, latitude, longitude, description, phone, image):
+    def __init__(self, name, email, address, latitude, longitude, description, phone):
         self.name = name
         self.email = email
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
-        self.phone = phone
-        self.image = image
+        self.phone = phone       
         self.is_active = True
 
     def __repr__(self):
         return f"<Gym {self.id} {self.name}>"
 
     def serialize(self):
-        return {"id": self.id, "name": self.name, "email": self.email}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "address": self.address,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "description": self.description,
+            "phone": self.phone,
+            "is_active": self.is_active,            
+            }
 
 
 class Profile(db.Model):
     __tablename__ = "profile"
     id = db.Column(db.Integer, primary_key=True)
 
-    profile_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    profile = db.relationship("User")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User")
 
     jobies = db.Column(db.String(200), unique=False, nullable=False)
-    profile_name = db.Column(db.String(120), unique=True, nullable=True)
     profile_image = db.Column(db.String(500), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, name, email, address, description, phone, image):
-        self.name = name
-        self.email = email
-        self.address = address
+    def __init__(self, user, jobies, profile_image, description, phone):
+        self.user = user
+        self.jobies = jobies
+        self.profile_image = profile_image
         self.description = description
         self.phone = phone
-        self.image = image
-        self.is_active = True
 
     def __repr__(self):
-        return f"<Profile {self.id} {self.name}>"
+        return f"<Profile {self.id}>"
 
     def serialize(self):
         return {
             "id": self.id,
-            "profile name": self.profile_namee,
+            "user id": self.user_id,
             "profile image": self.profile_image,
             "description": self.description,
             "phone": self.phone,
@@ -211,3 +219,48 @@ class Newsletter(db.Model):
 
     def serialize(self):
         return {"email": self.email, "Active": self.is_active}
+    
+class NewsletterFiles(db.Model):
+    __tablename__ = "newsletterfiles"
+    id = db.Column(db.Integer, primary_key=True)        
+    title = db.Column(db.String(500), nullable=False)
+    file = db.column(db.BINARY)
+    date = db.Column(db.DateTime, nullable=False)   
+
+    def __init__(self, newsletter_file):
+        
+        self.newsletter_file = newsletter_file        
+        self.is_active = True
+
+    def __repr__(self):
+        return f"<Gym {self.id} {self.newsletter_file}>"
+
+    def serialize(self):
+        return {"newsletter file": self.file, "Date": self.date}
+
+class Transactions(db.Model):
+    __tablename__ = "transactions"
+    id = db.Column(db.Integer, primary_key=True)
+    order = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    comission = db.Column(db.Float, nullable=False)
+
+    def __init__(self, order, date, amount, commission):
+
+        self.order = order
+        self.date = date
+        self.amount = amount
+        self.comission = commission
+
+    def __repr__(self):
+        return f"<Transaction {self.id}, {self.date}>"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "order": self.order,
+            "date": self.date,
+            "amount": self.amount,
+            "comission": self.comission
+        }
