@@ -17,7 +17,7 @@
         display:none
      }
 
-     .card {
+     .meal-card {
         scroll-snap-align: start;
         border-radius: 30px;
         min-height:200px;
@@ -27,26 +27,51 @@
         justify-content: center ;
      }
 
-     .card:nth-child(1){
+     .meal-card-high-fiber{
         background-image:url("https://www.mundoboaforma.com.br/wp-content/uploads/2014/09/alimentos-ricos-em-fibras-capa.jpg"); 
         background-position: center;
         background-size: cover;
+        border-radius:30px;
+        min-height: 200px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
      }
 
-     .card:nth-child(2){
+     .meal-card-high-protein{
         background-image: url("https://cathe.com/wp-content/uploads/2019/10/shutterstock_723278488.jpg");
         background-position: center;
         background-size: cover;
+        border-radius:30px;
+        min-height: 200px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
      }
-     .card:nth-child(3){
+     .meal-card-low-carb{
         background-image: url("http://main.poliquingroup.com/Portals/0/Janelle/lowcarbaging.jpg");
         background-position: center;
         background-size: cover;
+        border-radius:30px;
+        min-height: 200px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
      }
-     .card:nth-child(4){
+     .meal-card-low-fat{
         background-image: url("https://cdn.mos.cms.futurecdn.net/VjZ2eefot7d28rdsHVcwrP-1200-80.jpg");
         background-position: center;
         background-size: cover;
+        border-radius:30px;
+        min-height: 200px;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
      }
 
 

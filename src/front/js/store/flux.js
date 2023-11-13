@@ -60,7 +60,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try{
 					const resp = await fetch(url)
 					const data = await resp.json()
-					console.log(data)
 				//	const {image,label,ingredients,calories} = data.hits[0].recipe
 					const recipes = data.hits
 					console.log(data.hits)

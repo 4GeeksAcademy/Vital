@@ -18,6 +18,7 @@ import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
 import { Login } from "./pages/login";
 import { MealPlans } from "./pages/mealPlans";
+import { ShowRecipes } from "./pages/showRecipes";
 
 //create your first component
 const Layout = () => {
@@ -47,6 +48,7 @@ const Layout = () => {
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<MealPlans/>}path="/mealPlans" />
             <Route element={<h1>Not found!</h1>} />
+            <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
           </Routes>
           <Footer />
         </ScrollToTop>
