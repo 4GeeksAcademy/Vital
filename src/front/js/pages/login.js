@@ -23,7 +23,8 @@ export const Login = () => {
                 actions.setUsername(username)
                 alert("Login Successfully")
                 navigate("/")
-            }                   
+            }  
+            alert("Login failed")                 
                 
     }
     
