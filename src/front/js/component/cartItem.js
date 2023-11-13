@@ -5,25 +5,25 @@ import { Context } from "../store/appContext";
 const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
 
     const { store, actions } = useContext(Context)
-    
+
     const [quantityItem, setQuantityItem] = useState(quantity)
-    
+
     const [total, setTotal] = useState(price * quantityItem)
 
-    console.log({quantity: quantity})
-    
+    console.log({ quantity: quantity })
+
     useEffect(() => {
         setTotal(price * quantityItem)
         setQuantityItem(quantity)
         actions.calculateTotalCart()
     }, [])
-    
+
     useEffect(() => {
         setTotal(price * quantityItem)
         actions.calculateTotalCart()
         console.log("cuando se cambia quantityItem")
     }, [quantityItem])
-    
+
     const removeItemFromCart = () => {
         deleteItem(id)
     }
@@ -36,7 +36,7 @@ const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
             setQuantityItem(1)
         }
     }
-    
+
 
     return (
         <div className="card shadow-none bg-vital-black mt-2">
@@ -48,7 +48,7 @@ const CartItem = ({ title, price, image, id, quantity, deleteItem }) => {
                     <div className="flex-grow-1 align-self-center overflow-hidden">
                         <div className="d-flex justify-content-between">
                             <h5 className="text-truncate nfont-size-18 text-vital-white"><a href="#" className="text-vital-orange">{title}</a></h5>
-                            <i className="fa-solid fa-trash-can text-vital-orange" ></i>
+                            <i className="fa-solid fa-trash-can text-vital-orange" onClick={() => removeItemFromCart()} ></i>
                             {/* <TrashOutline
                             color={"#ff5300"}
                             style={{ cursor: "pointer" }}

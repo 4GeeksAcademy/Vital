@@ -7,7 +7,7 @@ import "../../styles/footer.css";
 export const Footer = () => {
   const navigate = useNavigate();
   const {store, actions} = useContext(Context);
-  const [newsletters, setNewsletters] = useState(null);
+  const [newsletters, setNewsletters] = useState("");
   
   const handleNewsletter = async () => {
      
