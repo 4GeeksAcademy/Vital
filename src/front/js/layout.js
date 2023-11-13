@@ -18,6 +18,8 @@ import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
 import ShoppingCart  from "./pages/shoppingCart/shoppingCart"
 import { Login } from "./pages/login";
+import { MealPlans } from "./pages/mealPlans";
+import { ShowRecipes } from "./pages/showRecipes";
 import AdminPanel from "./pages/adminPanel";
 import { AdminLogin } from "./pages/adminLogin";
 import PageViewerPDF from "./pages/pageViewerPDF";
@@ -34,6 +36,7 @@ const Layout = () => {
   if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "")
     return <BackendURL />;
 
+   
   return (
     <div>
       <BrowserRouter basename={basename}>
@@ -49,9 +52,9 @@ const Layout = () => {
             <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
             <Route element={<Register/>} path="/register"/>
-                        <Route element={<Login/>} path="/login"/>
+            <Route element={<Login/>} path="/login"/>
             <Route element={<Single />} path="/single/:theid" />
-            <Route element={<Register/>} path="/register"/>
+            <Route element={<MealPlans/>}path="/mealPlans" />
             <Route element={<Login/>} path="/login"/>
             <Route element={<AdminLogin />} path="/admin-login" />
             <Route element={<UserProfile />} path="/my-profile" />
@@ -60,6 +63,7 @@ const Layout = () => {
             <Route element={<PageViewerPDF />} path="/pdfviewer" />
             <Route element={<Checkout />} path="/checkout" />
             <Route element={<h1>Not found!</h1>} />
+            <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
           </Routes>
           <Footer />
         </ScrollToTop>
