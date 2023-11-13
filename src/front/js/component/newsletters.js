@@ -5,13 +5,20 @@ const Newsletters = () => {
     const { store, actions } = useContext(Context);
     const [selectedFile, setSelectedFile] = useState(null);
 
-    
+
     return (
         <>
             <h1 className="h2 text-vital-orange">Manage Newsletters</h1>
             <p className="text-vital-white">
                 Page to manage admin newsletters
-            </p>                      
+            </p>
+            <div>
+            <button
+                className="btn btn-vital-orange text-vital-white rounded-pill px-4"
+                type="submit"
+                onClick={() => actions.sendEmail()}
+            >Send Newsletter</button>            
+            </div>
             <div className="row d-flex justify-content-center">
                 <div className="col-12 col-xl-8 mb-4 mb-lg-0">
                     <div className="card bg-vital-black">
@@ -21,7 +28,7 @@ const Newsletters = () => {
                                 <table className="table table-dark table-striped">
                                     <thead>
                                         <tr >
-                                            <th scope="col">Email</th>                                            
+                                            <th scope="col">Email</th>
                                             <th scope="col">Status</th>
                                             <th scope="col" />
                                         </tr>
@@ -32,7 +39,7 @@ const Newsletters = () => {
                                                 console.log(item)
                                                 return (
                                                     <tr key={index}>
-                                                        <th scope="row">{item.email}</th>                                                        
+                                                        <th scope="row">{item.email}</th>
                                                         <td>{item.is_active}</td>
                                                         <td>{Date()}</td>
                                                         <td>

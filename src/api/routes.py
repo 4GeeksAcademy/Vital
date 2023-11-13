@@ -11,6 +11,12 @@ from datetime import timedelta
 import re
 import bcrypt
 import stripe
+import os as OS
+from email.message import EmailMessage
+import ssl
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 stripe.api_key = "sk_test_51Nv9PcKpc9PSomxGEipel1aWPJxzGHNS7W0K4zN9k0QGAKumWU8KKRXrNAx6lT7sUJ641GQRqYR6e0xd8adhcie9007AnUr8nu"
 
@@ -221,6 +227,15 @@ def get_admins():
     if admins is None:
         return {"msg": "Admins don't exist"}, 400
     return [admin.serialize() for admin in admins], 200
+
+@api.route("validate-token", methods=["GET"])
+@jwt_required()
+def validate_token():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    return {"msg": "User authorized"}, 200
     
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
@@ -493,20 +508,41 @@ def enable_newsletter(email):
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
 
-@api.route("upload-file", methods=["POST"])
-def upload_file():
+@api.route("send-email", methods=["POST"])
+def send_email():
     body = request.get_json()
-    title = body.get("title", None)
-    file = request.files['pdf_file']
-    date = body.get("date", None)
-    if title is None or file is None or date is None:
-        return {"msg": "Missing fields"}, 400
+    email_sender = "diegoguillen70@gmail.com" #body.get("email_sender", None)
+    newsletters = Newsletter.query.filter_by(is_active=True).all()
+    if newsletters is None:
+        return {"msg": "There are not newsletters yet"}, 400
+    email_receiver_arr = [newsletter.email for newsletter in newsletters]
+    if len(email_receiver_arr) == 0:
+        return {"msg": "There are not newsletters yet"}, 400
+    if len(email_receiver_arr) == 1:
+        email_receiver = email_receiver_arr[0]
+    else:
+        email_receiver = ",".join(email_receiver_arr)
+        #return {"msg": email_receiver}, 200
+    email_password = OS.environ.get("EMAIL_PASSWORD")
+    subject = body.get("subject", None)
+    body_message = body.get("body_message", None)
+
+    em = EmailMessage()
+    em['From'] = email_sender
+    em['To'] = email_receiver
+    em['Subject'] = subject
+    msg = MIMEText(body_message, 'html')
+    em.attach(msg)
+    em.set_content(msg)
+
+    context = ssl.create_default_context()
     try:
-        newsletter_file = NewsletterFiles(title=title, file=file, date=date)
-        db.session.add(newsletter_file)
-        db.session.commit()
-        return {"msg": "File uploaded successfully"}, 200
-    except ValueError as error:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls(context=context)
+            server.login(email_sender, email_password)
+            server.send_message(em)
+            return {"msg": "Email sent successfully"}, 200
+    except Exception as error:
         return {"msg": "Something went wrong" + error}, 500
     
 @api.route("add-transactions", methods=["POST"])

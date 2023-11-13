@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null || localStorage.getItem("token"),
 			username: null || localStorage.getItem("username"),
+			revenue: 0,
 			products: [],
 			meals: [],
 			totalShoppingCart: 0,
@@ -26,6 +27,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 
 		actions: {
+			sendEmail: async () => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/send-email?username=${store.username}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					}
+				})
+				const data = await response.json();
+				//console.log(data)
+				if (data.msg == "Email sent successfully") {
+					return true
+				}
+				return false
+			},
+			calculateRevenue: () => {
+				const store = getStore();
+				let revenue = 0;
+				store.transactions && store.transactions.map((transaction) => {
+					revenue = revenue + parseFloat(transaction.comission)
+				});
+				setStore({ revenue: revenue })
+			},
 			setUsername: (username) => {
 				setStore({ username: username })
 			},
@@ -73,79 +98,80 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			logout: () =>{				
-					localStorage.removeItem("token")
-					localStorage.removeItem("username")
-					setStore({token: null, username: null})					
-					return true				
+			logout: () => {
+				localStorage.removeItem("token")
+				localStorage.removeItem("username")
+				setStore({ token: null, username: null })
+				return true
 			},
 
-			loginAdmin: async (username, password) =>{
-				try{
+			loginAdmin: async (username, password) => {
+				try {
 					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-					{
-						method:"POST",
-						headers:{
-							"Content-Type":"application/json"
-						},
-						body:JSON.stringify({username, password})
-						
-					} )
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({ username, password })
+
+						})
 					const data = await response.json()
-					if (!data.token){
+					if (!data.token) {
 						return false
 					}
-					localStorage.setItem("token", data.token )
+					localStorage.setItem("token", data.token)
 					localStorage.setItem("username", username)
-					setStore({token: data.token})
+					setStore({ token: data.token })
 					console.log(data)
 					return true
 				}
-				catch(error){
+				catch (error) {
 					console.log(error)
 					return false
-				}	
+				}
 			},
 
-			logout: () =>{				
-					localStorage.removeItem("token")
-					setStore({token: null})					
-					return true				
+			logout: () => {
+				localStorage.removeItem("token")
+				setStore({ token: null })
+				return true
 			},
 
-			loginAdmin: async (username, password) =>{
-				try{
+			loginAdmin: async (username, password) => {
+				try {
 					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-					{
-						method:"POST",
-						headers:{
-							"Content-Type":"application/json"
-						},
-						body:JSON.stringify({username, password})
-						
-					} )
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({ username, password })
+
+						})
 					const data = await response.json()
-					localStorage.setItem("token", data.token )
-					setStore({token: data.token})
+					localStorage.setItem("token", data.token)
+					localStorage.setItem("username", username)
+					setStore({ token: data.token })
 					console.log(data)
 					return true
 				}
-				catch(error){
+				catch (error) {
 					console.log(error)
 					return false
-				}	
+				}
 			},
 
 			getMeals: async (url) => {
-				try{
+				try {
 					const resp = await fetch(url)
 					const data = await resp.json()
-				//	const {image,label,ingredients,calories} = data.hits[0].recipe
+					//	const {image,label,ingredients,calories} = data.hits[0].recipe
 					const recipes = data.hits
 					console.log(data.hits)
-					 setStore({meals: recipes })
+					setStore({ meals: recipes })
 				}
-				catch(error){
+				catch (error) {
 					console.log(error)
 				}
 			},
@@ -189,7 +215,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				console.log(id)
 				store.products.forEach((item, index) => {
-					if(item.id == id) {
+					if (item.id == id) {
 						store.products[index].quantity = quantity
 					}
 				})
@@ -199,9 +225,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newBodypart = bodypart.replace(/\s/g, '')
 				const store = getStore();
 				if (store.favorites[newBodypart].includes(exercise)) return
-				
+
 				if (store.favorites.hasOwnProperty(newBodypart)) {
-					const newFavorite = {...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
+					const newFavorite = { ...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
 					setStore({ favorites: newFavorite })
 				} else {
 					console.log(`no existe el key en el objeto`)
@@ -214,61 +240,61 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
 					setStore({ favorites: newFavorite });
 				}
-			},	
+			},
 			getData: async () => {
 				const store = getStore();
 				const response = await fetch(process.env.BACKEND_URL + `api/users?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const data = await response.json();
-				setStore({ users: data });	
+				setStore({ users: data });
 				const gyms = await fetch(process.env.BACKEND_URL + `api/get-gyms?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const dataGyms = await gyms.json();
 				setStore({ gyms: dataGyms });
 				const newsletter = await fetch(process.env.BACKEND_URL + `api/get-newsletter?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const dataNewsletter = await newsletter.json();
 				setStore({ newsletter: dataNewsletter });
 				const admins = await fetch(process.env.BACKEND_URL + `api/get-admins?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const dataAdmins = await admins.json();
 				setStore({ admins: dataAdmins });
 				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const dataTransactions = await transactions.json();
 				setStore({ transactions: dataTransactions });
@@ -276,103 +302,124 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 			addNewsletter: async (email) => {
-				const response = await fetch(process.env.BACKEND_URL + "api/newsletter",{
-					method:"POST",
-					headers:{
-						"Content-Type":"application/json"
+				const response = await fetch(process.env.BACKEND_URL + "api/newsletter", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
 					},
-					body:JSON.stringify({email: email})
-				})	
+					body: JSON.stringify({ email: email })
+				})
 				const data = await response.json();
 				console.log(data)
-				if (data.msg == "Newsletter added successfully"){
+				if (data.msg == "Newsletter added successfully") {
 					return true
-				}					
-					return false			
+				}
+				return false
 			},
 
 			addGym: async (gym) => {
 				const store = getStore()
-				const response = await fetch(process.env.BACKEND_URL + "api/create-gym",{
-					method:"POST",
-					headers:{
-						"Content-Type":"application/json"
+				const response = await fetch(process.env.BACKEND_URL + "api/create-gym", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
 					},
-					body:JSON.stringify(gym)
+					body: JSON.stringify(gym)
 				})
 
 				// setStore({gym: [gym, ...store.gym]})
 
 				const data = await response.json();
 				console.log(data)
-				if (data.msg == "Gym added successfully"){
+				if (data.msg == "Gym added successfully") {
 					return true
-				}					
-					return false
+				}
+				return false
 			},
 			editGym: async (gym) => {
 				const store = getStore()
-				const response = await fetch(process.env.BACKEND_URL + `api/update-gym?username=${store.username}`,{
-					method:"PUT",
-					headers:{
-						"Content-Type":"application/json",
+				const response = await fetch(process.env.BACKEND_URL + `api/update-gym?username=${store.username}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
 						"Authorization": "Bearer " + store.token
 					},
-					body:JSON.stringify(gym)
+					body: JSON.stringify(gym)
 				})
 				const data = await response.json();
 				//console.log(data)
-				if (data.msg == "Gym edited successfully"){
-					const newGyms = {...store.gyms, [gym.id]: gym}
-					setStore({gyms: newGyms})
+				if (data.msg == "Gym edited successfully") {
+					const newGyms = { ...store.gyms, [gym.id]: gym }
+					setStore({ gyms: newGyms })
 
 					return true
-				}					
-					return false				
+				}
+				return false
 			},
-			getGyms: async () => {
+			validateToken: async () => {
 				const store = getStore()
-				const response = await fetch(process.env.BACKEND_URL + `api/get-gyms?username=${store.username}`,{
-					method:"GET",
-					headers:{
-						"Content-Type":"application/json",
+				if (!store.token) return true
+				if (!store.username) return true				
+				const response = await fetch(process.env.BACKEND_URL + `api/validate-token?username=${store.username}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
 						"Authorization": "Bearer " + store.token
 					}
 				})
 				const data = await response.json();
-				setStore({gyms: data})
+				if (data.msg == "User not authorized" || data.msg == "Token has expired") {
+					localStorage.removeItem("token")					
+					setStore({ token: null })					
+					return true
+				}
+				return false
+			},
+
+			getGyms: async () => {
+				const store = getStore()
+				const response = await fetch(process.env.BACKEND_URL + `api/get-gyms?username=${store.username}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					}
+				})
+				const data = await response.json();
+				setStore({ gyms: data })
 				return false
 			},
 			changeStatus: async (email) => {
 				const store = getStore()
-				const response = await fetch(process.env.BACKEND_URL + `api/update-status?username=${store.username}`,{
-					method:"PUT",
-					headers:{
-						"Content-Type":"application/json",
+				const response = await fetch(process.env.BACKEND_URL + `api/update-status?username=${store.username}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
 						"Authorization": "Bearer " + store.token
 					},
-					body:JSON.stringify({email: email})
+					body: JSON.stringify({ email: email })
 				})
 				const data = await response.json();
 				console.log(data)
-				if (data.msg == "Gym updated successfully"){
-					
+				if (data.msg == "Gym updated successfully") {
+
 					return true
-				}					
-					return false				
+				}
+				return false
 			},
 			clearCart: () => {
 				setStore({ products: [] });
 			},
 			getTransactions: async () => {
+				const store = getStore();
 				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,
-				{
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					},
-				}
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						},
+					}
 				);
 				const dataTransactions = await transactions.json();
 				setStore({ transactions: dataTransactions });
