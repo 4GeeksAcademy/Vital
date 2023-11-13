@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			username: null || localStorage.getItem("username"),
 			products: [],
+			meals: [],
 			totalShoppingCart: 0,
 			users: [],
 			gyms: [],
@@ -23,6 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				waist: []
 			}
 		},
+
 		actions: {
 			setUsername: (username) => {
 				setStore({ username: username })
@@ -109,6 +111,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.removeItem("token")
 					setStore({token: null})					
 					return true				
+			},
+
+			loginAdmin: async (username, password) =>{
+				try{
+					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
+					{
+						method:"POST",
+						headers:{
+							"Content-Type":"application/json"
+						},
+						body:JSON.stringify({username, password})
+						
+					} )
+					const data = await response.json()
+					localStorage.setItem("token", data.token )
+					setStore({token: data.token})
+					console.log(data)
+					return true
+				}
+				catch(error){
+					console.log(error)
+					return false
+				}	
+			},
+
+			getMeals: async (url) => {
+				try{
+					const resp = await fetch(url)
+					const data = await resp.json()
+				//	const {image,label,ingredients,calories} = data.hits[0].recipe
+					const recipes = data.hits
+					console.log(data.hits)
+					 setStore({meals: recipes })
+				}
+				catch(error){
+					console.log(error)
+				}
 			},
 
 			getProducts: async () => {
