@@ -1,11 +1,29 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Context} from "../store/appContext";
 import Loading from "../component/loading/loading";
+import { useNavigate } from "react-router-dom";
 const Dashboard = (props) => {
     const {store, actions} = useContext(Context);
     const [loading, setLoading] = useState(false);
+    const [revenue, setRevenue] = useState(0);
+    const navigate = useNavigate();
 
-    
+    useEffect(() => {       
+        actions.getTransactions();         
+        
+        // store.transactions && store.transactions.map((transaction) => {
+        //     setRevenue(revenue + parseFloat(transaction.comission))            
+        // });    
+    }, []);
+
+    useEffect(() => {
+        actions.calculateRevenue();
+       // setRevenue(store.revenue);
+    }, [store.transactions]);
+
+ 
+   
+
 
     const usersQuantity = store.users && store.users.length;
     const gymsQuantity = store.gyms && store.gyms.length;
@@ -60,7 +78,7 @@ const Dashboard = (props) => {
                                 <div className="card bg-vital-black">
                                     <h5 className="card-header text-vital-orange">Revenue</h5>
                                     <div className="card-body text-vital-white bg-dark">
-                                        <h5 className="card-title">$2.4k</h5>
+                                        <h5 className="card-title">{store.revenue ? store.revenue : 0}</h5>
                                         <p className="card-text">Feb 1 - Apr 1, United States</p>
                                         <p className="card-text text-success">
                                             2.5% increase since last month
