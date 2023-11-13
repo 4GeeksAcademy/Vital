@@ -55,7 +55,8 @@ export const Navbar = () => {
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
-
+                href="#"
+                onClick={()=> navigate("/mealPlans")}
               >
                 Meal plans
               </a>
@@ -86,7 +87,7 @@ export const Navbar = () => {
             <BagHandleOutline color={"#ff5300"} />
           </span> */}
         </Link>
-        {store.token ? console.log("true", store.token) : console.log("false", store.token)}
+        {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
           store.token ? (
             <button

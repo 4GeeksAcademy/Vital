@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Pagination from "./pagination/pagination";
 import { Context } from "../store/appContext";
 const ManageGyms = () => {
@@ -11,6 +11,10 @@ const ManageGyms = () => {
         longitude: "",
         phone: "",
     })
+
+    useEffect(() => {
+        actions.getData()
+    }, [store.gyms])
  //26.269592486566175, -81.7530943755124
     const addGym = async () => {
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
@@ -19,6 +23,7 @@ const ManageGyms = () => {
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
+            alert("Gym was added succesfully")
         setGymData({
             name: "",
             description: "",
@@ -145,8 +150,8 @@ const ManageGyms = () => {
                                         } />
                                     </div>
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label for="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" value={gymData.longitude} onChange={
+                                        <label for="message-text" className="col-form-label text-vital-white">Latitude:</label>
+                                        <input type="text" className="w-75 form-control" value={gymData.latitude} onChange={
                                             (e) => setGymData({ ...gymData, latitude: e.target.value })
                                         } />
                                     </div>

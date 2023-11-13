@@ -11,12 +11,12 @@ const Pagination = ({ exercisesPerPage, totalExercises, setPage, currentPage, se
     )
   }) 
 
-  console.log(arrayPages)
+  // console.log(arrayPages)
 
 
   const handleClick = (e) => {
     e.preventDefault()
-    console.log(e.target.innerText)
+    // console.log(e.target.innerText)
     setPage(e.target.innerText)
     setSearchParams({ ...searchParams, page: e.target.innerText });
     //navigate(`?page=${e.target.innerText}`)

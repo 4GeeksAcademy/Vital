@@ -171,36 +171,32 @@ class Gym(db.Model):
             }
 
 
-class Profile(User):
+class Profile(db.Model):
     __tablename__ = "profile"
     id = db.Column(db.Integer, primary_key=True)
 
-    profile_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    profile = db.relationship("User")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User")
 
     jobies = db.Column(db.String(200), unique=False, nullable=False)
-    profile_name = db.Column(db.String(120), unique=True, nullable=True)
     profile_image = db.Column(db.String(500), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     phone = db.Column(db.String(20), nullable=True)
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
 
-    def __init__(self, name, email, address, description, phone, image):
-        self.name = name
-        self.email = email
-        self.address = address
+    def __init__(self, user, jobies, profile_image, description, phone):
+        self.user = user
+        self.jobies = jobies
+        self.profile_image = profile_image
         self.description = description
         self.phone = phone
-        self.image = image
-        self.is_active = True
 
     def __repr__(self):
-        return f"<Profile {self.id} {self.name}>"
+        return f"<Profile {self.id}>"
 
     def serialize(self):
         return {
             "id": self.id,
-            "profile name": self.profile_namee,
+            "user id": self.user_id,
             "profile image": self.profile_image,
             "description": self.description,
             "phone": self.phone,

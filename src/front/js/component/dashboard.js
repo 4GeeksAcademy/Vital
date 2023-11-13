@@ -98,7 +98,7 @@ const Dashboard = (props) => {
                                                                     <td>{product.price}</td>
                                                                     <td>{Date()}</td>
                                                                     <td>
-                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange">
+                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange rounded-pill">
                                                                             View
                                                                         </span>
                                                                     </td>
@@ -111,7 +111,7 @@ const Dashboard = (props) => {
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <span href="#" className="btn btn-block btn-secondary">
+                                        <span href="#" className="btn btn-block btn-secondary rounded-pill">
                                             View all
                                         </span>
                                     </div>
