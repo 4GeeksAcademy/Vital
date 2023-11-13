@@ -27,15 +27,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 
 		actions: {
-			sendEmail: async () => {
+			sendEmail: async (subject, body_message) => {
 				const store = getStore();
 				const response = await fetch(process.env.BACKEND_URL + `api/send-email?username=${store.username}`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 						"Authorization": "Bearer " + store.token
-					}
-				})
+					},
+					body: JSON.stringify({ subject: subject, body_message: body_message })
+					})
 				const data = await response.json();
 				//console.log(data)
 				if (data.msg == "Email sent successfully") {

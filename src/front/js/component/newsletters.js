@@ -4,7 +4,8 @@ import { Context } from "../store/appContext";
 const Newsletters = () => {
     const { store, actions } = useContext(Context);
     const [selectedFile, setSelectedFile] = useState(null);
-
+    const body_message = "<html><head></head><body><h1>Hi!<br>How are you?</h1><br>Here is the <a href='https://sample-service-name-iwws.onrender.com/'>link</a> you wanted.</p></body></html>";
+    const subject = "Vital Fit Newsletter";
 
     return (
         <>
@@ -16,7 +17,7 @@ const Newsletters = () => {
             <button
                 className="btn btn-vital-orange text-vital-white rounded-pill px-4"
                 type="submit"
-                onClick={() => actions.sendEmail()}
+                onClick={() => actions.sendEmail(subject, body_message)}
             >Send Newsletter</button>            
             </div>
             <div className="row d-flex justify-content-center">
