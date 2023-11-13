@@ -1,8 +1,11 @@
 import React from "react";
 import Logo from "../../img/logo-vital.png";
+import { useNavigate } from "react-router-dom";
 import "../../styles/footer.css";
 
-export const Footer = () => (
+export const Footer = () => {
+  const navigate = useNavigate();
+  return (
   <footer className="text-white text-center text-lg-start bg-vital-gray">
     <div className="container pt-4">
       <div className="d-flex pt-4">
@@ -57,7 +60,7 @@ export const Footer = () => (
             <li className="mb-2">Twenty One</li>
             <li className="mb-2">Twenty Two</li>
             <li className="mb-2">Twenty Three</li>
-            <li className="mb-2">Twenty Four</li>
+            <li className="mb-2" onClick={()=> navigate("/admin-login")}>Twenty Four</li>
           </ul>
         </div>
         <div className="mt-4 d-flex">
@@ -96,4 +99,5 @@ export const Footer = () => (
       </a>
     </div>
   </footer>
-);
+)
+  };

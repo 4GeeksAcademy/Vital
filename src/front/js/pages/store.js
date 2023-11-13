@@ -1,16 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import ProductCard from "../component/productCard";
-// import { products } from "../constants/constants";
 import BackgroundContainer from "../component/backgroundContainer";
 import Imagen from "../../img/store-background.png";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/config"
 
 export const Store = () => {
-  const { store, actions } = useContext(Context);
-  const products = store.products;
+  const { store, actions } = useContext(Context)
+  // const productos = store.products;
+
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    actions.getProducts();
+    // actions.getProducts();
+
+    const productsRef = collection(db, "products")
+    console.log(productsRef);
+
+    getDocs(productsRef)
+      .then((resp) => {
+        const products = resp.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id }
+        })
+        setProducts(products)
+      })
+
   }, []);
 
   return (
@@ -20,15 +35,15 @@ export const Store = () => {
         description="Esta es la tienda donde se mostraran todos los productos"
         image={Imagen}
       />
-      <div className="container-fluid p-5 bg-vital-black">
+      <div className="container-fluid p-5 bg-vital-gray">
         <div className="container d-flex  flex-column title-workout">
           <div className="row col-11 d-flex mx-auto justify-content-around">
             {products.map((product, id) => {
               return (
                 <ProductCard
                   key={product.id}
-                  url={product.image}
-                  name={product.title}
+                  image={product.image}
+                  title={product.title}
                   price={product.price}
                   id={product.id}
                 />

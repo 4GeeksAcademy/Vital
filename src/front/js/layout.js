@@ -16,9 +16,12 @@ import { Exercises } from "./pages/exercises";
 import { BodypartExercises } from "./pages/bodypartExercises";
 import ExerciseDetail from "./pages/exerciseDetail";
 import ProductDetail from "./pages/productDetail";
+import ShoppingCart  from "./pages/shoppingCart/shoppingCart"
 import { Login } from "./pages/login";
 import { MealPlans } from "./pages/mealPlans";
 import { ShowRecipes } from "./pages/showRecipes";
+import AdminPanel from "./pages/adminPanel";
+import { AdminLogin } from "./pages/adminLogin";
 
 //create your first component
 const Layout = () => {
@@ -41,12 +44,16 @@ const Layout = () => {
             <Route element={<BodypartExercises />} path="/bodypart/:bodypart" />
             <Route element={<ExerciseDetail />} path="/exercisedetail/:id"/>
             <Route element={<ProductDetail />} path="/product-detail/:id"/>
-            <Route element={<Register/>} path="/register"/>
-            <Route element={<Login/>} path="/login"/>
+            <Route element={<ShoppingCart />} path="/shopping-cart"/>
             <Route element={<Store />} path="/store" />
             <Route element={<GymMap />} path="/gyms-map" />
+            <Route element={<Register/>} path="/register"/>
+            <Route element={<Login/>} path="/login"/>
             <Route element={<Single />} path="/single/:theid" />
             <Route element={<MealPlans/>}path="/mealPlans" />
+            <Route element={<Login/>} path="/login"/>
+            <Route element={<AdminLogin />} path="/admin-login" />
+            <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
           </Routes>

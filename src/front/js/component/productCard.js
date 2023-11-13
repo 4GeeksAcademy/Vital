@@ -2,17 +2,21 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ name, price, url, id }) => {
+const ProductCard = ({ title, price, image, id }) => {
   const navigate = useNavigate();
 
+  const { store, actions } = useContext(Context)
+
+  // const quantity = 1
+
   return (
-    <div className="card bg-vital-gray m-1" style={{ width: "18rem" }}>
+    <div className="card bg-vital-black m-1" style={{ width: "18rem" }}>
       <img
-        src={url}
+        src={image}
         className="card-img-top"
-        alt={`Photo of ${name}`}
-        // Pendiente por optimizar el objectFit
-        style={{ aspectRatio: "1/1", objectFit: "scale-down" }}
+        alt={`Photo of ${title}`}
+        // Pendiente por optimizar la imagen, que ocupe todo el ancho de la card
+        style={{ objectFit: "cover" }}
       />
       <div className="card-body">
         <h5
@@ -20,15 +24,15 @@ const ProductCard = ({ name, price, url, id }) => {
           style={{ cursor: "pointer" }}
           onClick={() => navigate(`/product-detail/${id}`)}
         >
-          {name}
+          {title}
         </h5>
-        <p className="card-text text-vital-white">{price}</p>
-        <a
-          href="#"
+        <p className="card-text text-vital-white">${price}</p>
+        <button
+          onClick={() => actions.addToCart(title, price, image, id, 1)}
           className="btn btn-vital-orange rounded-3 text-vital-white fw-bold"
         >
           Add to cart
-        </a>
+        </button>
       </div>
     </div>
   );
