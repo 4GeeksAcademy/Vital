@@ -26,6 +26,7 @@ import PageViewerPDF from "./pages/pageViewerPDF";
 import { UserProfile } from "./pages/userProfile";
 import Checkout from "./pages/checkout";
 import { Favorites } from "./pages/favorites";
+import { MealDetails } from "./pages/mealDetails";
 
 //create your first component
 const Layout = () => {
@@ -64,6 +65,8 @@ const Layout = () => {
             <Route element={<Checkout />} path="/checkout" />
             <Route element={<h1>Not found!</h1>} />
             <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
+            <Route element={<MealDetails/>} path="/mealDetails/:index"/>
+            
           </Routes>
           <Footer />
         </ScrollToTop>

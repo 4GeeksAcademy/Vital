@@ -2,9 +2,11 @@ import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { chooseMeal } from "../constants/constants";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const ShowRecipes = () => {
+  const navigate = useNavigate()
   const { diet, meal } = useParams()
-
+  const [isShow, setIsShow] = useState(false)
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
   const [search, setSearch] = useState(null)
@@ -14,29 +16,34 @@ export const ShowRecipes = () => {
     setUrl(urlFetch)
     const recipes = await actions.getMeals(urlFetch)
     const recipeJson = await recipes.json()
+    console.log(recipeJson)
     setRecipe(recipeJson)
+
   }
 
   const handleSearch = async (e) => {
-    e.preventDefault()    
-    const recipes = await actions.getMeals(url+"&q="+search)
+    e.preventDefault()
+    const recipes = await actions.getMeals(url + "&q=" + search)
     const recipeJson = await recipes.json()
     setRecipe(recipeJson)
     setSearch("")
   }
 
+  
+
   recipe && console.log(recipe)
   return (
-    <div className="container-fluid  p-4 d-flex flex-column">
-      <div className="d-flex mb-3  m-auto">
-        <span className="nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
-        <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
-        <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
-      </div>
-      <div className="d-flex justify-content-center mb-5 mt-2">
-      <input
-            type="text"   
-            value={search}         
+    <>
+      <div className="container-fluid  p-4 d-flex flex-column">
+        <div className="d-flex mb-3  m-auto">
+          <span className="nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
+          <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
+          <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
+        </div>
+        <div className="d-flex justify-content-center mb-5 mt-2">
+          <input
+            type="text"
+            value={search}
             placeholder="Search"
             className="search-input rounded-pill px-3 mx-3"
             style={{ height: "45px" }}
@@ -45,27 +52,31 @@ export const ShowRecipes = () => {
           <input
             type="button"
             value="Search"
-            className="search-button btn btn-vital-orange text-vital-white rounded-pill mx-3"    
-            onClick={handleSearch}        
+            className="search-button btn btn-vital-orange text-vital-white rounded-pill mx-3"
+            onClick={handleSearch}
           />
-      </div>
-      <div className="container d-flex flex-wrap">
-        {store.meals.map((meal) => {
-          return (
-          <>
-            <div className="d-flex">
-              <span  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
-                  <img src={meal.recipe.image} className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title text-vital-orange">{meal.recipe.label}</h5>
-                    <p className="card-text">{meal.recipe.dishType}</p>
-                  </div>
-                </div>
-              </span>
-            </div>
-                
+        </div>
+        <div className="container d-flex flex-wrap">
+          {store.meals.map((meal,index) => {
+            return (
 
+              <>
+                {
+                  isShow && <ShowDetail meal={meal} />
+                }
+                <div className="d-flex" onClick={()=>navigate("/mealDetails/" + index)}>
+                  {/* <span data-bs-toggle="modal" data-bs-target="#exampleModal"> */}
+                  <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
+                    <img src={meal.recipe.image} className="card-img-top" alt="..." />
+                    <div className="card-body">
+                      <h5 className="card-title text-vital-orange">{meal.recipe.label}</h5>
+                      <p className="card-text">{meal.recipe.dishType}</p>
+                    </div>
+                  </div>
+                  {/* </span> */}
+                </div>
+
+                {/* 
               <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-xl">
                   <div className="modal-content">
@@ -102,17 +113,14 @@ export const ShowRecipes = () => {
                     </div>   
                   </div>
                 </div>
-              </div>
-             
-          </>
-
-          )
-
-        })}
+              </div>    */}
+              </>
+            )
+          })}
+        </div>
       </div>
 
-
-
-    </div>
+    </>
   )
 }
+
