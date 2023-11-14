@@ -197,6 +197,7 @@ class Profile(db.Model):
         return {
             "id": self.id,
             "user id": self.user_id,
+            "jobies": self.jobies,
             "profile image": self.profile_image,
             "description": self.description,
             "phone": self.phone,

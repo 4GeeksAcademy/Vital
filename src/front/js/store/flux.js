@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			products: [],
 			totalShoppingCart: 0,
-			users: [],
+			user: null || JSON.parse(localStorage.getItem("user")),
+			profile: null || JSON.parse(localStorage.getItem("profile")),
 			gyms: [],
 			newsletter: [],
 			profile: null,
@@ -55,7 +56,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					localStorage.setItem("token", data.token)
-					setStore({ token: data.token, profile: data.user })
+					localStorage.setItem("user", JSON.stringify(data.user))
+					localStorage.setItem("profile", JSON.stringify(data.profile))
+					setStore({ token: data.token, user: data.user, profile: data.profile })
 					console.log(data)
 					return true
 				}
@@ -147,26 +150,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 			},
-			addFavExercise: (bodypart, exercise) => {
-				// Eliminar espacios en blanco de bodypart
-				const newBodypart = bodypart.replace(/\s/g, '')
+			addFavExercise: (bodypart, exercise, id) => {
 				const store = getStore();
-				if (store.favorites[newBodypart].includes(exercise)) return
+				const particularExercise = Object.values(store.favorites[bodypart])
+				// console.log(particularExercise.map(item => item.id).includes(id))
+				const newBodypart = bodypart.replace(/\s/g, '')
+				if (particularExercise.map(item => item.id).includes(id)) return
 				
 				if (store.favorites.hasOwnProperty(newBodypart)) {
-					const newFavorite = {...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
+					const newFavorite = {...store.favorites, [newBodypart]: [...store.favorites[newBodypart], {exercise: exercise, id: id}] }
 					setStore({ favorites: newFavorite })
 				} else {
 					console.log(`no existe el key en el objeto`)
 				}
 			},
-			removeFavExercise: (bodypart, exercise) => {
+			removeFavExercise: (bodypart, exercise, id) => {
 				console.log(`Esto es lo que llega: ${exercise} - ${bodypart}`)
 				const newBodypart = bodypart.replace(/\s/g, '').toLowerCase()
 				const store = getStore()
 				if (store.favorites.hasOwnProperty(newBodypart)) {
 					console.log(`entro al if`)
-					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
+					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem.id != id) }
 					setStore({ favorites: newFavorite });
 				}
 				console.log(`Favorites despues de ejecutar la funcion:`)

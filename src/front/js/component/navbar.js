@@ -82,7 +82,7 @@ export const Navbar = () => {
         </div>
         <div className="d-flex flex-row">
             <i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1" onClick={() => navigate("/shopping-cart")} style={{ cursor: "pointer" }}></i>
-            <i className="fa-solid fa-heart text-vital-orange fs-5 px-1" onClick={() => navigate("/favorites")} style={{ cursor: "pointer" }}></i>
+            <i className="fa-solid fa-heart text-vital-orange fs-5 px-1" onClick={() => navigate("/my-profile")} style={{ cursor: "pointer" }}></i>
         </div>
         {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
