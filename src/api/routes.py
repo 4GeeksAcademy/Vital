@@ -63,14 +63,15 @@ def create_token_admin():
     if username is None or password is None:
         return {"message": "parameters missing"}, 400
     admin = Administrator.query.filter_by(username=username).one_or_none()
+    profile = Profile.query.filter_by(user=admin).one_or_none()
     if admin is None:
         return {"message": "user doesn't exist"}, 400
     password_byte = bytes(password, "utf-8")   
     if bcrypt.checkpw(password_byte, admin.password.encode("utf-8")):
         return {
-            "token": create_access_token(
-                identity=admin.username, expires_delta=timedelta(hours=3)
-            )
+            "token": create_access_token(identity=admin.username, expires_delta=timedelta(hours=3)),
+            "admin": admin.serialize(),
+            "profile": profile.serialize()            
         }, 200
     return {"message": "Access no granted"}, 501
 

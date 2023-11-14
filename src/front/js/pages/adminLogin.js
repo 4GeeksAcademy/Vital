@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import "../../styles/login.css"
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 export const AdminLogin = () => {
     const navigate = useNavigate()
@@ -11,20 +12,47 @@ export const AdminLogin = () => {
 
     useEffect(()=>{
         store.token && navigate("/dashboard")
-    })
+    },[])
 
     const loginAdmin = async () =>{
         if(username ==  "" || password == ""){
-            alert("inputs can't be empty")
+            toast.warn('Missing Field!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             return 
         }
         const isValid =  await actions.loginAdmin(username, password)
             if(isValid){
                 actions.setUsername(username)
-                alert("Login Successfully")
+                toast.success('Welocme Back Admin!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
                 navigate("/dashboard")
             }  else {
-                alert("Invalid credentials")
+                toast.error('Login Failded!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    });
                 setPassword("")
                 setUsername("")
             }                 
@@ -52,6 +80,18 @@ export const AdminLogin = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     )
 }
