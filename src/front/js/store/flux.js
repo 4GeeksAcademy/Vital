@@ -161,12 +161,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			removeFavExercise: (bodypart, exercise) => {
-				const newBodypart = bodypart.replace(/\s/g, '')
+				console.log(`Esto es lo que llega: ${exercise} - ${bodypart}`)
+				const newBodypart = bodypart.replace(/\s/g, '').toLowerCase()
 				const store = getStore()
 				if (store.favorites.hasOwnProperty(newBodypart)) {
+					console.log(`entro al if`)
 					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
 					setStore({ favorites: newFavorite });
 				}
+				console.log(`Favorites despues de ejecutar la funcion:`)
+				console.log(store.favorites)
 			},	
 			getData: async () => {
 				const response = await fetch(process.env.BACKEND_URL + "api/users");

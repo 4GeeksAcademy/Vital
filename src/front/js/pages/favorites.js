@@ -24,9 +24,9 @@ export const Favorites = () => {
                             :
                             <div className='card-body'>
                                 {
-                                    Object.keys(store.favorites).map((category, index) =>(
-                                        store.favorites[category].map((exercise) => {
-                                            return <FavoriteWorkout exercises={exercise} category={category.toUpperCase()}/>
+                                    Object.keys(store.favorites).map((bodypart, index) =>(
+                                        store.favorites[bodypart].map((exerciseInBodypart) => {
+                                            return <FavoriteWorkout exercise={exerciseInBodypart} bodypart={bodypart.toUpperCase()}/>
                                         })
                                     ))
                                 }
