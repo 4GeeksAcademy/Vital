@@ -32,16 +32,6 @@ def check(email):
 
 api = Blueprint("api", __name__)
 
-
-@api.route("/hello", methods=["POST", "GET"])
-def handle_hello():
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
-
 @api.route("/token", methods=["POST"])
 def create_token():
     username = request.json.get("username", None)
@@ -54,12 +44,15 @@ def create_token():
         return {"message": "user doesn't exist"}, 400
     password_byte = bytes(password, "utf-8")   
 
+    profile = Profile.query.filter_by(user=user).one_or_none()
+
     if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
         return {
             "token": create_access_token(
                 identity=user.username, expires_delta=timedelta(hours=3)
             ),
-            "user": user.serialize()
+            "user": user.serialize(),
+            "profile": profile.serialize()
         }, 200
     return {"message": "Access no granted"}, 501
 
@@ -645,13 +638,14 @@ def update_profile(username):
     profile_image = body.get("profile_image", None)
     description = body.get("description", None)
     phone = body.get("phone", None)
+    name = body.get("name", None)
+    lastname = body.get("lastname", None)
+    email = body.get("email", None)
 
-    if jobies is None or profile_image is None or description is None or phone is None:
+    if jobies is None or profile_image is None or description is None or phone is None or name is None or lastname is None or email is None:
         return {"msg": "Missing fields"}, 400
     user = User.query.filter_by(username=username).first()
     profile = Profile.query.filter_by(user=user).first()
-
-    print(profile)
 
     if user is None:
         return {"msg": "User doesn't exist"}, 400
@@ -661,10 +655,13 @@ def update_profile(username):
         profile.profile_image = profile_image
         profile.description = description
         profile.phone = phone
-        print(profile.jobies, profile.description, profile.phone)
+        user.name = name
+        user.lastname = lastname
+        user.email = email
         db.session.commit()
         return {
             "msg": "Profile updated succesfully",
+            "user": user.serialize(),
             "profile": profile.serialize()}, 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500

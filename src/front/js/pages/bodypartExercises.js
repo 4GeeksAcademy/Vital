@@ -11,6 +11,7 @@ import { description, dataExcersises, useAPI } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
+import imgChestBackground from "../../img/background-containers/chest.png"
 
 export const BodypartExercises = () => {
   const { store, actions } = useContext(Context);
@@ -101,7 +102,7 @@ export const BodypartExercises = () => {
           <BackgroundContainer
             title={title}
             description={description}
-            image={imageBackgroundArm}
+            image={imgChestBackground}
           />
           <SortFilterBox setSort={setSort} setSearch={setSearch}/>
           <div className="container-fluid p-5 bg-vital-black">

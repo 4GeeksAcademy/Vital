@@ -81,12 +81,10 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Link to="/shopping-cart">
-        <i className="fa-solid fa-cart-shopping text-vital-orange fs-5" ></i>
-          {/* <span className="me-3">
-            <BagHandleOutline color={"#ff5300"} />
-          </span> */}
-        </Link>
+        <div className="d-flex flex-row">
+            <i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1" onClick={() => navigate("/shopping-cart")} style={{ cursor: "pointer" }}></i>
+            <i className="fa-solid fa-heart text-vital-orange fs-5 px-1" onClick={() => navigate("/my-profile")} style={{ cursor: "pointer" }}></i>
+        </div>
         {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
           store.token ? (
