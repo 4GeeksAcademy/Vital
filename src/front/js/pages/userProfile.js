@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import "../../../front/styles/user-profile.css"
 import { Context } from '../store/appContext'
+import { useNavigate } from 'react-router-dom'
 
 export const UserProfile = () => {
   const { store } = useContext(Context)
+  const navigate = useNavigate()
   const user = store.user
-  const profile = store.profile
-  console.log(profile.description)
+  const profile = store.profile  
+
+  useEffect(() => {
+    !user && !profile && navigate('/login')
+  }
+    , [])
 
   return (
     <>

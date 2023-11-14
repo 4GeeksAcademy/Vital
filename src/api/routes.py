@@ -203,6 +203,9 @@ def create_main_admin():
             )            
             db.session.add(admin)            
             db.session.commit()
+            profile = Profile(user=admin_user, jobies="", profile_image="", description="", phone="")
+            db.session.add(profile)
+            db.session.commit()
             return {"msg": "Admin created successfully"}, 200
         except ValueError as error:
             return {"msg": "Something went wrong" + error}, 500
