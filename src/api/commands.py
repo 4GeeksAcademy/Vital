@@ -1,6 +1,6 @@
 
 import click
-from api.models import db, User, Administrator
+from api.models import db, User, Administrator, Profile
 import bcrypt
 
 """
@@ -31,13 +31,18 @@ def setup_commands(app):
                     username="admin",
                     name="Administrator",
                     lastname="Vital",                    
-                )  
+                )              
+            
             db.session.add(admin)
+            db.session.commit()
+            user = User.query.filter_by(username="admin").first()
+            profile = Profile(user=user, jobies="", profile_image="", description="", phone="")            
+            db.session.add(profile)
             db.session.commit()
             print("Admin: ", admin.email, " created.")
         except Exception as e:
             print(e)
-            print("Admin user already exists")          
+            print("something went wrong")          
 
     # @app.cli.command("insert-test-users") # name of our command
     # def insert_test_users():

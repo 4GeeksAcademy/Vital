@@ -2,13 +2,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
-			username: null || localStorage.getItem("username"),
+			username: null || localStorage.getItem("username"),			
 			revenue: 0,
 			products: [],
 			meals: [],
 			totalShoppingCart: 0,
+			profile: null || JSON.parse(localStorage.getItem('profile')),
 			user: null || JSON.parse(localStorage.getItem("user")),
-			profile: null || JSON.parse(localStorage.getItem("profile")),
 			gyms: [],
 			transactions: [],
 			newsletter: [],
@@ -88,10 +88,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						})
 					const data = await response.json()
+					if (!data.token) {
+						return false
+					}
 					localStorage.setItem("token", data.token)
 					localStorage.setItem("user", JSON.stringify(data.user))
 					localStorage.setItem("profile", JSON.stringify(data.profile))
-					setStore({ token: data.token, user: data.user, profile: data.profile })
+					setStore({ "token": data.token, "user": data.user, "profile": data.profile })
 					console.log(data)
 					return true
 				}
@@ -120,14 +123,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						})
 					const data = await response.json()
+					console.log(data)
 					if (!data.token) {
 						return false
 					}
+					if (data.admin.role == "admin") {
 					localStorage.setItem("token", data.token)
 					localStorage.setItem("username", username)
-					setStore({ token: data.token })
-					console.log(data)
+					setStore({ token: data.token, username: username })					
 					return true
+					}
+					return false
 				}
 				catch (error) {
 					console.log(error)
@@ -139,32 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("token")
 				setStore({ token: null })
 				return true
-			},
-
-			loginAdmin: async (username, password) => {
-				try {
-					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-						{
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({ username, password })
-
-						})
-					const data = await response.json()
-					localStorage.setItem("token", data.token)
-					localStorage.setItem("username", username)
-					setStore({ token: data.token })
-					console.log(data)
-					return true
-				}
-				catch (error) {
-					console.log(error)
-					return false
-				}
-			},
-
+			},		
 			getMeals: async (url) => {
 				try {
 					const resp = await fetch(url)

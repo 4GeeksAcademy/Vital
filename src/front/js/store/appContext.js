@@ -30,6 +30,8 @@ const injectContext = PassedComponent => {
 		// 	 * store, instead use actions, like this:
 		// 	 **/
 		// 	state.actions.getProducts(); // <---- calling this function from the flux.js actions
+		console.log(JSON.parse(localStorage.getItem('profile')))
+		state.store.profile = JSON.parse(localStorage.getItem('profile') || null)
 		state.actions.validateToken();
 		 }, []);
 
