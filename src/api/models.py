@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 db = SQLAlchemy()
 
 
@@ -242,17 +242,18 @@ class NewsletterFiles(db.Model):
 class Transactions(db.Model):
     __tablename__ = "transactions"
     id = db.Column(db.Integer, primary_key=True)
+    payment_id = db.Column(db.String(200), unique=True, nullable=False)
     order = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    amount = db.Column(db.Float, nullable=False)
+    amount = db.Column(db.Float, nullable=False)    
     comission = db.Column(db.Float, nullable=False)
 
-    def __init__(self, order, date, amount, commission):
-
+    def __init__(self, payment_id, order, amount):
+        self.payment_id = payment_id
         self.order = order
-        self.date = date
+        self.date = datetime.now()
         self.amount = amount
-        self.comission = commission
+        self.comission = amount * 0.05
 
     def __repr__(self):
         return f"<Transaction {self.id}, {self.date}>"

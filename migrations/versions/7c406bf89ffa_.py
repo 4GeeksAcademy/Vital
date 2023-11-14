@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 883ec98bdab8
+Revision ID: 7c406bf89ffa
 Revises: 
-Create Date: 2023-11-07 03:02:20.009268
+Create Date: 2023-11-13 02:00:26.081047
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '883ec98bdab8'
+revision = '7c406bf89ffa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -50,11 +50,13 @@ def upgrade():
     )
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('payment_id', sa.String(length=200), nullable=False),
     sa.Column('order', sa.Integer(), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('amount', sa.Float(), nullable=False),
     sa.Column('comission', sa.Float(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('payment_id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -93,16 +95,13 @@ def upgrade():
     )
     op.create_table('profile',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('profile_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('jobies', sa.String(length=200), nullable=False),
-    sa.Column('profile_name', sa.String(length=120), nullable=True),
     sa.Column('profile_image', sa.String(length=500), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=True),
     sa.Column('phone', sa.String(length=20), nullable=True),
-    sa.Column('is_active', sa.Boolean(), nullable=False),
-    sa.ForeignKeyConstraint(['profile_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('profile_name')
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 

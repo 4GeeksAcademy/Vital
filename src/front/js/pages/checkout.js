@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Loading from "../component/loading/loading";
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -21,6 +22,8 @@ export default Checkout;
 
 const CheckoutForm = () => {
   const { store, actions } = useContext(Context);
+  const closeRef = useRef();
+  const navigate = useNavigate();
   const [cardInformation, setCardInformation] = useState({
     name: "",
     address: "",
@@ -77,7 +80,7 @@ const CheckoutForm = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ payment_method_id: result.paymentMethod.id, amount: store.totalShoppingCart * 100 })
+      body: JSON.stringify({ payment_method_id: result.paymentMethod.id, amount: store.totalShoppingCart * 100, order: 8547625 })
     });
     const paymentResponse = await response.json();
     handleServerResponse(paymentResponse);
@@ -109,6 +112,17 @@ const CheckoutForm = () => {
       }
     } else {
       console.log('Success!');
+      closeRef.current.click();
+      actions.clearCart();
+      setCardInformation({
+        name: "",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        phone: "",
+      })
+      navigate("/store")
     }
   }
 
@@ -127,33 +141,33 @@ const CheckoutForm = () => {
               <CardElement className="form-control" />
             </div>
             <div className="mb-3">
-              <label for="recipient-name" className="col-form-label text-vital-white">Name</label>
+              <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
               <input type="text" className="form-control" onChange={(e)=> {
                 setCardInformation({...cardInformation, name: e.target.value})
               }}/>
             </div>
             <div className="mb-3">
-              <label for="recipient-name" className="col-form-label text-vital-white">Address</label>
+              <label htmlFor="recipient-name" className="col-form-label text-vital-white">Address</label>
               <input type="text" className="form-control" onChange={
                 (e) => setCardInformation({ ...cardInformation, address: e.target.value })
               }/>
             </div>
             <div className="d-flex justify-content-between">            
             <div className="mb-3">
-              <label for="message-text" className="col-form-label text-vital-white col-3">City</label>
+              <label htmlFor="message-text" className="col-form-label text-vital-white col-3">City</label>
               <input type="text" className="form-control w-75" onChange={
                 (e) => setCardInformation({ ...cardInformation, city: e.target.value })
               }/>
             </div>
             <div className="mb-3">
-              <label for="message-text" className="col-form-label text-vital-white col-3">State</label>
+              <label htmlFor="message-text" className="col-form-label text-vital-white col-3">State</label>
               <input type="text" className="form-control w-75" onChange={
                 (e) => setCardInformation({ ...cardInformation, state: e.target.value })
               }/>
              
             </div>
             <div className="mb-3">
-              <label for="message-text" className="col-form-label text-vital-white col-3">Country</label>
+              <label htmlFor="message-text" className="col-form-label text-vital-white col-3">Country</label>
               <input type="text" className="form-control w-75" onChange={
                 (e) => setCardInformation({ ...cardInformation, country: e.target.value })
               }/>
@@ -161,7 +175,7 @@ const CheckoutForm = () => {
             </div>
             </div>
             <div className="mb-3">
-              <label for="message-text" className="col-form-label text-vital-white">Phone</label>
+              <label htmlFor="message-text" className="col-form-label text-vital-white">Phone</label>
               <input type="text" className="form-control" onChange={
                 (e) => setCardInformation({ ...cardInformation, phone: e.target.value })
               }/>
@@ -172,7 +186,7 @@ const CheckoutForm = () => {
           </div>
         </div>
         <div className="modal-footer border-top border-vital-orange">
-          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
           <button type="button" className="btn btn-vital-orange text-vital-white" onClick={handleSubmit}>Submit</button>
         </div>
       </div>

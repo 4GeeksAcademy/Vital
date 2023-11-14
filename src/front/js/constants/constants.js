@@ -1,5 +1,28 @@
 export const useAPI = true;
 
+export const chooseMeal = {
+    highFiber: {
+        breakfast: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-fiber&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
+        lunch: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-fiber&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
+        dinner: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-fiber&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
+    },
+    highProtein: {
+        breakfast: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-protein&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
+        lunch: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-protein&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
+        dinner: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=high-protein&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
+    },
+    lowCarb: {
+        breakfast: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-carb&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
+        lunch: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-carb&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
+        dinner: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-carb&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
+    },
+    lowFat: {
+        breakfast:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
+        lunch:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
+        dinner:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
+    }
+
+}
 
 export const products = [
     {

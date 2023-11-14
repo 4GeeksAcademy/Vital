@@ -98,7 +98,7 @@ const ShoppingCart = () => {
       </div>
       {/* end row */}
     </div>
-    <div className="modal fade bg-vital-gray" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade bg-vital-gray" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <Checkout />
             </div>
     </>
