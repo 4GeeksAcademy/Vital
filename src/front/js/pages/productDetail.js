@@ -7,6 +7,7 @@ import Loading from "../component/loading/loading.js";
 import { collection, getDocs, getLocation } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Context } from "../store/appContext.js";
+import { motion } from "framer-motion"
 
 const ProductDetail = () => {  
   const { store, actions } = useContext(Context)

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import "../../../front/styles/user-profile.css"
 import { Context } from '../store/appContext'
 import { useNavigate } from 'react-router-dom'
+import { motion } from "framer-motion"
 
 export const UserProfile = () => {
   const { store } = useContext(Context)

@@ -2,9 +2,13 @@ import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { chooseMeal } from "../constants/constants";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"
+import Loading from "../component/loading/loading";
+
 export const ShowRecipes = () => {
   const { diet, meal } = useParams()
-
+  const navigate = useNavigate()
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
   const [search, setSearch] = useState(null)
@@ -17,59 +21,89 @@ export const ShowRecipes = () => {
     setRecipe(recipeJson)
   }
 
+  useEffect(() => {
+    !store.token && navigate("/login")
+    getRecipes("breakfast")
+  }, []);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+  const item = {
+    hidden: { opacity: 0, scale: 0 },
+    show: { opacity: 1, scale: 1 }
+  }
+
   const handleSearch = async (e) => {
-    e.preventDefault()    
-    const recipes = await actions.getMeals(url+"&q="+search)
+    e.preventDefault()
+    const recipes = await actions.getMeals(url + "&q=" + search)
     const recipeJson = await recipes.json()
     setRecipe(recipeJson)
     setSearch("")
   }
 
-  recipe && console.log(recipe)
   return (
-    <div className="container-fluid  p-4 d-flex flex-column">
-      <div className="d-flex mb-3  m-auto">
-          <span className="nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
-          <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
-          <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
-      </div>
-      <div className="d-flex justify-content-center mb-5 mt-2">
-      <input
-            type="text"   
-            value={search}         
-            placeholder="Search"
-            className="search-input rounded-pill px-3 mx-3"
-            style={{ height: "45px" }}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <input
-            type="button"
-            value="Search"
-            className="search-button btn btn-vital-orange text-vital-white rounded-pill mx-3"    
-            onClick={handleSearch}        
-          />
-      </div>
-      <div className="container d-flex flex-wrap">
-      {store.meals.map((meal) => {
-        return (
+    <>
+      {
 
-          <div className="d-flex">
-            <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
-              <img src={meal.recipe.image} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{meal.recipe.label}</h5>
-                <p className="card-text">{meal.recipe.calories} Kcal</p>
-                <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white"  target="_blank">Go to recipe</a>
+        store.meals.length <= 0 ? <Loading /> :
+          <>
+            <div className="container-fluid  p-4 d-flex flex-column">
+              <div className="d-flex mb-3  m-auto">
+                <span className="nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
+                <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
+                <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
               </div>
+              <div className="d-flex justify-content-center mb-5 mt-2">
+                <input
+                  type="text"
+                  value={search}
+                  placeholder="Search"
+                  className="search-input rounded-pill px-3 mx-3"
+                  style={{ height: "45px" }}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <input
+                  type="button"
+                  value="Search"
+                  className="search-button btn btn-vital-orange text-vital-white rounded-pill mx-3"
+                  onClick={handleSearch}
+                />
+              </div>
+              <motion.div className="container d-flex flex-wrap"
+                variants={container}
+                initial="hidden"
+                animate="show"
+              >
+
+                {store.meals.map((meal, index) => {
+                  return (
+
+                    <motion.div key={index} className="d-flex"
+                      variants={item}
+                    >
+                      <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
+                        <img src={meal.recipe.image} className="card-img-top" alt="..." />
+                        <div className="card-body">
+                          <h5 className="card-title">{meal.recipe.label}</h5>
+                          <p className="card-text">{meal.recipe.calories} Kcal</p>
+                          <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white" target="_blank">Go to recipe</a>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </motion.div>
             </div>
-          </div>
-        )
-
-      })}
-      </div>
-
-     
-
-    </div>
+          </>
+      }
+    </>
   )
 }

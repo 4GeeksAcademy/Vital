@@ -8,6 +8,7 @@ import { db } from "../../firebase/config"
 import { useNavigate } from "react-router-dom";
 import Loading from "../component/loading/loading.js";
 
+
 export const Store = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context)
@@ -60,6 +61,7 @@ export const Store = () => {
           </div>
         </div>
       </div>
+      
       </>
     }
     </div>

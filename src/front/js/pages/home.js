@@ -5,8 +5,9 @@ import "../../styles/home.css";
 import Image from "../../img/image1.png";
 import Carousel from "../component/carousel";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"
 
-export const Home = () => {
+export const Home = ({ isVisible }) => {
   const { store, actions } = useContext(Context);
 
   const navigate = useNavigate();
