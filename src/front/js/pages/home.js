@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
@@ -9,8 +9,9 @@ import { motion } from "framer-motion"
 
 export const Home = ({ isVisible }) => {
   const { store, actions } = useContext(Context);
-
   const navigate = useNavigate();
+ 
+
   const handleClick = () => {
     navigate("/exercises");
   };
