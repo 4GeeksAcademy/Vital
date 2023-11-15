@@ -133,7 +133,7 @@ def create_user():
             )            
             db.session.add(user)
             db.session.commit()
-            favorite = Favorite(user=user, favorite_back="", favorite_cardio="", favorite_chest="", favorite_lower_arms="", favorite_lower_legs="", favorite_neck="", favorite_shoulders="", favorite_upper_arms="", favorite_upper_legs="", favorite_waist="")
+            favorite = Favorite(user=user, favorite_back=[], favorite_cardio=[], favorite_chest=[], favorite_lower_arms=[], favorite_lower_legs=[], favorite_neck=[], favorite_shoulders=[], favorite_upper_arms=[], favorite_upper_legs=[], favorite_waist=[])
             db.session.add(favorite)
             db.session.commit()
             # return {"msg": "antes del profile"}
@@ -236,78 +236,43 @@ def validate_token():
     
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
-
-    args = request.args
-    body_part = args.get("body_part", None, type=str)
-    exercise = args.get("exercise", None, type=str)
+    body = request.get_json()    
+    favorite_back = body.get("favorite_back", None)
+    favorite_cardio = body.get("favorite_cardio", None)
+    favorite_chest = body.get("favorite_chest", None)
+    favorite_lower_arms = body.get("favorite_lower_arms", None)
+    favorite_lower_legs = body.get("favorite_lower_legs", None)
+    favorite_neck = body.get("favorite_neck", None)
+    favorite_shoulders = body.get("favorite_shoulders", None)
+    favorite_upper_arms = body.get("favorite_upper_arms", None)
+    favorite_upper_legs = body.get("favorite_upper_legs", None)
+    favorite_waist = body.get("favorite_waist", None)
+    if favorite_back is None or favorite_cardio is None or favorite_chest is None or favorite_lower_arms is None or favorite_lower_legs is None or favorite_neck is None or favorite_shoulders is None or favorite_upper_arms is None or favorite_upper_legs is None or favorite_waist is None:
+        return {"msg": "Missing fields"}, 400
     
     #favorite_back, favorite_cardio, favorite_chest, favorite_lower_arms, favorite_lower_legs, favorite_neck, favorite_shoulders, favorite_upper_arms, favorite_upper_legs, favorite_waist
     user = User.query.filter_by(username=username).first()    
-    favorite = Favorite.query.filter_by(user=user).first()    
-    if user is None or favorite is None:
-        return {"msg": "User doesn't exist"}, 400
-    if body_part == "back" and exercise is not None:
-        current_favorite = favorite.favorite_back
-        current_favorite= exercise
-        favorite.favorite_back = current_favorite
+    favorite = Favorite.query.filter_by(user=user).first() 
+    if favorite is None:
+        return {"msg": "User doesn't have favorites"}, 400
+    try:
+        favorite.favorite_back = favorite_back
+        favorite.favorite_cardio = favorite_cardio
+        favorite.favorite_chest = favorite_chest
+        favorite.favorite_lower_arms = favorite_lower_arms
+        favorite.favorite_lower_legs = favorite_lower_legs
+        favorite.favorite_neck = favorite_neck
+        favorite.favorite_shoulders = favorite_shoulders
+        favorite.favorite_upper_arms = favorite_upper_arms
+        favorite.favorite_upper_legs = favorite_upper_legs
+        favorite.favorite_waist = favorite_waist
         db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "cardio" and exercise is not None:
-        current_favorite = favorite.favorite_cardio
-        current_favorite= exercise
-        favorite.favorite_cardio = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "chest" and exercise is not None:
-        current_favorite = favorite.favorite_chest        
-        current_favorite= exercise
-        favorite.favorite_chest = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "lower_arms" and exercise is not None:
-        current_favorite = favorite.favorite_lower_arms
-        current_favorite= exercise
-        favorite.favorite_lower_arms = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "lower_legs" and exercise is not None:
-        current_favorite = favorite.favorite_lower_legs
-        current_favorite= exercise
-        favorite.favorite_lower_legs = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "neck" and exercise is not None:
-        current_favorite = favorite.favorite_neck
-        current_favorite= exercise
-        favorite.favorite_neck = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "shoulders" and exercise is not None:
-        current_favorite = favorite.favorite_shoulders
-        current_favorite= exercise
-        favorite.favorite_shoulders = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "upper_arms" and exercise is not None:
-        current_favorite = favorite.favorite_upper_arms
-        current_favorite= exercise
-        favorite.favorite_upper_arms = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "upper_legs" and exercise is not None:
-        current_favorite = favorite.favorite_upper_legs
-        current_favorite= exercise
-        favorite.favorite_upper_legs = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    if body_part == "waist" and exercise is not None:
-        current_favorite = favorite.favorite_waist
-        current_favorite= exercise
-        favorite.favorite_waist = current_favorite
-        db.session.commit()
-        return {"msg": "Favorite added successfully"}, 200
-    else:
-        return {"msg": "Something went wrong"}, 500
+        return {"msg": "Favorites added succesfully"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+    
+       
     
 @api.route("create-gym", methods=["POST"])
 def create_gym():
