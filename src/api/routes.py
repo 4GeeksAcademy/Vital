@@ -57,13 +57,13 @@ def create_token():
     return {"message": "Access no granted"}, 501
 
 @api.route("/token-admin", methods=["POST"])
-def create_token_admin():
+def create_token_admin():    
     username = request.json.get("username", None)
     password = request.json.get("password", None)    
     if username is None or password is None:
         return {"message": "parameters missing"}, 400
-    admin = Administrator.query.filter_by(username=username).one_or_none()
-    profile = Profile.query.filter_by(user=admin).one_or_none()
+    admin = Administrator.query.filter_by(username=username).one_or_none()    
+    profile = Profile.query.filter_by(user=admin).one_or_none()      
     if admin is None:
         return {"message": "user doesn't exist"}, 400
     password_byte = bytes(password, "utf-8")   
@@ -179,7 +179,11 @@ def create_admin():
                 name=name,
                 lastname=lastname,                
             )            
-            db.session.add(admin)            
+            db.session.add(admin)
+            db.session.commit()
+            user = User.query.filter_by(username=username).first()
+            profile = Profile(user=user, jobies="", profile_image="", description="", phone="")            
+            db.session.add(profile)
             db.session.commit()
             return {"msg": "Admin created successfully"}, 200
         except ValueError as error:
@@ -190,21 +194,22 @@ def create_admin():
 @api.route("create-main-admin", methods=["POST"])
 def create_main_admin():
     admin_user = Administrator.query.filter_by(username="admin").first()    
-    bpassword = bytes("12345", "utf-8")       
+    bpassword = bytes("12345", "utf-8")
     salt = bcrypt.gensalt()
     hashed = bcrypt.hashpw(bpassword, salt)
     if admin_user is None:
         try:
-            admin = Administrator( 
-                email="admin@vital.com",               
-                password=hashed.decode("utf-8"),
-                username="admin",
-                name="Admin",
-                lastname="Vital",                
-            )            
-            db.session.add(admin)            
+            admin = Administrator(
+                    email="admin@vital.com",               
+                    password=hashed.decode("utf-8"),
+                    username="admin",
+                    name="Administrator",
+                    lastname="Vital",                    
+                ) 
+            db.session.add(admin)
             db.session.commit()
-            profile = Profile(user=admin_user, jobies="", profile_image="", description="", phone="")
+            user = User.query.filter_by(username="admin").first()
+            profile = Profile(user=user, jobies="", profile_image="", description="", phone="")            
             db.session.add(profile)
             db.session.commit()
             return {"msg": "Admin created successfully"}, 200
