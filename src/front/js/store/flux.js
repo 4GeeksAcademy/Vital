@@ -178,8 +178,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addToCart: (title, price, image, id, quantity) => {
 				const store = getStore()
-				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })
-				alert(`Added to cart`)
+				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })				
 			},
 			removeFromCart: (id) => {
 				const store = getStore()
