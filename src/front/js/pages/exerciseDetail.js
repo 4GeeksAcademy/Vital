@@ -10,6 +10,7 @@ import { getStructuredMessage } from "../function/returnExcerciseDescription";
 import Loading from "../component/loading/loading.js";
 import { objectAI2 } from "../constants/constants";
 import { useAPI } from "../constants/constants";
+import { motion } from "framer-motion"
 
 const ExerciseDetail = () => {
   const { store, actions } = useContext(Context);

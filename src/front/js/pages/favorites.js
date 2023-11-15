@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Context } from "../store/appContext"
 import { FavoriteWorkout } from '../component/favoritesCards/favoriteWorkout'
 import { useNavigate } from 'react-router-dom'
+import { motion } from "framer-motion"
 
 export const Favorites = () => {
     const navigate = useNavigate()

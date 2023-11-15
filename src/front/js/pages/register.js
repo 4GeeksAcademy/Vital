@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import "../../styles/register.css"
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"
 
 
 export const Register = () => {
@@ -46,19 +47,19 @@ export const Register = () => {
                         <h2 className="mb-4 mt-4 d-flex justify-content-center "><strong className="text-vital-orange">Sign up</strong></h2>
 
 
-                        <label for="inputPassword5" className="form-label text-vital-white">Name</label>
+                        <label htmlFor="inputPassword5" className="form-label text-vital-white">Name</label>
                         <input type="text" value={user.name} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event) => { setUser({ ...user, name: event.target.value }) }} />
 
-                        <label for="inputPassword5" className="form-label text-vital-white">Last Name</label>
+                        <label htmlFor="inputPassword5" className="form-label text-vital-white">Last Name</label>
                         <input type="text" value={user.lastname} id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event) => { setUser({ ...user, lastname: event.target.value }) }} />
 
-                        <label for="inputPassword5" className="form-label text-vital-white">Username</label>
+                        <label htmlFor="inputPassword5" className="form-label text-vital-white">Username</label>
                         <input type="text" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event) => { setUser({ ...user, username: event.target.value }) }} />
 
-                        <label for="inputPassword5" className="form-label text-vital-white">Email</label>
+                        <label htmlFor="inputPassword5" className="form-label text-vital-white">Email</label>
                         <input type="email" id="inputPassword5" className="form-control mb-3" aria-describedby="passwordHelpBlock" onChange={(event => { setUser({ ...user, email: event.target.value }) })} />
 
-                        <label for="inputPassword5" className="form-label text-vital-white">Password</label>
+                        <label htmlFor="inputPassword5" className="form-label text-vital-white">Password</label>
                         <input type="password" id="inputPassword5" className="form-control mb-4" aria-describedby="passwordHelpBlock" onChange={(event) => { setUser({ ...user, password: event.target.value }) }} />
 
                         <button className="btn btn-vital-orange mb-2 w-100 text-vital-white" onClick={addUser}>Sign in </button>

@@ -231,7 +231,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(store.favorites)
 			},	
 			getData: async () => {
-				const store = getStore();
+				const store = getStore();				
 				const response = await fetch(process.env.BACKEND_URL + `api/users?username=${store.username}`,
 					{
 						method: "GET",

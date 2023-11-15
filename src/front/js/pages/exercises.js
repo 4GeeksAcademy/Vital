@@ -7,6 +7,7 @@ import CardWorkout from "../component/cardWorkout";
 import { scrollToTop } from "../function/scrollToTop";
 import { allExercises } from "../constants/allExcercises";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"
 
 export const Exercises = () => {
   const { store, actions } = useContext(Context);

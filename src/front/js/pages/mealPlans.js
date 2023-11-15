@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import BackgroundContainer from "../component/backgroundContainer";
 import Imagen from "../../img/background-nutrition.png"
 import "../../styles/meals.css"
+import { motion } from "framer-motion"
 
 export const MealPlans = () => {
   const { store, actions } = useContext(Context);

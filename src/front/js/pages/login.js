@@ -3,6 +3,7 @@ import "../../styles/login.css"
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from 'react-toastify';
+import { motion } from "framer-motion"
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -59,11 +60,11 @@ export const Login = () => {
                         <div className="col-6 d-flex-column">
                             <h1 className="d-flex justify-content-center my-4 text-vital-orange">Hello welcome back!</h1>
                             <div className="mb-3">
-                                <label for="exampleFormControlInput1" className="form-label text-vital-white">Username</label>
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-vital-white">Username</label>
                                 <input type="string" value={username} className="form-control" id="exampleFormControlInput1" onChange={(event) => { setUsername(event.target.value) }} />
                             </div>
                             <div className="mb-3">
-                                <label for="exampleFormControlInput1" className="form-label text-vital-white">Password</label>
+                                <label htmlFor="exampleFormControlInput1" className="form-label text-vital-white">Password</label>
                                 <input type="password" value={password} className="form-control" id="exampleFormControlInput1" onChange={(event) => { setPassword(event.target.value) }} />
                             </div>
                             <div className="mb-3 mt-4">

@@ -12,6 +12,7 @@ import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
 import imgChestBackground from "../../img/background-containers/chest.png"
+import { motion } from "framer-motion"
 
 export const BodypartExercises = () => {
   const { store, actions } = useContext(Context);
@@ -48,14 +49,17 @@ export const BodypartExercises = () => {
       return 
     }
     try {
-      const getData = async () => {
-        const response = await fetch(url, options);
+      const getData = async (bodypart) => {
+        console.log({bodypart: bodypart})
+        const response = await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=150`, options);
         const dataJson = await response.json();
         setExercises(dataJson);
         setFetchExercises(dataJson)
         setLoading(false);
       }
-      getData()
+      const newBodypart = bodypart.replace(/\s/g, '%20')
+      getData(newBodypart)
+
     } catch (error) {
       console.log(error);
     }
