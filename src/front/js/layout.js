@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Home } from "./pages/home";
 import { Store } from "./pages/store";
 import { Demo } from "./pages/demo";
@@ -63,12 +64,11 @@ const Layout = () => {
             <Route element={<AdminPanel />} path="/dashboard" />
             <Route element={<PageViewerPDF />} path="/pdfviewer" />
             <Route element={<Checkout />} path="/checkout" />
-            <Route element={<h1>Not found!</h1>} />
             <Route element={<ShowRecipes/>} path="/showRecipes/:diet" />
-            <Route element={<MealDetails/>} path="/mealDetails/:index"/>
-            
+            <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
+          <ToastContainer />
         </ScrollToTop>
       </BrowserRouter>
     </div>

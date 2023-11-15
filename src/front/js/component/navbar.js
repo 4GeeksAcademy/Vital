@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Logo from "../../img/logo-vital.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext"
-// import { BagHandleOutline } from "react-ionicons";
+import { motion } from "framer-motion"
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
@@ -28,7 +28,12 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-6">
-            <li className="nav-item">
+            <motion.li className="nav-item"
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
+            >
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
@@ -36,32 +41,51 @@ export const Navbar = () => {
               >
                 Home
               </a>
-            </li>
-            <li className="nav-item">
+            </motion.li>
+            <motion.li className="nav-item"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
+            >
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
-                href="#"
               >
                 About us
               </a>
-            </li>
-            <li className="nav-item">
+            </motion.li>
+            <motion.li className="nav-item"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
+            >
               <a className="nav-link text-vital-white" onClick={() => navigate("/exercises")}>
                 Workout
               </a>
-            </li>
-            <li className="nav-item">
+            </motion.li>
+            <motion.li className="nav-item"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
+            >
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
                 href="#"
-                onClick={()=> navigate("/mealPlans")}
+                onClick={() => navigate("/mealPlans")}
               >
                 Meal plans
               </a>
-            </li>
-            <li className="nav-item">
+            </motion.li>
+            <motion.li className="nav-item"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
+            >
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
@@ -69,8 +93,13 @@ export const Navbar = () => {
               >
                 Gyms near me
               </a>
-            </li>
-            <li className="nav-item">
+            </motion.li>
+            <motion.li className="nav-item"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
+            >
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
@@ -78,43 +107,53 @@ export const Navbar = () => {
               >
                 Store
               </a>
-            </li>
+            </motion.li>
           </ul>
         </div>
-        <Link to="/shopping-cart">
-        <i className="fa-solid fa-cart-shopping text-vital-orange fs-5" ></i>
-          {/* <span className="me-3">
-            <BagHandleOutline color={"#ff5300"} />
-          </span> */}
-        </Link>
+        <div className="d-flex flex-row">
+          <i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1" onClick={() => navigate("/shopping-cart")} style={{ cursor: "pointer" }}></i>
+          <i className="fa-solid fa-heart text-vital-orange fs-5 px-1" onClick={() => navigate("/my-profile")} style={{ cursor: "pointer" }}></i>
+        </div>
         {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
           store.token ? (
-            <button
+            <motion.button
               className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
               type="submit"
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
               onClick={() => actions.logout()}
+              whileTap={{ scale: 0.9 }}
             >
               Logout
-            </button>
+            </motion.button>
           ) : (
 
             <div>
               <Link to="/login">
-                <button
+                <motion.button
                   className="btn btn-outline-vital-orange text-vital-white rounded-pill"
                   type="submit"
+                  whileHover={{ scale: 1.2 }}
+                  onHoverStart={e => { }}
+                  onHoverEnd={e => { }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   Log in
-                </button>
+                </motion.button>
               </Link>
               <Link to="/register">
-                <button
+                <motion.button
                   className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
                   type="submit"
+                  whileHover={{ scale: 1.2 }}
+                  onHoverStart={e => { }}
+                  onHoverEnd={e => { }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   Sign up free
-                </button>
+                </motion.button>
               </Link>
             </div>
           )

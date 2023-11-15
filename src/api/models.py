@@ -101,11 +101,6 @@ class Favorite(db.Model):
             "favorite_waist": self.favorite_waist,
         }
 
-class Favorite_back(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-    favorite_back = db.Column(db.String(300), unique=False, nullable=True)
-
 class Administrator(User):
     __tablename__ = "administrators"
     id = db.Column(db.Integer, primary_key=True)
@@ -197,6 +192,7 @@ class Profile(db.Model):
         return {
             "id": self.id,
             "user id": self.user_id,
+            "jobies": self.jobies,
             "profile image": self.profile_image,
             "description": self.description,
             "phone": self.phone,

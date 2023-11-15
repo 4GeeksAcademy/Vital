@@ -16,10 +16,10 @@ const Dashboard = (props) => {
         // });    
     }, []);
 
-    useEffect(() => {
-        actions.calculateRevenue();
-       // setRevenue(store.revenue);
-    }, [store.transactions]);
+    // useEffect(() => {
+    //     actions.calculateRevenue();
+    //    // setRevenue(store.revenue);
+    // }, [store.transactions]);
 
  
    

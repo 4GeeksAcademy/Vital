@@ -10,7 +10,7 @@ import ManageGyms from "../component/manageGyms";
 import Newsletters from "../component/newsletters";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion"
 
 const AdminPanel = () => {
    const [products, setProducts] = useState([])

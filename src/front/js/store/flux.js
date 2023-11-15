@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			products: [],
 			meals: [],
 			totalShoppingCart: 0,
-			users: [],
+			profile: null || JSON.parse(localStorage.getItem('profile')),
+			user: null || JSON.parse(localStorage.getItem("user")),
 			gyms: [],
 			transactions: [],
 			newsletter: [],
@@ -36,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Authorization": "Bearer " + store.token
 					},
 					body: JSON.stringify({ subject: subject, body_message: body_message })
-					})
+				})
 				const data = await response.json();
 				//console.log(data)
 				if (data.msg == "Email sent successfully") {
@@ -87,9 +88,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						})
 					const data = await response.json()
+					if (!data.token) {
+						return false
+					}
 					localStorage.setItem("token", data.token)
-					localStorage.setItem("username", username)
-					setStore({ token: data.token, profile: data.user })
+					localStorage.setItem("username", data.user.username)
+					localStorage.setItem("user", JSON.stringify(data.user))
+					localStorage.setItem("profile", JSON.stringify(data.profile))
+					setStore({ "token": data.token, "user": data.user, "profile": data.profile, "username": data.user.username })
 					console.log(data)
 					return true
 				}
@@ -102,7 +108,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				localStorage.removeItem("token")
 				localStorage.removeItem("username")
-				setStore({ token: null, username: null })
+				localStorage.removeItem("user")
+				localStorage.removeItem("profile")				
+				setStore({ token: null, username: null, user: null, profile: null })
 				return true
 			},
 
@@ -118,14 +126,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						})
 					const data = await response.json()
+					console.log(data)
 					if (!data.token) {
 						return false
 					}
-					localStorage.setItem("token", data.token)
-					localStorage.setItem("username", username)
-					setStore({ token: data.token })
-					console.log(data)
-					return true
+					if (data.admin.role == "admin") {
+						localStorage.setItem("token", data.token)
+						localStorage.setItem("username", username)
+						setStore({ token: data.token, username: username })
+						return true
+					}
+					return false
 				}
 				catch (error) {
 					console.log(error)
@@ -138,31 +149,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: null })
 				return true
 			},
-
-			loginAdmin: async (username, password) => {
-				try {
-					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
-						{
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({ username, password })
-
-						})
-					const data = await response.json()
-					localStorage.setItem("token", data.token)
-					localStorage.setItem("username", username)
-					setStore({ token: data.token })
-					console.log(data)
-					return true
-				}
-				catch (error) {
-					console.log(error)
-					return false
-				}
-			},
-
 			getMeals: async (url) => {
 				try {
 					const resp = await fetch(url)
@@ -175,6 +161,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch (error) {
 					console.log(error)
 				}
+			},
+			fetchFavorites: async () => {
+				const store = getStore();
+
+				const newFavorites = Object.keys(store.favorites).map((key) => {
+					return { [key]: store.favorites[key].map((item) => item.id) }
+				}).reduce((acc, item) => ({ ...acc, ...item }), {})
+
+				console.log(newFavorites)
+
+				const response = await fetch(process.env.BACKEND_URL + `api/add-favorite/${store.username}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(newFavorites)
+				})
+				const data = await response.json();
+				if (data.msg == "Favorites added successfully") {
+					return true
+				}
+				return false
 			},
 
 			getProducts: async () => {
@@ -196,7 +204,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			addToCart: (title, price, image, id, quantity) => {
 				const store = getStore()
 				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })
-				alert(`Added to cart`)
 			},
 			removeFromCart: (id) => {
 				const store = getStore()
@@ -221,26 +228,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 			},
-			addFavExercise: (bodypart, exercise) => {
-				// Eliminar espacios en blanco de bodypart
-				const newBodypart = bodypart.replace(/\s/g, '')
+			addFavExercise: async (bodypart, exercise, id) => {
 				const store = getStore();
-				if (store.favorites[newBodypart].includes(exercise)) return
+				const actions = getActions();
+				const particularExercise = Object.values(store.favorites[bodypart])
+				// console.log(particularExercise.map(item => item.id).includes(id))
+				const newBodypart = bodypart.replace(/\s/g, '')
+				if (particularExercise.map(item => item.id).includes(id)) return
 
 				if (store.favorites.hasOwnProperty(newBodypart)) {
-					const newFavorite = { ...store.favorites, [newBodypart]: [...store.favorites[newBodypart], exercise] }
+					const newFavorite = { ...store.favorites, [newBodypart]: [...store.favorites[newBodypart], { exercise: exercise, id: id }] }
 					setStore({ favorites: newFavorite })
+					const isPush = await actions.fetchFavorites()
+					if (isPush) {
+						return true
+					} else {
+						return false
+					}
 				} else {
 					console.log(`no existe el key en el objeto`)
+					return false
 				}
 			},
-			removeFavExercise: (bodypart, exercise) => {
-				const newBodypart = bodypart.replace(/\s/g, '')
+			removeFavExercise: async (bodypart, exercise, id) => {
+				console.log(`Esto es lo que llega: ${exercise} - ${bodypart}`)
+				const newBodypart = bodypart.replace(/\s/g, '').toLowerCase()
 				const store = getStore()
+				const actions = getActions()
 				if (store.favorites.hasOwnProperty(newBodypart)) {
-					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem != exercise) }
+					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem.id != id) }
 					setStore({ favorites: newFavorite });
+					const isPush = await actions.fetchFavorites()
+					if (isPush) {
+						return true
+					} else {
+						return false
+					}
 				}
+				console.log(`Favorites despues de ejecutar la funcion:`)
+				console.log(store.favorites)
 			},
 			getData: async () => {
 				const store = getStore();
@@ -360,7 +386,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			validateToken: async () => {
 				const store = getStore()
 				if (!store.token) return true
-				if (!store.username) return true				
+				if (!store.username) return true
 				const response = await fetch(process.env.BACKEND_URL + `api/validate-token?username=${store.username}`, {
 					method: "GET",
 					headers: {
@@ -370,8 +396,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				const data = await response.json();
 				if (data.msg == "User not authorized" || data.msg == "Token has expired") {
-					localStorage.removeItem("token")					
-					setStore({ token: null })					
+					localStorage.removeItem("token")
+					setStore({ token: null })
 					return true
 				}
 				return false

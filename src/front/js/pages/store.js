@@ -6,10 +6,13 @@ import Imagen from "../../img/store-background.png";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/config"
 import { useNavigate } from "react-router-dom";
+import Loading from "../component/loading/loading.js";
+
 
 export const Store = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context)
+  const [loading, setLoading] = useState(true)
   // const productos = store.products;
 
   const [products, setProducts] = useState([])
@@ -26,12 +29,16 @@ export const Store = () => {
           return { ...doc.data(), id: doc.id }
         })
         setProducts(products)
+        setLoading(false)
       })
 
   }, []);
 
   return (
-    <>
+    <div className="m-auto d-flex flex-column align-items-center">
+    {
+      loading ? <Loading /> :
+      <>
       <BackgroundContainer
         title="Store"
         description="Esta es la tienda donde se mostraran todos los productos"
@@ -54,6 +61,9 @@ export const Store = () => {
           </div>
         </div>
       </div>
-    </>
+      
+      </>
+    }
+    </div>
   );
 };

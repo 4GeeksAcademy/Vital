@@ -10,6 +10,10 @@ const ExerciseCard = ({ exercise, id, target, equipment, bodypart }) => {
 
   const title = target.charAt(0).toUpperCase() + target.slice(1);
   const titleExcercise = exercise.charAt(0).toUpperCase() + exercise.slice(1);
+  const newBodypart = bodypart.replace('%20', '').replace(/\s/g, '')
+  console.log(newBodypart)
+  const particularExercise = Object.values(store.favorites[newBodypart])
+  console.log(particularExercise.map(item => item.id).includes(id))
 
   return (
     <div
@@ -17,7 +21,7 @@ const ExerciseCard = ({ exercise, id, target, equipment, bodypart }) => {
       // style={{ height: "220px" }}
     >
       {
-        store.favorites[bodypart].includes(exercise) ? <i className="heart fa-solid fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.removeFavExercise(bodypart, exercise)}></i> :  <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavExercise(bodypart, exercise)}></i>
+        particularExercise.map(item => item.id).includes(id) ? <i className="heart fa-solid fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.removeFavExercise(newBodypart, exercise, id)}></i> :  <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavExercise(newBodypart, exercise, id)}></i>
       }
       <div
         className="rounded-3 image-card-exercise d-flex justify-content-center align-items-center"

@@ -4,6 +4,8 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import { loadStripe } from '@stripe/stripe-js';
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import { motion } from "framer-motion"
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -91,6 +93,16 @@ const CheckoutForm = () => {
     console.log(response);
     if (response.error) {
       // Show error from server on payment form
+      toast.error('Login Failed!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       console.log(response.error);
     } else if (response.requires_action) {
       // Use Stripe.js to handle the required card action
@@ -99,6 +111,16 @@ const CheckoutForm = () => {
 
       if (errorAction) {
         // Show error from Stripe.js in payment form
+        toast.error('Payment Failed!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
         console.log(errorAction);
       } else {
         // The card action has been handled
@@ -111,7 +133,16 @@ const CheckoutForm = () => {
         handleServerResponse(await serverResponse.json());
       }
     } else {
-      console.log('Success!');
+      toast.success('Thanks for you purchase', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       closeRef.current.click();
       actions.clearCart();
       setCardInformation({
@@ -190,6 +221,18 @@ const CheckoutForm = () => {
           <button type="button" className="btn btn-vital-orange text-vital-white" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
+      <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
     </div>
 
   );
