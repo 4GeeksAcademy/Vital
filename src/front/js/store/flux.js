@@ -108,7 +108,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				localStorage.removeItem("token")
 				localStorage.removeItem("username")
-				setStore({ token: null, username: null })
+				localStorage.removeItem("user")
+				localStorage.removeItem("profile")				
+				setStore({ token: null, username: null, user: null, profile: null })
 				return true
 			},
 
