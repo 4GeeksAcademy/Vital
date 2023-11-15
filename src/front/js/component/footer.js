@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import Logo from "../../img/logo-vital.png";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { motion } from "framer-motion";
 import "../../styles/footer.css";
 
 export const Footer = () => {
@@ -10,7 +11,7 @@ export const Footer = () => {
   const [newsletters, setNewsletters] = useState("");
   
   const handleNewsletter = async () => {
-     
+         
       const isSuccess = await actions.addNewsletter(newsletters);
       console.log(isSuccess)
       isSuccess ? alert("Thank you for subscribing!") : alert("Something went wrong, please try again");
@@ -39,13 +40,17 @@ export const Footer = () => {
             />
             <i className="fa-regular fa-envelope fs-4 envelope"></i>
           </div>
-          <button
+          <motion.button
             className="btn btn-vital-orange text-vital-white rounded-pill px-4"
             type="submit"
             onClick={handleNewsletter}
+            whileHover={{ scale: 1.2 }}
+                  onHoverStart={e => {}}
+                  onHoverEnd={e => {}}
+                  whileTap={{ scale: 0.9 }}
           >
             Subscribe
-          </button>
+          </motion.button>
         </div>
       </div>
       <hr className="hr text-vital-orange border-3 mt-5" />

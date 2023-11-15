@@ -13,9 +13,9 @@ export const Login = () => {
 
     useEffect(() => {
         store.token && navigate("/")
-    },[])
+    }, [])
 
-    const loginUser = async () => { 
+    const loginUser = async () => {
         actions.setUsername(username)
         if (username == "" || password == "") {
             alert("inputs can't be empty")
@@ -32,7 +32,7 @@ export const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
             navigate("/")
         } else {
             toast.error('Login Failded!', {
@@ -44,15 +44,22 @@ export const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
-                setUsername("")
-                setPassword("")
+            });
+            setUsername("")
+            setPassword("")
         }
 
     }
 
     return (
-        <>
+        <motion.main
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+                ease: "linear",
+                duration: 0.5,                
+            }}>
             <div className="bg-vital-black p-5">
                 <div className="container bg-vital-gray rounded-3">
                     <div className="row">
@@ -92,6 +99,6 @@ export const Login = () => {
                 pauseOnHover
                 theme="dark"
             />
-        </>
+        </motion.main>
     )
 }
