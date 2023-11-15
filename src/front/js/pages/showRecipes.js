@@ -59,7 +59,7 @@ export const ShowRecipes = () => {
               <div className="card-body">
                 <h5 className="card-title">{meal.recipe.label}</h5>
                 <p className="card-text">{meal.recipe.calories} Kcal</p>
-                <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white">Go to recipe</a>
+                <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white"  target="_blank">Go to recipe</a>
               </div>
             </div>
           </div>
