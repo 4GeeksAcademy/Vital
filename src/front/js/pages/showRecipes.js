@@ -2,9 +2,10 @@ import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { chooseMeal } from "../constants/constants";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const ShowRecipes = () => {
   const { diet, meal } = useParams()
-
+  const navigate = useNavigate()
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
   const [search, setSearch] = useState(null)
@@ -16,6 +17,10 @@ export const ShowRecipes = () => {
     const recipeJson = await recipes.json()
     setRecipe(recipeJson)
   }
+
+  useEffect(() => {
+    !store.token && navigate("/login")
+  }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault()    

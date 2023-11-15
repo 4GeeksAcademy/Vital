@@ -7,13 +7,19 @@ import Imagen from "../../img/background-nutrition.png"
 import "../../styles/meals.css"
 
 export const MealPlans = () => {
+  const { store, actions } = useContext(Context);
   const navigate= useNavigate()
 // const [diet, setDiet]= useState(null)
 const diet = useRef("")
 const setDiet = (e) =>{
   console.log(e.target.name)
    diet.current= e.target.name
-}
+  }
+
+  useEffect(() => {
+    !store.token && navigate("/login")
+  }, []);
+
 
   return (
     <div className="bg-vital-gray">
