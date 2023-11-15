@@ -237,16 +237,16 @@ def validate_token():
 @api.route("add-favorite/<username>", methods=["PUT"])
 def add_favorites(username):
     body = request.get_json()    
-    favorite_back = body.get("favorite_back", None)
-    favorite_cardio = body.get("favorite_cardio", None)
-    favorite_chest = body.get("favorite_chest", None)
-    favorite_lower_arms = body.get("favorite_lower_arms", None)
-    favorite_lower_legs = body.get("favorite_lower_legs", None)
-    favorite_neck = body.get("favorite_neck", None)
-    favorite_shoulders = body.get("favorite_shoulders", None)
-    favorite_upper_arms = body.get("favorite_upper_arms", None)
-    favorite_upper_legs = body.get("favorite_upper_legs", None)
-    favorite_waist = body.get("favorite_waist", None)
+    favorite_back = body.get("back", None)
+    favorite_cardio = body.get("cardio", None)
+    favorite_chest = body.get("chest", None)
+    favorite_lower_arms = body.get("lowerarms", None)
+    favorite_lower_legs = body.get("lowerlegs", None)
+    favorite_neck = body.get("neck", None)
+    favorite_shoulders = body.get("shoulders", None)
+    favorite_upper_arms = body.get("upperarms", None)
+    favorite_upper_legs = body.get("upperlegs", None)
+    favorite_waist = body.get("waist", None)
     if favorite_back is None or favorite_cardio is None or favorite_chest is None or favorite_lower_arms is None or favorite_lower_legs is None or favorite_neck is None or favorite_shoulders is None or favorite_upper_arms is None or favorite_upper_legs is None or favorite_waist is None:
         return {"msg": "Missing fields"}, 400
     
