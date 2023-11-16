@@ -107,7 +107,7 @@ const setDiet = (e) =>{
           </span>
 
           <span  onClick={()=>{navigate("/showRecipes/lowFat" )}}>
-            <article className="meal-card-low-fat" style={image.cardCarb}>
+            <article className="meal-card-low-fat" style={image.cardFat}>
               <h1 className="text-vital-orange" name="lowFat">Low Fat</h1>
             </article>
           </span>

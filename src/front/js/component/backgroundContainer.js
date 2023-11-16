@@ -12,14 +12,22 @@ const BackgroundContainer = ({ title, description, image }) => {
       <div className="container w-50 h-100 d-flex justify-content-center align-items-center" >
         <div className="title">
           <motion.h1 className="text-vital-orange text-center fw-bold"
-            initial={{ x: -100, }}
-            animate={{ x: 0, }}
-            transition={{ duration: 1 }}
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.5,
+            ease: "easeOut"
+          }}
           >{title}</motion.h1>
           <motion.p className="text-vital-white text-center pb-5"
-          initial={{ x: 100, }}
-          animate={{ x: 0, }}
-          transition={{ duration: 1 }}
+          initial={{ y: -50, }}
+          animate={{ y: 0, }}
+          transition={{
+            duration: 0.5,
+            delay: 0.5,
+            ease: "linear"
+           }}
           >{description}</motion.p>
         </div>
       </div>
