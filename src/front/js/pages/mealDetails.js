@@ -18,7 +18,7 @@ export const MealDetails = ( ) => {
         {
             store.meals.length >0 && 
       <div className="container  bg-vital-grey   ">
-        <div className="d-flex p-5">
+        <div className="d-flex pt-5 pe-5 pb-5">
           <div className="border border-3 rounded border-vital-orange" >
             <img src={meal.recipe.image} />
           </div>
@@ -45,6 +45,7 @@ export const MealDetails = ( ) => {
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center">
               <p className="fs-1"><strong>{meal.recipe.calories.toFixed(0)} Kcal</strong> </p>
+              <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white" target="_blank">Go to recipe</a>
             </div>
           </div>
         </div>

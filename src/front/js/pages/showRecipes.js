@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import Loading from "../component/loading/loading";
+import { MealDetails } from "./mealDetails";
 
-import { useNavigate } from "react-router-dom";
+
 export const ShowRecipes = () => {
-  const navigate = useNavigate()
   const { diet, meal } = useParams()
-  const navigate = useNavigate()  const [isShow, setIsShow] = useState(false)
+  const navigate = useNavigate()  
+  const [isShow, setIsShow] = useState(false)
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
   const [search, setSearch] = useState(null)
@@ -25,25 +26,7 @@ export const ShowRecipes = () => {
 
   }
 
-  useEffect(() => {
-    !store.token && navigate("/login")
-    getRecipes("breakfast")
-  }, []);
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const item = {
-    hidden: { opacity: 0, scale: 0 },
-    show: { opacity: 1, scale: 1 }
-  }
+ 
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -115,14 +98,15 @@ export const ShowRecipes = () => {
                     <motion.div key={index} className="d-flex"
                       variants={item}
                     >
-                      <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
-                        <img src={meal.recipe.image} className="card-img-top" alt="..." />
-                        <div className="card-body">
-                          <h5 className="card-title">{meal.recipe.label}</h5>
-                          <p className="card-text">{meal.recipe.calories} Kcal</p>
-                          <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white" target="_blank">Go to recipe</a>
+                      
+                        <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
+                          <img src={meal.recipe.image} className="card-img-top" alt="..." />
+                          <div className="card-body">
+                            <h5 className="card-title">{meal.recipe.label}</h5>
+                            <p className="card-text">{meal.recipe.dishType}</p>
+                          </div>
                         </div>
-                      </div>
+                      
                     </motion.div>
                   )
                 })}
