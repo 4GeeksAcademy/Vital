@@ -1,3 +1,14 @@
+import backImg from "../../img/background-containers/back.png"
+import cardioImg from "../../img/background-containers/cardio.png"
+import chestImg from "../../img/background-containers/chest.png"
+import lowerArmsImg from "../../img/background-containers/lower-arms.png"
+import lowerLegsImg from "../../img/background-containers/lower-legs.png"
+import neckImg from "../../img/background-containers/neck.png"
+import shouldersImg from "../../img/background-containers/shoulders.png"
+import upperLegsImg from "../../img/background-containers/upper-legs.png"
+import upperArmsImg from "../../img/background-containers/upper-arms.png"
+import waistImg from "../../img/background-containers/waist.png"
+
 export const useAPI = true;
 
 export const chooseMeal = {
@@ -22,6 +33,19 @@ export const chooseMeal = {
         dinner:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
     }
 
+}
+
+export const bodyPartsImgs = {
+    back: backImg,
+    cardio: cardioImg,
+    chest: chestImg,
+    neck: neckImg,
+    shoulders: shouldersImg,
+    upperarms: upperArmsImg,
+    lowerarms: lowerArmsImg,
+    upperlegs: upperLegsImg,
+    lowerlegs: lowerLegsImg,
+    waist: waistImg
 }
 
 export const products = [
