@@ -99,11 +99,11 @@ export const ShowRecipes = () => {
                       variants={item}
                     >
                       
-                        <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
+                        <div className="card d-flex me-4 mb-4 bg-dark" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
                           <img src={meal.recipe.image} className="card-img-top" alt="..." />
                           <div className="card-body">
-                            <h5 className="card-title">{meal.recipe.label}</h5>
-                            <p className="card-text">{meal.recipe.dishType}</p>
+                            <h5 className="card-title text-vital-orange">{meal.recipe.label}</h5>
+                            <p className="card-text text-vital-white">{meal.recipe.dishType}</p>
                           </div>
                         </div>
                       
