@@ -77,7 +77,8 @@ const setDiet = (e) =>{
     <div className="bg-vital-gray">
 
       <BackgroundContainer
-        title="Choose your Plan"
+        title="Healthy recipes"
+        description="Here you can find delicious and nutritious dishes for every occasion. Browse, cook, and enjoy"
         image={Imagen}
 
       />
@@ -106,7 +107,7 @@ const setDiet = (e) =>{
           </span>
 
           <span  onClick={()=>{navigate("/showRecipes/lowFat" )}}>
-            <article className="meal-card-low-fat" style={image.cardCarb}>
+            <article className="meal-card-low-fat" style={image.cardFat}>
               <h1 className="text-vital-orange" name="lowFat">Low Fat</h1>
             </article>
           </span>
