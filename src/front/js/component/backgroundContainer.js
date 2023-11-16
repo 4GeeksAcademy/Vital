@@ -3,6 +3,7 @@ import "../../styles/bodypart-exercises.css";
 import { motion } from "framer-motion"
 
 const BackgroundContainer = ({ title, description, image }) => {
+  
   return (
     <section
       className="container-fluid image-part-background"

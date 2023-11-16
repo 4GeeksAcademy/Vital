@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/bodypart-exercises.css";
-import imageBackgroundArm from "../../img/low-arm.png";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import ExerciseCard from "../component/exerciseCard";
 import { scrollToTop } from "../function/scrollToTop";
@@ -11,8 +10,18 @@ import { description, dataExcersises, useAPI } from "../constants/constants";
 import Pagination from "../component/pagination/pagination";
 import SortFilterBox from "../component/sortFilterBox/sortFilterBox";
 import Loading from "../component/loading/loading";
-import imgChestBackground from "../../img/background-containers/chest.png"
+import backImg from "../../img/background-containers/back.png"
+import cardioImg from "../../img/background-containers/cardio.png"
+import chestImg from "../../img/background-containers/chest.png"
+import lowerArmsImg from "../../img/background-containers/lower-arms.png"
+import lowerLegsImg from "../../img/background-containers/lower-legs.png"
+import neckImg from "../../img/background-containers/neck.png"
+import shouldersImg from "../../img/background-containers/shoulders.png"
+import upperLegsImg from "../../img/background-containers/upper-legs.png"
+import upperArmsImg from "../../img/background-containers/upper-arms.png"
+import waistImg from "../../img/background-containers/waist.png"
 import { motion } from "framer-motion"
+// import bodyPartsImgs from "../constants/constants"
 
 export const BodypartExercises = () => {
   const { store, actions } = useContext(Context);
@@ -34,7 +43,20 @@ export const BodypartExercises = () => {
       "X-RapidAPI-Key": "89971d01c0msh1690c1d9906070dp1cb205jsnac087ad4de35",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
-  };  
+  }; 
+
+const bodyPartsImgs = {
+    back: backImg,
+    cardio: cardioImg,
+    chest: chestImg,
+    neck: neckImg,
+    shoulders: shouldersImg,
+    upperarms: upperArmsImg,
+    lowerarms: lowerArmsImg,
+    upperlegs: upperLegsImg,
+    lowerlegs: lowerLegsImg,
+    waist: waistImg
+}
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -66,7 +88,6 @@ export const BodypartExercises = () => {
   }, []);
 
  
-
   useEffect(() => {  
     let newArray = []
     if (exercises) {
@@ -106,7 +127,7 @@ export const BodypartExercises = () => {
           <BackgroundContainer
             title={title}
             description={description}
-            image={imgChestBackground}
+            image={bodyPartsImgs[bodypart.replace(/\s/g, '')]}
           />
           <SortFilterBox setSort={setSort} setSearch={setSearch}/>
           <div className="container-fluid p-5 bg-vital-black">
