@@ -26,7 +26,8 @@ const setDiet = (e) =>{
     <div className="bg-vital-gray">
 
       <BackgroundContainer
-        title="Choose your Plan"
+        title="Healthy recipes"
+        description="Here you can find delicious and nutritious dishes for every occasion. Browse, cook, and enjoy"
         image={Imagen}
 
       />

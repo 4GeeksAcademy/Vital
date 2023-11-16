@@ -91,7 +91,7 @@ const bodyPartsImgs = {
     }
     try {
       const getData = async (bodypart) => {
-        console.log({bodypart: bodypart})
+        // console.log({bodypart: bodypart})
         const response = await fetch(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodypart}?limit=150`, options);
         const dataJson = await response.json();
         setExercises(dataJson);
@@ -110,7 +110,7 @@ const bodyPartsImgs = {
   useEffect(() => {  
     let newArray = []
     if (exercises) {
-      console.log(fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
+      // console.log(fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
       newArray = fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
       
       // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
@@ -118,11 +118,11 @@ const bodyPartsImgs = {
     //search == '' && setExercises(fetchExercises)
     if (exercises && sort) {
       if (sort == "asc") {
-        console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
+        // console.log(newArray.sort((a, b) => a.name.localeCompare(b.name)))
         setExercises(newArray.sort((a, b) => a.name.localeCompare(b.name)))
         // setExercises(data.sort((a, b) => a.name.localeCompare(b.name)));
       } else if (sort == "desc") {
-        console.log(newArray.sort((a, b) => b.name.localeCompare(a.name)))
+        // console.log(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
@@ -136,6 +136,8 @@ const bodyPartsImgs = {
   
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
   const params = Object.fromEntries([...searchParams]);
+
+  console.log(exercises)
   
   return (
     <>
