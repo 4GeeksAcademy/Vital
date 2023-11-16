@@ -46,16 +46,35 @@ export const BodypartExercises = () => {
   }; 
 
 const bodyPartsImgs = {
-    back: backImg,
-    cardio: cardioImg,
-    chest: chestImg,
-    neck: neckImg,
-    shoulders: shouldersImg,
-    upperarms: upperArmsImg,
-    lowerarms: lowerArmsImg,
-    upperlegs: upperLegsImg,
-    lowerlegs: lowerLegsImg,
-    waist: waistImg
+    back: {
+      image: backImg,
+      description: "Find the best exercises to strengthen your back muscles and improve your posture"},
+    cardio: {
+      image: cardioImg,
+      description: " Boost your heart health and burn calories with these cardio exercises. You can do them at gym, outdoors or home" },
+    chest: {
+      image: chestImg,
+      description: "Build a powerful chest with these exercises that target your pectoral muscles. You can use dumbbells, resistance bands, or your own body weight"},
+    neck: {
+      image: neckImg,
+      description: "Relieve neck pain and stiffness with these gentle exercises. They will help you stretch and mobilize your neck muscles"},
+    shoulders: {
+      image: shouldersImg,
+      description: "Enhance your shoulder mobility and stability with these exercises that challenge your deltoids and rotator cuff. You can use a broomstick, a pillow, or a bottle." },
+    upperarms: { image: upperArmsImg,
+      description: "Tone and sculpt your upper arms with these exercises that work your biceps and triceps. You can choose from different levels of difficulty"},
+    lowerarms: { 
+      image: lowerArmsImg,
+      description: "Strengthen your lower arms and wrists with these exercises that improve your grip and flexibility. You can use a tennis ball, a towel, or a rubber band"},
+    upperlegs: {
+      image: upperLegsImg,
+      description: "Shape and strengthen your upper legs with these exercises that work your quads, hamstrings, and glutes. You can use a chair, a wall, or a step"},
+    lowerlegs: {
+      image: lowerLegsImg,
+      description: "Train your lower legs and prevent injuries with these exercises that target your calves and ankles. You can do them with or without equipment"},
+    waist: {
+      image: waistImg,
+      description: "Slim and tighten your waist with these exercises that activate your core and oblique muscles. You can do them on the floor, on a mat, or on a ball"}
 }
 
   useEffect(() => {
@@ -126,8 +145,8 @@ const bodyPartsImgs = {
         <>
           <BackgroundContainer
             title={title}
-            description={description}
-            image={bodyPartsImgs[bodypart.replace(/\s/g, '')]}
+            description={bodyPartsImgs[bodypart.replace(/\s/g, '')].description}
+            image={bodyPartsImgs[bodypart.replace(/\s/g, '')].image}
           />
           <SortFilterBox setSort={setSort} setSearch={setSearch}/>
           <div className="container-fluid p-5 bg-vital-black">
