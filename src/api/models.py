@@ -214,7 +214,7 @@ class Newsletter(db.Model):
         return f"<Gym {self.id} {self.email}>"
 
     def serialize(self):
-        return {"email": self.email, "Active": self.is_active}
+        return {"email": self.email, "is_active": self.is_active}
     
 class NewsletterFiles(db.Model):
     __tablename__ = "newsletterfiles"
