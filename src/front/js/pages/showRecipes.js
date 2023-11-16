@@ -5,10 +5,13 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import Loading from "../component/loading/loading";
+import { MealDetails } from "./mealDetails";
+
 
 export const ShowRecipes = () => {
   const { diet, meal } = useParams()
-  const navigate = useNavigate()
+  const navigate = useNavigate()  
+  const [isShow, setIsShow] = useState(false)
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
   const [search, setSearch] = useState(null)
@@ -18,8 +21,12 @@ export const ShowRecipes = () => {
     setUrl(urlFetch)
     const recipes = await actions.getMeals(urlFetch)
     const recipeJson = await recipes.json()
+    console.log(recipeJson)
     setRecipe(recipeJson)
+
   }
+
+ 
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -48,6 +55,8 @@ export const ShowRecipes = () => {
     setRecipe(recipeJson)
     setSearch("")
   }
+
+  
 
   return (
     <>
@@ -89,14 +98,15 @@ export const ShowRecipes = () => {
                     <motion.div key={index} className="d-flex"
                       variants={item}
                     >
-                      <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }}>
-                        <img src={meal.recipe.image} className="card-img-top" alt="..." />
-                        <div className="card-body">
-                          <h5 className="card-title">{meal.recipe.label}</h5>
-                          <p className="card-text">{meal.recipe.calories} Kcal</p>
-                          <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white" target="_blank">Go to recipe</a>
+                      
+                        <div className="card d-flex me-4 mb-4" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
+                          <img src={meal.recipe.image} className="card-img-top" alt="..." />
+                          <div className="card-body">
+                            <h5 className="card-title">{meal.recipe.label}</h5>
+                            <p className="card-text">{meal.recipe.dishType}</p>
+                          </div>
                         </div>
-                      </div>
+                      
                     </motion.div>
                   )
                 })}
@@ -107,3 +117,4 @@ export const ShowRecipes = () => {
     </>
   )
 }
+
