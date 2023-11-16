@@ -7,6 +7,15 @@ const Newsletters = () => {
     const body_message = "<html><head></head><body><h1>Hi!<br>How are you?</h1><br>Here is the <a href='https://sample-service-name-iwws.onrender.com/'>link</a> you wanted.</p></body></html>";
     const subject = "Vital Fit Newsletter";
 
+    const changeStatus = async (email) => {
+        const response = await actions.changeNewsletterStatus(email)
+        if (response) {
+            actions.getNewsletter()   
+        } else {
+            alert("Something went wrong")
+        }     
+    }
+    console.log(store.newsletter)
     return (
         <>
             <h1 className="h2 text-vital-orange">Manage Newsletters</h1>
@@ -30,8 +39,7 @@ const Newsletters = () => {
                                     <thead>
                                         <tr >
                                             <th scope="col">Email</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col" />
+                                            <th scope="col">Status</th>                                   
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -41,13 +49,9 @@ const Newsletters = () => {
                                                 return (
                                                     <tr key={index}>
                                                         <th scope="row">{item.email}</th>
-                                                        <td>{item.is_active}</td>
+                                                        <td>{item.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{cursor: "pointer"}} onClick={() => changeStatus(item.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{pointer: ""}} onClick={()=>changeStatus(item.email)}></i>}</td>
                                                         <td>{Date()}</td>
-                                                        <td>
-                                                            <span href="#" className="btn btn-sm text-vital-white btn-vital-orange">
-                                                                Edit
-                                                            </span>
-                                                        </td>
+                                                        
                                                     </tr>
                                                 )
                                             }
