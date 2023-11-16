@@ -15,6 +15,17 @@ const Newsletters = () => {
             alert("Something went wrong")
         }     
     }
+
+    const sendEmail = async () => {
+        const response = await actions.sendEmail(subject, body_message)
+        if (response) {
+            alert("Email sent")
+        } else {
+            alert("Something went wrong")
+        }
+    }
+
+
     console.log(store.newsletter)
     return (
         <>
@@ -26,7 +37,7 @@ const Newsletters = () => {
             <button
                 className="btn btn-vital-orange text-vital-white rounded-pill px-4"
                 type="submit"
-                onClick={() => actions.sendEmail(subject, body_message)}
+                onClick={sendEmail}
             >Send Newsletter</button>            
             </div>
             <div className="row d-flex justify-content-center">
