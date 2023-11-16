@@ -10,7 +10,7 @@ import { motion } from "framer-motion"
 export const Home = ({ isVisible }) => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
- 
+
 
   const handleClick = () => {
     navigate("/exercises");
@@ -33,9 +33,9 @@ export const Home = ({ isVisible }) => {
         <section className="container d-flex justify-content-between align-items-center bg-vital-black">
           <div className="col-5 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-5">
             <motion.h1 className="text-vital-orange fs-1 fw-bold fs-sm-2 p-sm-3 p-md-3 pb-2"
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 1 }}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1 }}
             >
               Build your Body Transform your life
             </motion.h1>
@@ -76,29 +76,29 @@ export const Home = ({ isVisible }) => {
       //style={{ height: "600px" }}
       >
         <motion.h1 className="text-vital-white p-5 fw-bold"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{
-          ease: "linear",
-          duration: 2.5,
-        }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            ease: "linear",
+            duration: 2.5,
+          }}
         >All that you can get in one place!</motion.h1>
         <div className="wrapp-cards d-flex container pb-5 justify-content-around flex-wrap">
           <motion.div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black"
-          whileHover={{ scale: 1.2 }}
-          onHoverStart={e => { }}
-          onHoverEnd={e => { }}
-          whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
           >
-            <i className="icon fa-regular fa-calendar mt-4" />
-            <h4 className="fs-6 text-vital-white mt-3">Workout</h4>
+            <i className="icon fa-solid fa-dumbbell mt-4" />
+            <h4 className="fs-6 text-vital-white mt-3 fw-bold">Workout</h4>
             <p className="text-vital-white p-3">
               looks for routines, and start you journey know
             </p>
             <div>
               <button
-                className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
+                className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit"
                 onClick={handleClick}
               >
@@ -107,19 +107,19 @@ export const Home = ({ isVisible }) => {
             </div>
           </motion.div>
           <motion.div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black"
-          whileHover={{ scale: 1.2 }}
-          onHoverStart={e => { }}
-          onHoverEnd={e => { }}
-          whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
           >
-            <i className="icon fa-regular fa-calendar mt-4" />
-            <h4 className="fs-6 text-vital-white mt-3">Meal Plans</h4>
+            <i className="icon fa-solid fa-bowl-food mt-4" />
+            <h4 className="fs-6 text-vital-white mt-3 fw-bold">Meal Plans</h4>
             <p className="text-vital-white p-3 text-center">
               Find recipes base in your goals
             </p>
             <div>
               <button
-                className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
+                className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit"
               >
                 Get recipes
@@ -127,19 +127,19 @@ export const Home = ({ isVisible }) => {
             </div>
           </motion.div>
           <motion.div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black"
-          whileHover={{ scale: 1.2 }}
-          onHoverStart={e => { }}
-          onHoverEnd={e => { }}
-          whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
           >
-            <i className="icon fa-regular fa-calendar mt-4" />
-            <h4 className="fs-6 text-vital-white mt-3">Find fitness centers</h4>
+            <i className="icon fa-solid fa-magnifying-glass-location mt-4" />
+            <h4 className="fs-6 text-vital-white mt-3 fw-bold">Find fitness centers</h4>
             <p className="text-vital-white p-3">
               See Gyms partners around you
             </p>
             <div>
               <button
-                className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
+                className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit"
               >
                 Wacth now!
@@ -147,19 +147,19 @@ export const Home = ({ isVisible }) => {
             </div>
           </motion.div>
           <motion.div className="d-flex flex-column mt-5 card-style justify-content-around rounded-5 bg-vital-black"
-          whileHover={{ scale: 1.2 }}
-          onHoverStart={e => { }}
-          onHoverEnd={e => { }}
-          whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
           >
-            <i className="icon fa-regular fa-calendar mt-4" />
-            <h4 className="fs-6 text-vital-white mt-3">Fitness Store</h4>
+            <i className="icon fa-solid fa-pills mt-4" />
+            <h4 className="fs-6 text-vital-white mt-3 fw-bold">Fitness Store</h4>
             <p className="text-vital-white p-3">
               Buy fitness product and aply for awsome discounts
             </p>
             <div>
               <button
-                className="btn btn-vital-orange text-vital-white rounded-pill mb-5"
+                className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit" onClick={() => navigate("/store")}
               >
                 buy now!
@@ -173,7 +173,7 @@ export const Home = ({ isVisible }) => {
       // style={{ height: "600px" }}
       >
         <h1 className="text-vital-white p-5 fw-bold">
-          Estos usuarios hicieron su vida mas facil con Vital
+          Testimonials
         </h1>
         <Carousel />
       </div>
