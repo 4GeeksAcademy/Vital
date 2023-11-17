@@ -8,6 +8,16 @@ import { scrollToTop } from "../function/scrollToTop";
 import { allExercises } from "../constants/allExcercises";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
+import backImg from "../../img/card-workout/card-workout-back.jpg"
+import cardioImg from "../../img/card-workout/card-workout-cardio.jpg"
+import chestImg from "../../img/card-workout/card-workout-chest.jpg"
+import neckImg from "../../img/card-workout/card-workout-neck.jpg"
+import shouldersImg from "../../img/card-workout/card-workout-shoulders.jpg"
+import upperArmsImg from "../../img/card-workout/card-workout-upper-arms.jpg"
+import lowerArmsImg from "../../img/card-workout/card-workout-lower-arms.jpg"
+import upperLegsImg from "../../img/card-workout/card-workout-upper-legs.jpg"
+import lowerLegsImg from "../../img/card-workout/card-workout-lower-legs.jpg"
+import waistImg from "../../img/card-workout/card-workout-waist.jpg"
 
 export const Exercises = () => {
   const { store, actions } = useContext(Context);
@@ -30,18 +40,49 @@ export const Exercises = () => {
 
   // const { data, error, loading } = useFetch(url, options);
   // console.log(data);
-  const catagories = [
-    "Back",
-    "Cardio",
-    "Chest",
-    "Neck",
-    "Shoulders",
-    "Upper arms",
-    "Lower arms",
-    "Upper legs",
-    "Lower legs",
-    "Waist",
-  ];
+  const categories = {
+    back: {
+      title: "Back",
+      image: backImg
+    },
+    cardio: {
+      title: "Cardio",
+      image: cardioImg
+    },
+    chest: {
+      title: "Chest",
+      image: chestImg
+    },
+    neck: {
+      title: "Neck",
+      image: neckImg
+    },
+    shoulders: {
+      title: "Shoulders",
+      image: shouldersImg
+    },
+    upperArms: {
+      title: "Upper arms",
+      image: upperArmsImg}
+      ,
+    lowerArms: {
+      title: "Lower arms",
+      image: lowerArmsImg
+    },
+    upperLegs: {
+      title: "Upper legs",
+      image: upperLegsImg
+    },
+    lowerLegs: {
+      title: "Lower legs",
+      image: lowerLegsImg
+    },
+    waist: {
+      title: "Waist",
+      image: waistImg
+    }
+  };
+
   return (
     <>
       <div
@@ -71,8 +112,9 @@ export const Exercises = () => {
             Workout Categories
           </h1>
           <div className="row col-11 d-flex mx-auto justify-content-around">
-            {catagories.map((item, index) => {
-              return <CardWorkout title={item.toLowerCase()} key={index} />;
+            {Object.values(categories).map((category, index) => {
+              // console.log(Object.values(categories)[index].title)
+              return <CardWorkout title={category.title} image= {category.image} key={index} />;
             })}
           </div>
         </div>
