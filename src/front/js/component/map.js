@@ -3,9 +3,11 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import Loading from "./loading/loading";
 import { Context } from "../store/appContext";
 import "../../styles/map.css";
+import { useNavigate } from "react-router-dom";
 
 const Map = () => {
   const [currentPosition, setCurrentPosition] = useState({});
+  const navigate = useNavigate()
   const [location, setLocation] = useState({});
   const [gyms, setGyms] = useState([])
   const { store, actions } = useContext(Context)
@@ -18,6 +20,7 @@ const Map = () => {
   });
 
   useEffect(() => {
+    !store.token && navigate("/login")
     getPosition();
     const getGymsData = async () => {
       const gymsData = await actions.getGyms()
