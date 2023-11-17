@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
 import Loading from "../component/loading/loading";
 import { MealDetails } from "./mealDetails";
-
+import "../../styles/meals.css"
 
 export const ShowRecipes = () => {
   const { diet, meal } = useParams()
@@ -66,9 +66,9 @@ export const ShowRecipes = () => {
           <>
             <div className="container-fluid  p-4 d-flex flex-column">
               <div className="d-flex mb-3  m-auto">
-                <span className="nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
-                <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
-                <span className="nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
+                <span className="meal-cards nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={(e) => getRecipes("breakfast")}>Breakfast</span>
+                <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("lunch")}>Lunch</span>
+                <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={(e) => getRecipes("dinner")}>Dinner</span>
               </div>
               <div className="d-flex justify-content-center mb-5 mt-2">
                 <input
@@ -99,11 +99,12 @@ export const ShowRecipes = () => {
                       variants={item}
                     >
                       
-                        <div className="card d-flex me-4 mb-4 bg-dark" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
+                        <div className="card-map card d-flex me-4 mb-4 bg-vital-black" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
                           <img src={meal.recipe.image} className="card-img-top" alt="..." />
-                          <div className="card-body">
-                            <h5 className="card-title text-vital-orange">{meal.recipe.label}</h5>
-                            <p className="card-text text-vital-white">{meal.recipe.dishType}</p>
+                          <div className="card-body text-vital-orange">
+                            <h5 className="card-title text-vital-white">{meal.recipe.label}</h5>
+                            <p className="card-text">Dish Type: <span className="text-vital-white"> {meal.recipe.dishType}</span></p>
+                            <span className="tooltiptext">click card to view details</span>
                           </div>
                         </div>
                       

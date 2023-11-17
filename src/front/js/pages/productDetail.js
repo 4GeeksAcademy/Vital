@@ -56,7 +56,7 @@ const ProductDetail = () => {
               onClick={() => navigate(`/store`)}
               style={{ cursor: "pointer" }}
             >
-              <i class="fa-solid fa-arrow-left text-vital-orange"></i>
+              <i className="fa-solid fa-arrow-left text-vital-orange"></i>
               {/* <ArrowBackOutline color={"#ff5300"} className="me-1" /> */}
               Go back
             </span>

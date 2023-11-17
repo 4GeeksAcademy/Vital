@@ -77,37 +77,46 @@ const setDiet = (e) =>{
     <div className="bg-vital-gray">
 
       <BackgroundContainer
-        title="Choose your Plan"
+        title="Healthy recipes"
+        description="Here you can find delicious and nutritious dishes for every occasion. Browse, cook, and enjoy"
         image={Imagen}
 
       />
 
 
-      <div className="container-fluid contenido mt-4 ">
+      <div className="container contenido mt-5 mb-5 ">
         <div className="carrousel">
 
-          <span className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={()=>{navigate("/showRecipes/highFiber")}}>
+          <span className="text-decoration-none" data-bs-toggle="modal" data-bs-target="#exampleModal" >
             <article className="meal-card-high-fiber" style={image.cardFiber}>
-              <h1 className="text-vital-orange" name="highFiber">High Fiber</h1>
+              <h1 className="meal-cards text-vital-orange" name="highFiber" onClick={()=>{navigate("/showRecipes/highFiber")}}
+             
+              >High Fiber</h1>
             </article>
           </span>
           
 
-          <span  onClick={()=>{navigate("/showRecipes/highProtein")}}>
+          <span  >
             <article className="meal-card-high-protein" style={image.cardProtein}>
-              <h1 className="text-vital-orange" name="highProtein" >High Protein</h1>
+              <h1 className="meal-cards text-vital-orange" name="highProtein" onClick={()=>{navigate("/showRecipes/highProtein")}}
+             
+              >High Protein</h1>
             </article>
           </span>
 
-          <span onClick={()=>{navigate("/showRecipes/lowCarb")}}>
+          <span >
             <article className="meal-card-low-carb" style={image.cardCarb}>
-              <h1 className="text-vital-orange" name="lowCarb">Low Carb</h1>
+              <h1 className="meal-cards text-vital-orange" name="lowCarb" onClick={()=>{navigate("/showRecipes/lowCarb")}}
+             
+              >Low Carb</h1>
             </article>
           </span>
 
-          <span  onClick={()=>{navigate("/showRecipes/lowFat" )}}>
-            <article className="meal-card-low-fat" style={image.cardCarb}>
-              <h1 className="text-vital-orange" name="lowFat">Low Fat</h1>
+          <span  >
+            <article className="meal-card-low-fat" style={image.cardFat}>
+              <h1 className="meal-cards text-vital-orange" name="lowFat" onClick={()=>{navigate("/showRecipes/lowFat" )}}
+              
+              >Low Fat</h1>
             </article>
           </span>
 
