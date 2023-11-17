@@ -7,6 +7,22 @@
   transition: transform 0.4s;
 }
 
+ 
+.meal-cards:hover + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.card-map:hover {
+  transform: scale(1.1);
+  transition: transform 0.4s;
+  cursor: pointer;
+}
+
+.meal-cards {
+  cursor: pointer;
+}
+
 .carrousel {
   display: grid;
   grid-auto-flow: column;
