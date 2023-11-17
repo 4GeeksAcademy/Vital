@@ -1,35 +1,40 @@
 .contenido {
-    width: 450 px
+  width: 450 px;
+}
+
+.meal-cards:hover {
+  transform: scale(1.2);
+  transition: transform 0.4s;
 }
 
 .carrousel {
-     display: grid;
-     grid-auto-flow: column;
-     scroll-behavior: auto;
-     gap: 1.2rem;
-     overflow-y: auto;
-     overscroll-behavior-x: contain;
-     scroll-snap-type: x mandatory;
-     scrollbar-width: none;
-     }
+  display: grid;
+  grid-auto-flow: column;
+  scroll-behavior: auto;
+  gap: 1.2rem;
+  overflow-y: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
 
-     .carrousel::-webkit-scrollbar{
-        display:none
-     }
+.carrousel::-webkit-scrollbar {
+  display: none;
+}
 
-     .meal-card {
-        scroll-snap-align: start;
-        border-radius: 30px;
-        min-height:200px;
-        min-width: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center ;
-     }
+.meal-card {
+  scroll-snap-align: start;
+  border-radius: 30px;
+  min-height: 200px;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-     /* .meal-card-high-fiber{
+/* .meal-card-high-fiber{
        */
-        /* background-position: center;
+/* background-position: center;
         background-size: cover;
         border-radius:30px;
         min-height: 200px;
@@ -37,41 +42,39 @@
         display: flex;
         justify-content: center;
         align-items: center; */
-        
-     /* } */
 
-     .meal-card-high-protein{
-        background-image: url("https://cathe.com/wp-content/uploads/2019/10/shutterstock_723278488.jpg");
-        background-position: center;
-        background-size: cover;
-        border-radius:30px;
-        min-height: 200px;
-        min-width: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-     }
-     .meal-card-low-carb{
-        background-image: url("http://main.poliquingroup.com/Portals/0/Janelle/lowcarbaging.jpg");
-        background-position: center;
-        background-size: cover;
-        border-radius:30px;
-        min-height: 200px;
-        min-width: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-     }
-     .meal-card-low-fat{
-        background-image: url("https://cdn.mos.cms.futurecdn.net/VjZ2eefot7d28rdsHVcwrP-1200-80.jpg");
-        background-position: center;
-        background-size: cover;
-        border-radius:30px;
-        min-height: 200px;
-        min-width: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-     }
+/* } */
 
-
+.meal-card-high-protein {
+  background-image: url("https://cathe.com/wp-content/uploads/2019/10/shutterstock_723278488.jpg");
+  background-position: center;
+  background-size: cover;
+  border-radius: 30px;
+  min-height: 200px;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.meal-card-low-carb {
+  background-image: url("http://main.poliquingroup.com/Portals/0/Janelle/lowcarbaging.jpg");
+  background-position: center;
+  background-size: cover;
+  border-radius: 30px;
+  min-height: 200px;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.meal-card-low-fat {
+  background-image: url("https://cdn.mos.cms.futurecdn.net/VjZ2eefot7d28rdsHVcwrP-1200-80.jpg");
+  background-position: center;
+  background-size: cover;
+  border-radius: 30px;
+  min-height: 200px;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
