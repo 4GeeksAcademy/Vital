@@ -158,8 +158,7 @@ const Dashboard = (props) => {
                                                             )
                                                         }
                                                         )
-                                                    }                                                    
-                                                                                                 
+                                                    }                                            
                                                 </tbody>
                                             </table>
                                         </div>
