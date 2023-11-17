@@ -3,9 +3,12 @@
   height: 160px;
   object-fit: cover;
   background-repeat: no-repeat;
+  transition: .5s ease;
 }
 
 .image-card:hover {
   opacity: 0.8;
   cursor: pointer;
+  box-shadow: 0 0 0 3px #ff5300;
+  transition: .5s ease;
 }

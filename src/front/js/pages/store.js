@@ -41,7 +41,7 @@ export const Store = () => {
       <>
       <BackgroundContainer
         title="Store"
-        description="Esta es la tienda donde se mostraran todos los productos"
+        description="Many people take vitamins, supplements, and other products to support their nutritional needs and feel their best. Vital has compiled a list of their best sellers in one place so that you can see the products everyone is talking about."
         image={Imagen}
       />
       <div className="container-fluid p-5 bg-vital-gray">
