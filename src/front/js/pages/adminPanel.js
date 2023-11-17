@@ -10,78 +10,70 @@ import ManageGyms from "../component/manageGyms";
 import Newsletters from "../component/newsletters";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import IntegrationsStore from "../component/integrationStore";
 import { motion } from "framer-motion"
 
 const AdminPanel = () => {
-   const [products, setProducts] = useState([])
-   const { store, actions } = useContext(Context);
-   const navigate = useNavigate()
-   const [menu, setMenu] = useState({
-    dashboard: true,
-    manageUser: false,
-    manageAdminUsers: false,
-    manageGyms: false,
-    manageNewsletter: false,
-    integrations: false
-   })
+    const [products, setProducts] = useState([])
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate()
+    const [menu, setMenu] = useState({
+        dashboard: true,
+        manageUser: false,
+        manageAdminUsers: false,
+        manageGyms: false,
+        manageNewsletter: false,
+        integrations: false
+    })
 
     useEffect(() => {
         // actions.getProducts();
-        !store.token && navigate("/")
-        const productsRef = collection(db, "products")
-        console.log(productsRef);
-    
-        getDocs(productsRef)
-          .then((resp) => {
-            const products = resp.docs.map((doc) => {
-              return { ...doc.data(), id: doc.id }
-            })              
-            setProducts(products)  
-            
-          })          
-            actions.getData();                
-    
-      }, []);
+        !store.token && navigate("/")      
+        
+    }, []);
 
     return (
         <>
             <nav className="navbar navbar-dark bg-dark p-3">
-                <div className="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
-                    <a className="navbar-brand" href="#">
-                        Admin Dashboard
-                    </a>
-                    <button
-                        className="navbar-toggler d-md-none collapsed mb-3"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#sidebar"
-                        aria-controls="sidebar"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                </div>
-                <div className="col-12 col-md-4 col-lg-2">
-                    <input
-                        className="form-control form-control-dark"
-                        type="text"
-                        placeholder="Search"
-                        aria-label="Search"
-                    />
-                </div>
-                <div className="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
-                    <div className="btn-group dropstart ">
-                        <span className="btn btn-secondary dropdown-toggle bg-vital-orange rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hello, Admin
-                        </span>
+                <div className="container ">
 
-                        <ul className="dropdown-menu bg-dark">
-                            <li><a className="dropdown-item" href="#">change password</a></li>
-                            <li><a className="dropdown-item" href="#">Logout</a></li>                            
-                        </ul>
+                    <div className="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
+                        <a className="navbar-brand" href="#">
+                            Admin Dashboard
+                        </a>
+                        <button
+                            className="navbar-toggler d-md-none collapsed mb-3"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#sidebar"
+                            aria-controls="sidebar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span className="navbar-toggler-icon" />
+                        </button>
                     </div>
+                    <div className="col-12 col-md-4 col-lg-2">
+                        <input
+                            className="form-control form-control-dark"
+                            type="text"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
+                    </div>
+                    <div className="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+                        <div className="btn-group dropstart ">
+                            <span className="btn btn-secondary dropdown-toggle bg-vital-orange rounded-pill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hello, Admin
+                            </span>
 
+                            <ul className="dropdown-menu bg-dark">
+                                <li><a className="dropdown-item" href="#">change password</a></li>
+                                <li><a className="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
             </nav>
             <div className="container-fluid">
@@ -100,12 +92,12 @@ const AdminPanel = () => {
                                         manageGyms: false,
                                         manageNewsletter: false,
                                         integrations: false
-                                    })}>                                        
+                                    })}>
                                         <span className="ml-2">Dashboard</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" onClick={()=> setMenu({
+                                    <a className="nav-link" onClick={() => setMenu({
                                         dashboard: false,
                                         manageUser: true,
                                         manageAdminUsers: false,
@@ -113,7 +105,7 @@ const AdminPanel = () => {
                                         manageNewsletter: false,
                                         integrations: false
                                     })}>
-                                       
+
                                         <span className="ml-2">Manage User</span>
                                     </a>
                                 </li>
@@ -125,9 +117,9 @@ const AdminPanel = () => {
                                         manageGyms: false,
                                         manageNewsletter: false,
                                         integrations: false
-                                    
+
                                     })}>
-                                        
+
                                         <span className="ml-2">Manage Admin Users</span>
                                     </a>
                                 </li>
@@ -139,9 +131,9 @@ const AdminPanel = () => {
                                         manageGyms: true,
                                         manageNewsletter: false,
                                         integrations: false
-                                    
+
                                     })}>
-                                        
+
                                         <span className="ml-2">Manage Gyms</span>
                                     </a>
                                 </li>
@@ -152,34 +144,35 @@ const AdminPanel = () => {
                                         manageAdminUsers: false,
                                         manageGyms: false,
                                         manageNewsletter: true,
-                                        integrations: false                                    
+                                        integrations: false
                                     })
                                     }>
-                                        
+
                                         <span className="ml-2">Manage Newsletter subcriptions</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" >
-                                       
-                                        <span className="ml-2">Promotions</span>
-                                    </a>
-                                </li>  
-                                <li className="nav-item">
-                                    <a className="nav-link" >
-                                       
+                                    <a className="nav-link" onClick={() => setMenu({
+                                        dashboard: false,
+                                        manageUser: false,
+                                        manageAdminUsers: false,
+                                        manageGyms: false,
+                                        manageNewsletter: false,
+                                        integrations: true                                    
+                                    })}>
+
                                         <span className="ml-2">Integrations Store</span>
                                     </a>
-                                </li>                            
+                                </li>
                             </ul>
                         </div>
                     </nav>
-                    <main className="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">    
-                    {
-                        menu.dashboard ? <Dashboard /> : menu.manageUser ? <ManageUser /> : menu.manageAdminUsers ? <ManageAdminUsers />
-                        : menu.manageGyms ? <ManageGyms /> : menu.manageNewsletter ? <Newsletters /> : <Dashboard />                  
-                    }                   
-                                            
+                    <main className="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+                        {
+                            menu.dashboard ? <Dashboard /> : menu.manageUser ? <ManageUser /> : menu.manageAdminUsers ? <ManageAdminUsers />
+                                : menu.manageGyms ? <ManageGyms /> : menu.manageNewsletter ? <Newsletters /> : menu.integrations ? <IntegrationsStore /> : <Dashboard />
+                        }
+
                     </main>
                 </div>
             </div>

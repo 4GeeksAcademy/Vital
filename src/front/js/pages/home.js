@@ -121,6 +121,7 @@ export const Home = ({ isVisible }) => {
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit"
+                onClick={() => navigate("/mealplans")}
               >
                 Get recipes
               </button>
@@ -141,6 +142,7 @@ export const Home = ({ isVisible }) => {
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill fw-bold mb-5"
                 type="submit"
+                onClick={() => navigate("/gyms-map")}
               >
                 Wacth now!
               </button>

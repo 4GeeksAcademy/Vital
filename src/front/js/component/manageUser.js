@@ -13,7 +13,7 @@ const ManageUser = (props) => {
                         <div className="row d-flex justify-content-center">
                             <div className="col-12 col-xl-8 mb-4 mb-lg-0">
                                 <div className="card bg-vital-black">
-                                    <h5 className="card-header text-vital-orange">Latest transactions</h5>
+                                    <h5 className="card-header text-vital-orange">Table Users</h5>
                                     <div className="card-body bg-dark">
                                         <div className="table-responsive">
                                             <table className="table table-dark table-striped">

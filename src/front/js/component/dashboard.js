@@ -4,26 +4,31 @@ import Loading from "../component/loading/loading";
 import { useNavigate } from "react-router-dom";
 const Dashboard = (props) => {
     const {store, actions} = useContext(Context);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [revenue, setRevenue] = useState(0);
     const navigate = useNavigate();
 
-    useEffect(() => {       
-        actions.getTransactions();         
-        
-        // store.transactions && store.transactions.map((transaction) => {
-        //     setRevenue(revenue + parseFloat(transaction.comission))            
-        // });    
-    }, []);
+    useEffect(() => {
+        let acum = 0;  
+        const getData = async () => {
+            const isDone = await actions.getData();
+            if(!isDone) {
+                setLoading(false);
+            }
+        }  
+        getData();          
+        store.transactions && store.transactions.map((transaction) => {
+            console.log(transaction.comission);
+            acum =+ parseFloat(transaction.comission)           
+        });   
+        setRevenue(acum);  
+        store.revenue = acum;               
+    }, [loading]);
 
     // useEffect(() => {
     //     actions.calculateRevenue();
     //    // setRevenue(store.revenue);
     // }, [store.transactions]);
-
- 
-   
-
 
     const usersQuantity = store.users && store.users.length;
     const gymsQuantity = store.gyms && store.gyms.length;
@@ -32,7 +37,7 @@ const Dashboard = (props) => {
     return (
         <>
         {
-            loading ? <Loading /> : ( <>
+            loading ? <div className= "d-flex justify-content-center"><Loading /></div> : ( <>
         <h1 className="h2 text-vital-orange">Dashboard</h1>
                         <p className="text-vital-white">
                             Home page to manage the website
@@ -78,7 +83,7 @@ const Dashboard = (props) => {
                                 <div className="card bg-vital-black">
                                     <h5 className="card-header text-vital-orange">Revenue</h5>
                                     <div className="card-body text-vital-white bg-dark">
-                                        <h5 className="card-title">{store.revenue ? store.revenue : 0}</h5>
+                                        <h5 className="card-title">{revenue.toFixed(2)}</h5>
                                         <p className="card-text">Feb 1 - Apr 1, United States</p>
                                         <p className="card-text text-success">
                                             2.5% increase since last month
@@ -100,26 +105,21 @@ const Dashboard = (props) => {
                                                         <th scope="col">Product</th>
                                                         <th scope="col">Customer</th>
                                                         <th scope="col">Total</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col" />
+                                                        <th scope="col">Date</th>                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {   props.products &&
-                                                        props.products.map((product, index) => {
-                                                            //console.log(product)
+                                                {   store.transactions &&
+                                                        store.transactions.map((transaction, index) => {                                                            
                                                             return (
                                                                 <tr key={index}>
-                                                                    <th scope="row">{product.id}</th>
-                                                                    <td>{product.title}</td>
-                                                                    <td>{product.category}</td>
-                                                                    <td>{product.price}</td>
-                                                                    <td>{Date()}</td>
-                                                                    <td>
-                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange rounded-pill">
-                                                                            View
-                                                                        </span>
-                                                                    </td>
+                                                                    <td>{transaction.id}</td>
+                                                                    <td>{transaction.order}</td>
+                                                                    <td>{transaction.date}</td>
+                                                                    <td>{transaction.amount}</td>
+                                                                    <td>{transaction.comission.toFixed(2)}</td>
+                                                                    <td>{Date()}</td>                                                                   
+                                                                
                                                                 </tr>
                                                             )
                                                         }
@@ -139,7 +139,29 @@ const Dashboard = (props) => {
                                 <div className="card bg-vital-black">
                                     <h5 className="card-header text-vital-orange">Last 6 months subcriptions</h5>
                                     <div className="card-body bg-dark">
-                                        <div id="traffic-chart" />
+                                    <div className="table-responsive">
+                                            <table className="table table-dark table-striped">
+                                                <thead>
+                                                    <tr >
+                                                        <th scope="col">username</th>
+                                                        <th scope="col">Email</th>                                                                                                               
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {   store.transactions &&
+                                                        store.users.map((user, index) => {                                                            
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{user.username}</td>
+                                                                    <td>{user.email}</td>                                                                      
+                                                                </tr>
+                                                            )
+                                                        }
+                                                        )
+                                                    }                                            
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

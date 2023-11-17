@@ -57,7 +57,7 @@ const ShoppingCart = () => {
                 <h5 className="font-size-16 mb-0 text-vital-white">
                   Order summary{" "}
                   <span className="float-end">
-                    {/*Could be change for a Order number*/}0245896
+                    {Math.floor(Math.random() * Date.now())}{/*0245896*/}
                   </span>
                 </h5>
               </div>
