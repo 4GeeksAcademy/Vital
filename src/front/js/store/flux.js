@@ -296,7 +296,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 							"Authorization": "Bearer " + store.token
 						},
-					}
+					}					
 				);
 				const dataNewsletter = await newsletter.json();
 				setStore({ newsletter: dataNewsletter });
@@ -322,8 +322,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				);
 				const dataTransactions = await transactions.json();
 				setStore({ transactions: dataTransactions });
-				return false;
-
+				return false;			
 			},
 			getNewsletter: async () => {
 				const store = getStore();
