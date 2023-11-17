@@ -210,14 +210,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					products: store.products.filter((item) => item.id != id),
 				})
-				getActions().calculateTotalCart();
+				//getActions().calculateTotalCart();
 			},
 			calculateTotalCart: () => {
 				const store = getStore()
-
+				if (store.products.length == 0) {
+					setStore({ totalShoppingCart: 0 })
+					return
+				}
 				const totalValue = store.products.map(product => product.price * product.quantity).reduce((accumulator, currentValue) => accumulator + currentValue)
-
-				setStore({ totalShoppingCart: totalValue })
+				setStore({ totalShoppingCart: totalValue.toFixed(2) })
 			},
 			setQuantity: (id, quantity) => {
 				const store = getStore()
