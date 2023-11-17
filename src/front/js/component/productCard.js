@@ -22,7 +22,6 @@ const ProductCard = ({ title, price, image, id }) => {
     });
   }
 
-
   return (
     <div className="card bg-vital-black m-1" style={{ width: "18rem" }}>
       <img
