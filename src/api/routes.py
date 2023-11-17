@@ -451,6 +451,30 @@ def get_newsletter():
         return {"msg": "Newsletters don't exist"}, 400
     return [newsletter.serialize() for newsletter in newsletters], 200
 
+@api.route("update-newsletter", methods=["PUT"])
+@jwt_required()
+def update_newsletter():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    body = request.get_json()
+    email = body.get("email", None)
+    if email is None:
+        return {"msg": "Missing email"}, 400
+    if check(email) == False:
+        return {"msg": "Invalid email"}, 400
+    newsletter = Newsletter.query.filter_by(email=email).first()
+    if newsletter is None:
+        return {"msg": "Newsletter doesn't exist"}, 400
+    try:
+        newsletter.is_active = not newsletter.is_active
+        db.session.commit()
+        return newsletter.serialize(), 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+
+
 @api.route("disable-newsletter/<email>", methods=["PUT"])
 def disable_newsletter(email):
     newsletter = Newsletter.query.filter_by(email=email).first()

@@ -24,7 +24,7 @@ const ShoppingCart = () => {
           {
             products.map((product, index) => {
               console.log({quantityMap: product.quantity})
-              return <CartItem key={product.id} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id} deleteItem={actions.removeFromCart} />
+              return <CartItem key={product.id} title={product.title} price={product.price} image={product.image} quantity={product.quantity} id={product.id}/>
             })
           }
           <div className="row my-4">

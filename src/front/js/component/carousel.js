@@ -17,12 +17,10 @@ const Carousel = () => {
             <Postcard />
           </div>
         </div>
-        <div className="carousel-inner">
-          <div className="carousel-item">
-            <div className="d-flex justify-content-evenly flex-wrap pb-5">
-              <Postcard />
-              <Postcard />
-            </div>
+        <div className="carousel-item">
+          <div className="d-flex justify-content-evenly flex-wrap pb-5">
+            <Postcard />
+            <Postcard />
           </div>
         </div>
       </div>
@@ -52,7 +50,7 @@ const Carousel = () => {
         {/* <span className="carousel-control-next-icon" aria-hidden="true" /> */}
         <span className="visually-hidden">Next</span>
       </button>
-    </div>
+    </div >
   );
 };
 

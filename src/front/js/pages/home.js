@@ -22,7 +22,7 @@ export const Home = ({ isVisible }) => {
       exit={{ opacity: 0 }}
       transition={{
         ease: "linear",
-        duration: 1.5,
+        duration: 2,
       }}
 
     >
@@ -42,7 +42,7 @@ export const Home = ({ isVisible }) => {
             <motion.p className="text-vital-white fs-4 fs-md-5 fs-sd-5 p-sm-3 p-md-3 pt-2"
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 1.5, duration: 2 }}
             >
               Unlock your potential with a fitness membership that gives you
               access to a world of training possibilities.
