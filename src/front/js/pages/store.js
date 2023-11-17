@@ -41,7 +41,7 @@ export const Store = () => {
       <>
       <BackgroundContainer
         title="Store"
-        description="Esta es la tienda donde se mostraran todos los productos"
+        description="Many people take vitamins, supplements and other products to make them look and feel their best. Vitamins, supplements and other high-quality products make it easier to support your nutritional needs. At GNC, we’ve compiled a list of our best sellers all in one place so you can see the products everyone is talking about."
         image={Imagen}
       />
       <div className="container-fluid p-5 bg-vital-gray">
