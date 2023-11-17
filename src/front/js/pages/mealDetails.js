@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext"
 import { useNavigate } from "react-router-dom"
+import "../../styles/meals.css"
 
 export const MealDetails = () => {
   const navigate = useNavigate()
@@ -17,10 +18,10 @@ export const MealDetails = () => {
     <>
       {
         store.meals.length > 0 &&
-        <div className="container bg-dark mt-5 mb-5 p-0">
+        <div className="container bg-dark mt-5 mb-5 p-0" style={{ borderRadius: "2em" }}>
           <div className="d-flex pt-5 pe-5 pb-5">
-            <div className="border border-3 rounded border-vital-orange mx-5" >
-              <img src={meal.recipe.image} />
+            <div className="mx-5" >
+              <img className="rounded-3" src={meal.recipe.image} />
             </div>
             <div className="ps-5">
               <h1 className="pb-4 text-vital-orange">{meal.recipe.label}</h1>
@@ -28,10 +29,10 @@ export const MealDetails = () => {
             </div>
           </div>
 
-          <div className="bg-vital-white">
+          <div className="bg-dark pt-4" style={{ borderTop: "1px solid #ff5300", borderRadius: "0 0 2em 2em"}}>
             <div className="d-flex flex-column justify-content-evenly">
               <div className="d-flex justify-content-center align-items-start fs-5">
-              <h1>Servings <strong>{meal.recipe.yield}</strong></h1>
+              <h1 className="text-vital-white">Servings <strong>{meal.recipe.yield}</strong></h1>
               </div>
               <div className="d-flex px-5 justify-content-center align-items-start flex-column fs-5 ">
                 
@@ -39,7 +40,7 @@ export const MealDetails = () => {
                 <p>
                   {meal.recipe.ingredientLines.map((ingredient, index) => {
                     return (
-                      <p key={index}>
+                      <p className="text-vital-white" key={index}>
                         <i className="fa-solid fa-circle mx-3 text-vital-orange"></i>
                         {ingredient}
                       </p>
@@ -48,7 +49,7 @@ export const MealDetails = () => {
                   )}
                 </p>
               </div>
-              <div className="d-flex bg-dark text-vital-white justify-content-around fs-5">
+              <div className="d-flex bg-dark text-vital-white justify-content-around fs-5" style={{ borderTop: "1px solid #ff5300", borderRadius: "0 0 2em 2em" }}>
                 <div className="d-flex flex-column justify-content-center">
                   <p><i className="fa-solid fa-circle mx-3 text-success"></i><span >PROTEIN</span> <strong>{meal.recipe.digest[2].total.toFixed(0)} g</strong> </p>
                   <p><i className="fa-solid fa-circle mx-3 text-danger"></i><span>FAT</span> <strong>{meal.recipe.digest[0].total.toFixed(0)} g</strong> </p>
@@ -64,7 +65,7 @@ export const MealDetails = () => {
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
                   <p className="fs-1"><strong>{meal.recipe.calories.toFixed(0)} Kcal</strong> </p>
-                  <a href={meal.recipe.url} className="btn btn-vital-orange text-vital-white" target="_blank">Go to recipe</a>
+                  <a href={meal.recipe.url} className="recipe-btn btn btn-vital-orange text-vital-white rounded-pill fw-bold" target="_blank">Go to recipe</a>
                 </div>
               </div>
             </div>

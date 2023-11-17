@@ -94,3 +94,7 @@
   justify-content: center;
   align-items: center;
 }
+
+.recipe-btn:hover {
+  color: #f6f6f6;
+}

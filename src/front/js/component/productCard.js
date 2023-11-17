@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import "../../styles/product-card.css"
+
 
 const ProductCard = ({ title, price, image, id }) => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const ProductCard = ({ title, price, image, id }) => {
   }
 
   return (
-    <div className="card bg-vital-black m-1" style={{ width: "18rem" }}>
+    <div className="product-card card bg-vital-black my-3" style={{ width: "18rem" }}>
       <img
         src={image}
         className="card-img-top"
