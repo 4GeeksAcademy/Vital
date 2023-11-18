@@ -32,7 +32,7 @@ export const AdminLogin = () => {
         const isValid = await actions.loginAdmin(username, password)
         if (isValid) {
             actions.setUsername(username)
-            toast.success('Welocme Back Admin!', {
+            toast.success('Welcome Back Admin!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
