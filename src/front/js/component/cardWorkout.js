@@ -14,7 +14,7 @@ const CardWorkout = ({ title, image }) => {
     >
       <h1 className="text-vital-white text-center fs-3  fw-bold">
         <Link
-          to={`/bodypart/${title}`}
+          to={`/bodypart/${title.toLowerCase()}`}
           className="text-vital-white fw-bold text-decoration-none"
         >
           {title}

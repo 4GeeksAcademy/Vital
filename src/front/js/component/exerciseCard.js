@@ -11,9 +11,9 @@ const ExerciseCard = ({ exercise, id, target, equipment, bodypart }) => {
   const title = target.charAt(0).toUpperCase() + target.slice(1);
   const titleExcercise = exercise.charAt(0).toUpperCase() + exercise.slice(1);
   const newBodypart = bodypart.replace('%20', '').replace(/\s/g, '')
-  console.log(newBodypart)
+  // console.log(newBodypart)
   const particularExercise = Object.values(store.favorites[newBodypart])
-  console.log(particularExercise.map(item => item.id).includes(id))
+  // console.log(particularExercise.map(item => item.id).includes(id))
 
   return (
     <div
