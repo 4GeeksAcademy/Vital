@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null || localStorage.getItem("token"),
 			username: null || localStorage.getItem("username"),
 			revenue: 0,
+			orderNumber: 0,
 			products: [],
 			meals: [],
 			totalShoppingCart: 0,
