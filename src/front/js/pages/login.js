@@ -23,7 +23,7 @@ export const Login = () => {
         }
         const isValid = await actions.loginUser(username, password)
         if (isValid) {
-            toast.success('Welocme Back!', {
+            toast.success('Welcome Back!', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,

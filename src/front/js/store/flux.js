@@ -1,9 +1,12 @@
+import { Alert } from "bootstrap";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null || localStorage.getItem("token"),
 			username: null || localStorage.getItem("username"),
 			revenue: 0,
+			orderNumber: 0,
 			products: [],
 			meals: [],
 			totalShoppingCart: 0,
@@ -113,7 +116,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: null, username: null, user: null, profile: null })
 				return true
 			},
-
 			loginAdmin: async (username, password) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "api/token-admin",
@@ -142,12 +144,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 					return false
 				}
-			},
-
-			logout: () => {
-				localStorage.removeItem("token")
-				setStore({ token: null })
-				return true
 			},
 			getMeals: async (url) => {
 				try {
@@ -301,7 +297,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 							"Authorization": "Bearer " + store.token
 						},
-					}
+					}					
 				);
 				const dataNewsletter = await newsletter.json();
 				setStore({ newsletter: dataNewsletter });
@@ -327,8 +323,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				);
 				const dataTransactions = await transactions.json();
 				setStore({ transactions: dataTransactions });
-				return false;
-
+				return false;			
 			},
 			getNewsletter: async () => {
 				const store = getStore();
@@ -402,22 +397,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			validateToken: async () => {
 				const store = getStore()
-				if (!store.token) return true
-				if (!store.username) return true
-				const response = await fetch(process.env.BACKEND_URL + `api/validate-token?username=${store.username}`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + store.token
-					}
-				})
-				const data = await response.json();
-				if (data.msg == "User not authorized" || data.msg == "Token has expired") {
+				if (!store.token) {
 					localStorage.removeItem("token")
-					setStore({ token: null })
+					localStorage.removeItem("username")
+					localStorage.removeItem("user")
+					localStorage.removeItem("profile")
+					setStore({ token: null, username: null, user: null, profile: null })
 					return true
 				}
-				return false
+				if (!store.username) return true
+				try {
+
+					const response = await fetch(process.env.BACKEND_URL + `api/validate-token?username=${store.username}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + store.token
+						}
+					})
+					const data = await response.json();
+					console.log(data.msg)
+					if (data.msg == "User not authorized" || data.msg == "Token has expired") {
+						localStorage.removeItem("token")
+						localStorage.removeItem("username")
+						localStorage.removeItem("user")
+						localStorage.removeItem("profile")
+						setStore({ token: null, username: null, user: null, profile: null })
+
+						return true
+					}
+					return false
+				}
+				catch (error) {
+					alert("Error", "Server side error", "error")
+					return false
+				}
 			},
 
 			changeNewsletterStatus: async (email) => {
@@ -432,7 +446,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				const data = await response.json();
 				console.log(data)
-				if (data.email == email){
+				if (data.email == email) {
 					setStore({ newsletter: data.newsletter })
 					return true
 				}
