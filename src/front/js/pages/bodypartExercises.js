@@ -136,8 +136,6 @@ const bodyPartsImgs = {
   
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
   const params = Object.fromEntries([...searchParams]);
-
-  console.log(exercises)
   
   return (
     <>
@@ -147,6 +145,7 @@ const bodyPartsImgs = {
         <>
           <BackgroundContainer
             title={title}
+            // description={bodyPartsImgs[bodypart.replace(/\s/g, '')].description}
             description={bodyPartsImgs[bodypart.replace(/\s/g, '')].description}
             image={bodyPartsImgs[bodypart.replace(/\s/g, '')].image}
           />
