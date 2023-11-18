@@ -18,7 +18,7 @@ const SortFilterBox = ({ setSearch, setSort }) => {
 
   return (
     <div className="container-fluid bg-vital-black">
-      <div className="container pt-5 bg-vital-black d-flex justify-content-around">
+      <div className="container py-3 bg-vital-black d-flex justify-content-around">
         <div className="search-container">
           <input
             type="text"
