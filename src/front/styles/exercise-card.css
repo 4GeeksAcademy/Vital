@@ -16,17 +16,24 @@
 
 .wrap-exercise-card {
   position: relative;
-  height: 230px;
+  height: 200px;
   width: 252px;
 }
 
-.font-p {
-  font-size: 0.8rem;
+.wrap-exercise-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 3px #ff5300;
+  transition: .5s ease;
 }
 
 .heart {
-  top: 5px;
-  right: 8px;
-  font-size: 1.2rem;
+  top: 16px;
+  right: 16px;
+  font-size: 1.5rem;
   position: absolute;
+}
+
+.heart:hover {
+  transform: scale(1.5);
+  transition: transform 0.4s;
 }

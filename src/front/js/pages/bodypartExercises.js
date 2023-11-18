@@ -150,7 +150,7 @@ const bodyPartsImgs = {
             image={bodyPartsImgs[bodypart.replace(/\s/g, '')].image}
           />
           <SortFilterBox setSort={setSort} setSearch={setSearch}/>
-          <div className="container-fluid p-5 bg-vital-black">
+          <div className="container-fluid py-3 bg-vital-gray">
             <div className="container d-flex  flex-column title-workout">
               <div className="row col-11 d-flex mx-auto justify-content-around">
                 {exercises &&
