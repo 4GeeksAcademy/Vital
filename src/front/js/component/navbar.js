@@ -29,10 +29,10 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-6">
             <motion.li className="nav-item"
-            whileHover={{ scale: 1.2 }}
-            onHoverStart={e => { }}
-            onHoverEnd={e => { }}
-            whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={e => { }}
+              onHoverEnd={e => { }}
+              whileTap={{ scale: 0.9 }}
             >
               <a
                 className="nav-link text-vital-white active"
@@ -111,8 +111,30 @@ export const Navbar = () => {
           </ul>
         </div>
         <div className="d-flex flex-row">
-          <i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1" onClick={() => navigate("/shopping-cart")} style={{ cursor: "pointer" }}></i>
-          <i className="fa-solid fa-heart text-vital-orange fs-5 px-1" onClick={() => navigate("/my-profile")} style={{ cursor: "pointer" }}></i>
+          <motion.i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1"
+            onClick={() => navigate("/shopping-cart")}
+            style={{ cursor: "pointer" }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
+          ></motion.i>
+          <motion.i className="fa-solid fa-heart text-vital-orange fs-5 px-1"
+            onClick={() => navigate("/favorites")}
+            style={{ cursor: "pointer" }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
+          ></motion.i>
+          <motion.i className="fa-solid fa-user text-vital-orange fs-5 px-1"
+            onClick={() => navigate("/my-profile")}
+            style={{ cursor: "pointer" }}
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
+            whileTap={{ scale: 0.9 }}
+          ></motion.i>
         </div>
         {/* {store.token ? console.log("true", store.token) : console.log("false", store.token)} */}
         {
