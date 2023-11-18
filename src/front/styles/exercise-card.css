@@ -21,14 +21,9 @@
 }
 
 .wrap-exercise-card:hover {
-  opacity: 0.8;
   cursor: pointer;
   box-shadow: 0 0 0 3px #ff5300;
   transition: .5s ease;
-}
-
-.font-p {
-  font-size: 0.8rem;
 }
 
 .heart {
@@ -39,7 +34,6 @@
 }
 
 .heart:hover {
-  color: #fff;
   transform: scale(1.5);
   transition: transform 0.4s;
 }
