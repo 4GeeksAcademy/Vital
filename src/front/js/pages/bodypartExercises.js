@@ -164,6 +164,7 @@ const bodyPartsImgs = {
                             id={exercise.id}
                             target={exercise.target}
                             equipment={exercise.equipment}
+                            url={exercise.gifUrl}
                             bodypart={bodypart}                         
                           />
                         )}
