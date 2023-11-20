@@ -663,3 +663,41 @@ def update_profile(username):
             "profile": profile.serialize()}, 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("update-user", methods=["PUT"])
+@jwt_required()
+def update_user_data():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    body = request.get_json()
+    name = body.get("name", None)
+    lastname = body.get("lastname", None)
+    email = body.get("email", None)
+    description = body.get("description", None)
+    phone = body.get("phone", None)
+    jobies = body.get("jobies", None)
+    if name is None or lastname is None or email is None or description is None or phone is None or jobies is None:
+        return {"msg": "Missing fields"}, 400
+    user = User.query.filter_by(username=username).first()
+    profile = Profile.query.filter_by(user=user).first()
+
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    
+    try:        
+        user.name = name
+        user.lastname = lastname
+        user.email = email
+        db.session.commit()
+        profile.description = description
+        profile.phone = phone
+        profile.jobies = jobies
+        db.session.commit()
+        return {
+            "msg": "User updated successfully",
+            "user": user.serialize(),
+            "profile": profile.serialize()}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500

@@ -11,6 +11,7 @@ import Newsletters from "../component/newsletters";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import IntegrationsStore from "../component/integrationStore";
+import { ToastContainer, toast } from 'react-toastify';
 import { motion } from "framer-motion"
 
 const AdminPanel = () => {
@@ -25,15 +26,31 @@ const AdminPanel = () => {
         manageNewsletter: false,
         integrations: false
     })
-
     useEffect(() => {
         // actions.getProducts();
-        !store.token && navigate("/")      
-        
+        !store.token && navigate("/")
+        console.log(store.username != "admin")
+        if (store.username != "admin") {
+            toast.warn('Just Admin user can Access to the Dashboard!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            navigate("/")
+        }
+
     }, []);
 
     return (
         <>
+        {
+            store.username != "admin" && navigate("/")
+        }
             <nav className="navbar navbar-dark bg-dark p-3">
                 <div className="container ">
 
@@ -158,7 +175,7 @@ const AdminPanel = () => {
                                         manageAdminUsers: false,
                                         manageGyms: false,
                                         manageNewsletter: false,
-                                        integrations: true                                    
+                                        integrations: true
                                     })}>
 
                                         <span className="ml-2">Integrations Store</span>
@@ -176,6 +193,18 @@ const AdminPanel = () => {
                     </main>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </>
 
     );

@@ -122,11 +122,17 @@ const Map = () => {
             <Marker
               position={currentPosition}
               icon={{
-                url: "https://lh3.googleusercontent.com/a/ACg8ocIlQV-vhcabeddDGe5FtKVKz15v28z9Yf2cPlPgJMKamcah=s288-c-no",
+                url: "https://lh3.googleusercontent.com/bECXZ2YW3j0yIEBVo92ECVqlnlbX9ldYNGrCe0Kr4VGPq-vJ9Xncwvl16uvosukVXPfV=w300",
                 scaledSize: new window.google.maps.Size(40, 40),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 15),
               }}
+              // icon={{
+              //   url: "https://lh3.googleusercontent.com/a/ACg8ocIlQV-vhcabeddDGe5FtKVKz15v28z9Yf2cPlPgJMKamcah=s288-c-no",
+              //   scaledSize: new window.google.maps.Size(40, 40),
+              //   origin: new window.google.maps.Point(0, 0),
+              //   anchor: new window.google.maps.Point(15, 15),
+              // }}
 
             />
           </GoogleMap>

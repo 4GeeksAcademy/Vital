@@ -7,6 +7,14 @@
   height: auto;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  color: #ff5300;
+}
+
 .email-wrap > .envelope {
   position: absolute;
   color: #ff5300;
