@@ -1,0 +1,17 @@
+.postcards {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .circle-avatar-chrish {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://image-prod.iol.co.za/resize/1180x118000/Image-Pinterest?source=https://xlibris.public.prod.oc.inl.infomaker.io:8443/opencontent/objects/d3a3ec8f-f127-56f2-8a93-d067f005f3d4&operation=CROP&offset=0x0&resize=1000x1148v);
+    background-position: top;
+    background-size: cover;
+  }
+  
+  .description{
+    max-width: 400px;
+    height: 400px;
+  }
