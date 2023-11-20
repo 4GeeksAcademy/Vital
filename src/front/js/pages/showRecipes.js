@@ -10,7 +10,7 @@ import "../../styles/meals.css"
 
 export const ShowRecipes = () => {
   const { diet, meal } = useParams()
-  const navigate = useNavigate()  
+  const navigate = useNavigate()
   const [isShow, setIsShow] = useState(false)
   const { store, actions } = useContext(Context)
   const [recipe, setRecipe] = useState(null)
@@ -26,7 +26,7 @@ export const ShowRecipes = () => {
 
   }
 
- 
+
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -56,7 +56,7 @@ export const ShowRecipes = () => {
     setSearch("")
   }
 
-  
+
 
   return (
     <>
@@ -98,16 +98,17 @@ export const ShowRecipes = () => {
                     <motion.div key={index} className="d-flex"
                       variants={item}
                     >
-                      
-                        <div className="card-map card d-flex me-4 mb-4 bg-vital-black" style={{ width: "18rem" }} onClick={()=>{navigate(`/mealDetails/${index}`)}}>
-                          <img src={meal.recipe.image} className="card-img-top" alt="..." />
-                          <div className="card-body text-vital-orange">
-                            <h5 className="card-title text-vital-white">{meal.recipe.label}</h5>
-                            <p className="card-text">Dish Type: <span className="text-vital-white"> {meal.recipe.dishType}</span></p>
-                            <span className="tooltiptext">click card to view details</span>
-                          </div>
+
+                      <div className="card-map card d-flex me-4 mb-4 bg-vital-black position-relative" style={{ width: "18rem" }} onClick={() => { navigate(`/mealDetails/${index}`) }}>
+                        <img src={meal.recipe.image} className="card-img-top" alt="..." />
+                        <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavExercise(newBodypart, exercise, id)}></i>
+                        <div className="card-body text-vital-orange">
+                          <h5 className="card-title text-vital-white">{meal.recipe.label}</h5>
+                          <p className="card-text">Dish Type: <span className="text-vital-white"> {meal.recipe.dishType}</span></p>
+                          <span className="tooltiptext">click card to view details</span>
                         </div>
-                      
+                      </div>
+
                     </motion.div>
                   )
                 })}
