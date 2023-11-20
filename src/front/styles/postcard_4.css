@@ -1,0 +1,17 @@
+.postcards {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .circle-avatar-larry {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://www.greatestphysiques.com/wp-content/uploads/2018/01/Larry-Wheels.03.jpg);
+    background-position: top;
+    background-size: cover;
+  }
+  
+  .description{
+    max-width: 400px;
+    height: 400px;
+  }

@@ -1,0 +1,17 @@
+.postcards {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .circle-avatar-elena {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://c.wallhere.com/photos/fd/3c/fitness_model_women_working_out_model_dumbbells-1662265.jpg!d);
+    background-position: center;
+    background-size: cover;
+  }
+  
+  .description{
+    max-width: 400px;
+    height: 400px;
+  }

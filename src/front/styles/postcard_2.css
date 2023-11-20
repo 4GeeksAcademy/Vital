@@ -1,0 +1,17 @@
+.postcards {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .circle-avatar-henry {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://www.spcfitz.com/wp-content/uploads/2021/06/henry-cavill-workout-routine.jpg);
+    background-position: top;
+    background-size: cover;
+  }
+  
+  .description{
+    max-width: 400px;
+    height: 400px;
+  }
