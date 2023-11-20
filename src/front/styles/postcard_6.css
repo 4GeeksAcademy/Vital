@@ -1,0 +1,17 @@
+.postcards {
+    width: 500px;
+    height: 400px;
+  }
+  
+  .circle-avatar-arnold {
+    width: 100px;
+    height: 100px;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Arnold_Schwarzenegger_by_Gage_Skidmore_3.jpg/1200px-Arnold_Schwarzenegger_by_Gage_Skidmore_3.jpg);
+    background-position: top;
+    background-size: cover;
+  }
+  
+  .description{
+    max-width: 400px;
+    height: 400px;
+  }
