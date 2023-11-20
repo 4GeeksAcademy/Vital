@@ -41,15 +41,7 @@ export const Favorites = () => {
                                 </div>
                             }
                         </div>
-                    </div>
-                    <div className='col-4 my-2'>
-                        <div className='card container bg-vital-black d-flex'>
-                            <h5 className="card-header border-0 text-vital-orange fw-bold">Favorite meal plans</h5>
-                            <div className='card-body'>
-                                <FavoriteWorkout />
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
                 </>
             }
