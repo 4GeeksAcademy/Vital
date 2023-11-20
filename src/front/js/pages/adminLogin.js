@@ -11,8 +11,9 @@ export const AdminLogin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        store.token && navigate("/dashboard")
+    useEffect(() => {        
+        store.token && store.username == "admin" && navigate("/dashboard")        
+
     }, [])
 
     const loginAdmin = async () => {

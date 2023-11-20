@@ -56,30 +56,21 @@ export const Footer = () => {
       <hr className="hr text-vital-orange border-3 mt-5" />
       <div className="row justify-content-between">
         <div className="col-4">
-          <h5 className="text-uppercase mb-4">Column One</h5>
-          <ul>
-            <li className="mb-2">Twenty One</li>
-            <li className="mb-2">Twenty Two</li>
-            <li className="mb-2">Twenty Three</li>
-            <li className="mb-2">Twenty Four</li>
-          </ul>
-        </div>
+        <h5 className="text-uppercase mb-4">About Us</h5>
+						<p align="justify">
+            Unleash your inner athlete and embrace a life of vitality with our all-encompassing fitness portal.
+						</p>
+						<p align="justify">
+            Explore a treasure trove of exercise routines, personalized nutrition plans, and expert-guided wellness strategies to sculpt your physique, enhance your energy levels, and cultivate a holistic sense of well-being.
+						</p>
+        </div>        
         <div className="col-4">
-          <h5 className="text-uppercase mb-4">Column One</h5>
+          <h5 className="text-uppercase mb-4">Explore our site</h5>
           <ul>
-            <li className="mb-2">Twenty One</li>
-            <li className="mb-2">Twenty Two</li>
-            <li className="mb-2">Twenty Three</li>
-            <li className="mb-2">Twenty Four</li>
-          </ul>
-        </div>
-        <div className="col-4">
-          <h5 className="text-uppercase mb-4">Column One</h5>
-          <ul>
-            <li className="mb-2">Twenty One</li>
-            <li className="mb-2">Twenty Two</li>
-            <li className="mb-2">Twenty Three</li>
-            <li className="mb-2" onClick={()=> navigate("/admin-login")}>Twenty Four</li>
+            <li className="pointer mb-2" onClick={() => navigate("/exercises")}>Workout</li>
+            <li className="pointer mb-2" onClick={()=> navigate("/mealPlans")}>Meal Recipes</li>
+            <li className="pointer mb-2" onClick={() => navigate("/store")}>Fitness Store</li>
+            <li className="pointer mb-2" onClick={()=> navigate("/admin-login")}>Intranet Access</li>
           </ul>
         </div>
         <div className="mt-4 d-flex">
