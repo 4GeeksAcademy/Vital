@@ -82,19 +82,19 @@ const ManageGyms = () => {
 
     const changeStatus = async (email) => {
         const status = confirm("Are you sure you want to change the status of this gym?")
-        if (status) {            
-                const resp = actions.changeStatus(email)
-                if (resp) {
-                    actions.getGyms()
-                    alert("Status changed successfully")
-                }
-                else {
-                    alert("Something went wrong")
-                }
+        if (status) {
+            const resp = actions.changeStatus(email)
+            if (resp) {
+                actions.getGyms()
+                alert("Status changed successfully")
             }
-            return
+            else {
+                alert("Something went wrong")
+            }
         }
-    
+        return
+    }
+
 
     //name, email, address, latitude, longitude, description, phone, image
     //console.log(store.gyms)
@@ -141,7 +141,7 @@ const ManageGyms = () => {
                                                         <td>{gym.email}</td>
                                                         <td>{gym.address}</td>
                                                         <td>{gym.phone}</td>
-                                                        <td>{gym.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{cursor: "pointer"}} onClick={() => changeStatus(gym.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{pointer: ""}} onClick={()=>changeStatus(gym.email)}></i>}</td>
+                                                        <td>{gym.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{ cursor: "pointer" }} onClick={() => changeStatus(gym.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{ pointer: "" }} onClick={() => changeStatus(gym.email)}></i>}</td>
                                                         <td>
                                                             <span className="btn btn-sm text-vital-white btn-vital-orange" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
                                                                 Edit
@@ -264,15 +264,15 @@ const ManageGyms = () => {
                                 </div>
                                 <div className="mb-3 d-flex">
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" value={gymEdit.longitude} onChange={
-                                            (e) => setGymEdit({ ...gymEdit, longitude: e.target.value })
-                                        } />
-                                    </div>
-                                    <div className="d-flex flex-column justify-content-around">
                                         <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
                                         <input type="text" className="w-75 form-control" value={gymEdit.latitude} onChange={
                                             (e) => setGymEdit({ ...gymEdit, latitude: e.target.value })
+                                        } />
+                                    </div>
+                                    <div className="d-flex flex-column justify-content-around">
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
+                                        <input type="text" className="w-75 form-control" value={gymEdit.longitude} onChange={
+                                            (e) => setGymEdit({ ...gymEdit, longitude: e.target.value })
                                         } />
                                     </div>
                                 </div>

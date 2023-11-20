@@ -507,6 +507,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false
 			},
+			resetPassword: async (user) => {	
+				const store = getStore();			
+				const response = await fetch(process.env.BACKEND_URL + `api/reset-password?username=${store.username}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+					body: JSON.stringify(user)
+				})
+				const data = await response.json();				
+				if (data.status == "ok") {					
+					return true
+				}
+				return false
+			},			
 			getTransactions: async () => {
 				const store = getStore();
 				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,

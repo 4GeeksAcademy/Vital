@@ -111,7 +111,7 @@ export const Navbar = () => {
           </ul>
         </div>
         <div className="d-flex flex-row">
-          <motion.i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1"
+          <motion.i className="fa-solid fa-cart-shopping text-vital-orange fs-5 px-1 mx-2"
             onClick={() => navigate("/shopping-cart")}
             style={{ cursor: "pointer" }}
             whileHover={{ scale: 1.2 }}
@@ -119,7 +119,7 @@ export const Navbar = () => {
             onHoverEnd={e => { }}
             whileTap={{ scale: 0.9 }}
           ></motion.i>
-          <motion.i className="fa-solid fa-heart text-vital-orange fs-5 px-1"
+          <motion.i className="fa-solid fa-heart text-vital-orange fs-5 px-1 mx-2"
             onClick={() => navigate("/favorites")}
             style={{ cursor: "pointer" }}
             whileHover={{ scale: 1.2 }}
@@ -127,7 +127,7 @@ export const Navbar = () => {
             onHoverEnd={e => { }}
             whileTap={{ scale: 0.9 }}
           ></motion.i>
-          <motion.i className="fa-solid fa-user text-vital-orange fs-5 px-1"
+          <motion.i className="fa-solid fa-user text-vital-orange fs-5 px-1 mx-2"
             onClick={() => navigate("/my-profile")}
             style={{ cursor: "pointer" }}
             whileHover={{ scale: 1.2 }}

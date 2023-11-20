@@ -42,6 +42,7 @@ def create_token():
     user = User.query.filter_by(username=username).one_or_none()
     if user is None:
         return {"message": "user doesn't exist"}, 400
+    
     password_byte = bytes(password, "utf-8")   
 
     profile = Profile.query.filter_by(user=user).one_or_none()
@@ -701,3 +702,35 @@ def update_user_data():
             "profile": profile.serialize()}, 200
     except ValueError as error:
         return {"msg": "Something went wrong" + error}, 500
+    
+@api.route("reset-password", methods=["PUT"])
+@jwt_required()
+def reset_password():    
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    #return {"msg": "before query"}, 501
+    body = request.get_json()
+    email = body.get("email", None)
+    username_user = body.get("username", None)
+    password = body.get("password", None)    
+    if username_user is None or email is None or password is None:
+        return {"msg": "Missing fields"}, 400
+    
+    user = User.query.filter_by(username=username_user).first()
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    try:
+        bpassword = bytes(password, "utf-8")
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(bpassword, salt)
+        user.password = hashed.decode("utf-8")
+        db.session.commit()
+        return {"msg": "Password reset successfully", "status": "ok"}, 200
+    except ValueError as error:
+        return {"msg": "Something went wrong" + error}, 500
+    
+                 
+
+    
