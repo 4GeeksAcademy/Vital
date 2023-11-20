@@ -129,9 +129,9 @@ const Dashboard = (props) => {
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <span href="#" className="btn btn-block btn-secondary rounded-pill">
+                                        {/* <span href="#" className="btn btn-block btn-secondary rounded-pill">
                                             View all
-                                        </span>
+                                        </span> */}
                                     </div>
                                 </div>
                             </div>
