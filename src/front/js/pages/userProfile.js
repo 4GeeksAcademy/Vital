@@ -8,11 +8,11 @@ export const UserProfile = () => {
   const { store, actions } = useContext(Context)
   const navigate = useNavigate()
   const [userInput, setUserInput] = useState({
-    username: store.user.username || '',
-    name: store.user.name || '',
-    lastname: store.user.lastname || '',
+    username: store.user?.username || '',
+    name: store.user?.name || '',
+    lastname: store.user?.lastname || '',
     description: store.profile?.description || '',
-    email: store.user.email || '',
+    email: store.user?.email || '',
     phone: store.profile?.phone || '',
     jobies: store.profile?.jobies || ''
   })
@@ -21,7 +21,12 @@ export const UserProfile = () => {
 
   useEffect(() => {
     const profileLocal = JSON.parse(localStorage.getItem('profile'))
-    !user && !profileLocal && navigate('/login')
+    const userStorage = JSON.parse(localStorage.getItem('user'))
+    console.log({ profile: profileLocal, user: userStorage })
+    console.log(!userStorage || !profileLocal)
+    if (!userStorage || !profileLocal ) {
+      navigate('/login')
+    } else {    
     store.profile = profileLocal
     setUserInput({
       username: store.user.username || '',
@@ -32,6 +37,7 @@ export const UserProfile = () => {
       phone: store.profile.phone || '',
       jobies: store.profile.jobies || ''
     })
+  }
     
   }
     , [])
@@ -56,9 +62,6 @@ export const UserProfile = () => {
     }
   }
 
-
-
-    console.log(profile)
     return (
       <>
         {
