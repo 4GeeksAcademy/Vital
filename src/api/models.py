@@ -100,6 +100,41 @@ class Favorite(db.Model):
             "favorite_upper_legs": self.favorite_upper_legs,
             "favorite_waist": self.favorite_waist,
         }
+    
+class FavoritesMeals(db.Model):
+    tablename = "favoritemeals"
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user = db.relationship("User")
+
+    favorite_breakfast = db.Column(db.String(300), unique=False, nullable=True)
+    favorite_lunch = db.Column(db.String(300), unique=False, nullable=True)
+    favorite_dinner = db.Column(db.String(300), unique=False, nullable=True)
+
+    def __init__(
+        self,
+        user,
+        favorite_breakfast,
+        favorite_lunch,
+        favorite_dinner
+    ):
+        self.user = user
+        self.favorite_breakfast = favorite_breakfast
+        self.favorite_lunch = favorite_lunch
+        self.favorite_dinner = favorite_dinner
+
+    def repr(self):
+        return f"<Favorite {self.id}>"
+    
+    def serialize(self):
+        return {
+            "id": self.id,   
+            "user_id": self.user_id,         
+            "favorite_breakfast": self.favorite_breakfast,
+            "favorite_lunch": self.favorite_lunch,
+            "favorite_dinner": self.favorite_dinner
+        }
 
 class Administrator(User):
     __tablename__ = "administrators"

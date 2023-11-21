@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext"
 import { useNavigate } from "react-router-dom"
@@ -7,17 +7,25 @@ import "../../styles/meals.css"
 export const MealDetails = () => {
   const navigate = useNavigate()
   const { store, actions } = useContext(Context)
-  const { index } = useParams()
-  console.log(store.meals[index])
-  const meal = store.meals[index]
+  const [meal, setMeal] = useState(null)
+  // const { index } = useParams()
+  // console.log(store.meals[index])
+  //const meal = store.mealDetail
   //if (!meal.recipe) return ""
-  useEffect(() => {
-    if (store.meals.length <= 0) navigate("/mealPlans")
+  useEffect(() => {    
+    if (!store.mealDetail) navigate("/mealPlans")
+    console.log(store)
+    actions.getMealDetails(store.urlMeal)
+    setMeal(store.mealDetail)
   }, [])
+
+  console.log(meal)
+ 
+
   return (
     <>
       {
-        store.meals.length > 0 &&
+        meal &&
         <div className="container bg-dark mt-5 mb-5 p-0" style={{ borderRadius: "2em" }}>
           <div className="d-flex pt-5 pe-5 pb-5">
             <div className="mx-5" >

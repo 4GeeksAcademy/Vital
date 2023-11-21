@@ -16,13 +16,13 @@ export const Favorites = () => {
         , [])
 
     return (
-        <>
+        <div className='m-3'>
             {
                 store.user && <>
                 <h1 className="text-vital-orange fw-bold d-flex justify-content-center mt-2">Favorites</h1>
-                <div className='container row m-auto justify-content-center'>
-                    <div className='col-4 my-2 mx-1'>
-                        <div className='card container bg-vital-black d-flex'>
+                <div className='container  row m-auto justify-content-center'>
+                    <div className='col- d-flex justify-content-around  my-2 mx-1'>
+                        <div className='card col-4 container bg-vital-black d-flex'>
                             <h5 className="card-header border-0 text-vital-orange fw-bold">Favorite workouts</h5>
                             {
                                 isEmpty ?
@@ -41,10 +41,29 @@ export const Favorites = () => {
                                 </div>
                             }
                         </div>
+                        <div className='card col-4 container bg-vital-black d-flex'>
+                            <h5 className="card-header border-0 text-vital-orange fw-bold">Favorite workouts</h5>
+                            {
+                                isEmpty ?
+                                <div className='card-body'>
+                                    <p className="text-vital-white">You haven't added exercises.</p>
+                                </div>
+                                :
+                                <div className='card-body'>
+                                    {
+                                        Object.keys(store.favoritesMeals).map((bodypart, index) =>(
+                                            store.favorites[bodypart].map((exerciseInBodypart) => {
+                                                return <FavoriteWorkout id={exerciseInBodypart.id} exercise={exerciseInBodypart.exercise} bodypart={bodypart.toUpperCase()}/>
+                                            })
+                                        ))
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>                    
                 </div>
                 </>
             }
-        </>
+        </div>
     )
 }
