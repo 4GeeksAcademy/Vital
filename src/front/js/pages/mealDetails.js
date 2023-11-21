@@ -45,7 +45,7 @@ export const MealDetails = () => {
               <div className="d-flex px-5 justify-content-center align-items-start flex-column fs-5 ">
                 
                 <p className="text-vital-orange">Ingredients</p>
-                <p>
+                <div>
                   {meal.recipe.ingredientLines.map((ingredient, index) => {
                     return (
                       <p className="text-vital-white" key={index}>
@@ -55,7 +55,7 @@ export const MealDetails = () => {
                     )
                   }
                   )}
-                </p>
+                </div>
               </div>
               <div className="d-flex bg-dark text-vital-white justify-content-around fs-5" style={{ borderTop: "1px solid #ff5300", borderRadius: "0 0 2em 2em" }}>
                 <div className="d-flex flex-column justify-content-center">

@@ -26,7 +26,7 @@ export const ShowRecipes = () => {
 
   }
 
-  
+
   console.log(store.favoritesMeals)
 
 
@@ -63,7 +63,7 @@ export const ShowRecipes = () => {
     console.log(url)
     const isValid = await actions.getMealDetails(url)
     console.log(store.mealDetail)
-    if (isValid) navigate("/mealDetails/")
+    if (isValid) navigate("/mealDetails")
 
   }
 
@@ -103,7 +103,7 @@ export const ShowRecipes = () => {
                 animate="show"
               >
 
-                {store.meals.map((meal, index) => {                              
+                {store.meals.map((meal, index) => {
                   return (
 
                     <motion.div key={index} className="d-flex"
@@ -114,8 +114,8 @@ export const ShowRecipes = () => {
                         <img src={meal.recipe.image} className="card-img-top" alt="..." />
 
                         {
-                          store.favoritesMeals.map( fav => fav.label).includes(meal.recipe.label) ? <i className="heart fa-solid fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.removeFavMeal(meal._links.self.href)}></i> : <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavMeal(meal._links.self.href, meal.recipe.label)}></i>
-                        }  
+                          store.favoritesMeals.map(fav => fav.label).includes(meal.recipe.label) ? <i className="heart fa-solid fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.removeFavMeal(meal._links.self.href)}></i> : <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavMeal(meal._links.self.href, meal.recipe.label)}></i>
+                        }
 
                         <div className="card-body text-vital-orange">
                           <h5 className="card-title text-vital-white">{meal.recipe.label}</h5>
