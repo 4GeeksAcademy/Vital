@@ -7,6 +7,11 @@ import { motion } from "framer-motion"
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
   const navigate = useNavigate();
+const Logout = () => {
+  actions.logout()
+  navigate("/")
+}
+
   return (
     <nav className="navbar navbar-expand-lg bg-vital-black p-3">
       <div className="container d-flex justify-space-around">
@@ -145,7 +150,7 @@ export const Navbar = () => {
               whileHover={{ scale: 1.2 }}
               onHoverStart={e => { }}
               onHoverEnd={e => { }}
-              onClick={() => actions.logout()}
+              onClick={Logout}
               whileTap={{ scale: 0.9 }}
             >
               Logout

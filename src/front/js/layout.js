@@ -28,6 +28,7 @@ import { UserProfile } from "./pages/userProfile";
 import Checkout from "./pages/checkout";
 import { Favorites } from "./pages/favorites";
 import { MealDetails } from "./pages/mealDetails";
+import "../styles/index.css";
 
 //create your first component
 const Layout = () => {

@@ -40,7 +40,18 @@ const CheckoutForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (store.totalShoppingCart == 0 || store.totalShoppingCart == null || cardInformation.name == "" || cardInformation.address == "" || cardInformation.city == "" || cardInformation.state == "" || cardInformation.country == "" || cardInformation.phone == "") {
-      alert("Please add products to the shopping cart")
+      
+      toast.warn('Please add products to the shopping cart', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        icon: "😔",
+      });
       return
     }
     if (!stripe || !elements) {
@@ -232,7 +243,7 @@ const CheckoutForm = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-            />
+            />            
     </div>
 
   );

@@ -3,6 +3,7 @@ import "../../styles/register.css"
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export const Register = () => {
@@ -22,16 +23,46 @@ export const Register = () => {
 
     const addUser = async () => {
         if (user.password == "") {
-            alert("Password can't be empty")
+            toast.warn('Password can not be empty', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😔",
+            });
             return
         }
         const newUser = await actions.createUser(user)
         if (newUser) {
-            alert("User was added successfully")
+            toast.success('User was added successfully', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "👍",
+            });
             navigate("/login")
         }
         else {
-            alert("User was not created")
+            toast.error('User was not created', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😔",
+            });
         }
 
 
@@ -62,15 +93,21 @@ export const Register = () => {
                         <label htmlFor="inputPassword5" className="form-label text-vital-white">Password</label>
                         <input type="password" id="inputPassword5" className="form-control mb-4" aria-describedby="passwordHelpBlock" onChange={(event) => { setUser({ ...user, password: event.target.value }) }} />
 
-                        <button className="btn btn-vital-orange mb-2 w-100 text-vital-white" onClick={addUser}>Sign in </button>
+                        <button className="btn btn-vital-orange mb-2 w-100 text-vital-white" onClick={addUser}>Sign up </button>
+                        
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={2000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={true}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
 
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label mb-4 text-vital-white" for="flexCheckDefault">
-                                Forgot Password
-                            </label>
-                        </div>
-
+                        />
 
 
 

@@ -4,6 +4,7 @@ import Loading from "./loading/loading";
 import { Context } from "../store/appContext";
 import "../../styles/map.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Map = () => {
   const [currentPosition, setCurrentPosition] = useState({});
@@ -33,8 +34,18 @@ const Map = () => {
   const getPosition = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");      
+    } else {        
+      toast.warn('Geolocation is not supported by this browser.', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        icon: "😔",
+        });   
     }
   }
 
@@ -75,8 +86,18 @@ const Map = () => {
       const searchOutside = confirm('Would you like to look in a third party app? "Make sure you allow pop-ups in your browser"')          
       if (searchOutside) {
         window.open(`https://www.google.com/maps/search/gyms/@${currentPosition.lat},${currentPosition.lng},13z/data=!3m1!4b1?entry=ttu`)
-      } else {
-        alert('Please allow location access for this site to work properly.')
+      } else {    
+        toast.warn('Please allow location access for this site to work properly.', {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          icon: "😔",
+          });
       }     
       setSearch('') 
   }
@@ -84,7 +105,7 @@ const Map = () => {
   return (
 
     <>
-      {!isLoaded ? (
+      {!isLoaded && store.gyms ? (
         <Loading />
       ) : (
         <div className="container-fluid d-flex flex-column">
@@ -137,6 +158,19 @@ const Map = () => {
             />
           </GoogleMap>
         </div>)}
+        <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                
+            />
     </>
   );
 };

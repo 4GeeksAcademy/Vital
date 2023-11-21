@@ -57,6 +57,49 @@ def create_token():
         }, 200
     return {"message": "Access no granted"}, 501
 
+@api.route("/change-password", methods=["PUT"])
+@jwt_required()
+def change_password():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    body = request.get_json()
+    print(body)
+    old_password = body.get("oldPassword", None)
+    new_password = body.get("newPassword", None)
+
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    if old_password is None or new_password is None:
+        return {"msg": "Missing fields"}, 400
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    password_byte = bytes(old_password, "utf-8")
+    if bcrypt.checkpw(password_byte, user.password.encode("utf-8")):
+        try:
+            bpassword = bytes(new_password, "utf-8")
+            salt = bcrypt.gensalt()
+            hashed = bcrypt.hashpw(bpassword, salt)
+            user.password = hashed.decode("utf-8")
+            db.session.commit()
+            return {"msg": "Password changed successfully", "status": "ok"}, 200
+        except ValueError as error:
+            return {"msg": "Something went wrong" + error}, 500
+    else:
+        return {"msg": "Password doesn't match"}, 400
+
+@api.route("get-user/<username>", methods=["GET"])
+@jwt_required()
+def get_user(username):
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return {"msg": "User doesn't exist"}, 400
+    return user.serialize(), 200
+
 @api.route("/token-admin", methods=["POST"])
 def create_token_admin():    
     username = request.json.get("username", None)
@@ -623,7 +666,12 @@ def generate_response(intent):
   
     
 @api.route("my-profile/<username>", methods=["GET"])
+@jwt_required()
 def get_profile(username):
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     user = User.query.filter_by(username=username).first()
     profile = Profile.query.filter_by(user=user).first()
     if user is None or profile is None:
@@ -698,6 +746,7 @@ def update_user_data():
         db.session.commit()
         return {
             "msg": "User updated successfully",
+            "status": "ok",
             "user": user.serialize(),
             "profile": profile.serialize()}, 200
     except ValueError as error:

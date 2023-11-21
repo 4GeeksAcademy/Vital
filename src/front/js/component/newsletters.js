@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import Pagination from "./pagination/pagination";
+import { ToastContainer, toast } from 'react-toastify';
 import { Context } from "../store/appContext";
 const Newsletters = () => {
     const { store, actions } = useContext(Context);
@@ -11,17 +12,47 @@ const Newsletters = () => {
         const response = await actions.changeNewsletterStatus(email)
         if (response) {
             actions.getNewsletter()   
-        } else {
-            alert("Something went wrong")
+        } else {            
+            toast.error('Something went wrong!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😭",        
+            });
         }     
     }
 
     const sendEmail = async () => {
         const response = await actions.sendEmail(subject, body_message)
-        if (response) {
-            alert("Email sent")
-        } else {
-            alert("Something went wrong")
+        if (response) {           
+            toast.success('Email sent!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                icon: "🚀",
+                theme: "dark",
+            });
+        } else {            
+            toast.error('Something went wrong!', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😭",        
+            });
         }
     }
 
@@ -77,7 +108,19 @@ const Newsletters = () => {
                     </div>
                 </div>
             </div>
-
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                
+            />                          
         </>
     )
 }

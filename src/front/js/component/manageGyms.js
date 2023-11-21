@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import Pagination from "./pagination/pagination";
 import { Context } from "../store/appContext";
+import { ToastContainer, toast } from 'react-toastify';
 const ManageGyms = () => {
     const { store, actions } = useContext(Context);
     const [gymEdit, setGymEdit] = useState({
@@ -39,13 +40,34 @@ const ManageGyms = () => {
     const addGym = async () => {
 
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
-            alert("Please fill all the fields")
+            
+            toast.warn('Please fill all the fields', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😔",
+                });
             return
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
-            closeRef.current.click()
-            alert("Gym added successfully")
+            closeRef.current.click()            
+            toast.success('Gym added successfully', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                icon: "🏆",
+                theme: "dark",
+            })
             setGymData({
                 name: "",
                 description: "",
@@ -61,13 +83,33 @@ const ManageGyms = () => {
 
     const pushGymEdit = async () => {
         if (gymEdit.name == "" || gymEdit.email == "" || gymEdit.address == "" || gymEdit.latitude == "" || gymEdit.longitude == "" || gymEdit.phone == "" || gymEdit.description == "") {
-            alert("Please fill all the fields")
+            toast.warn('Please fill all the fields', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😔",
+                });
             return
         }
         const isTrue = actions.editGym(gymEdit)
         if (isTrue) {
-            closeRef.current.click()
-            alert("Gym edited successfully")
+            closeRef.current.click()            
+            toast.success('Gym edited successfully', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                icon: "😃",
+                theme: "dark",
+            })
             setGymEdit({
                 name: "",
                 description: "",
@@ -85,11 +127,31 @@ const ManageGyms = () => {
         if (status) {
             const resp = actions.changeStatus(email)
             if (resp) {
-                actions.getGyms()
-                alert("Status changed successfully")
+                actions.getGyms()                
+                toast.success('Status changed successfully', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    icon: "🔁",
+                    theme: "dark",
+                })
             }
             else {
-                alert("Something went wrong")
+                toast.error('Something went wrong!', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    icon: "😭",        
+                });
             }
         }
         return
@@ -285,6 +347,19 @@ const ManageGyms = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                
+            />
         </>
     )
 }
