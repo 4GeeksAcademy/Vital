@@ -7,7 +7,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			username: null || localStorage.getItem("username"),
 			revenue: 0,
 			orderNumber: 0,
+			urlMeal: null,
 			products: [],
+			favoritesMeals: [],
 			meals: [],
 			totalShoppingCart: 0,
 			profile: null || JSON.parse(localStorage.getItem('profile')),
@@ -15,6 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			gyms: [],
 			transactions: [],
 			newsletter: [],
+			mealDetail: null,
 			profile: null,
 			favorites: {
 				back: [],
@@ -74,6 +77,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					const data = await response.json()
 					console.log(data)
+					return true
+				}
+				catch (error) {
+					console.log(error)
+					return false
+				}
+			},
+			getMealDetails: async (url) => {
+				console.log(url)
+				try {
+					const resp = await fetch(url)
+					const data = await resp.json()
+					//	const {image,label,ingredients,calories} = data.hits[0].recipe
+					const recipe = data
+					console.log(data)
+					setStore({ mealDetail: recipe, urlMeal: url })
 					return true
 				}
 				catch (error) {
@@ -273,6 +292,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						store.products[index].quantity = quantity
 					}
 				})
+			},
+			addFavMeal: async (url, label) => {
+				const store = getStore();
+				console.log(url)
+				const newArray = [...store.favoritesMeals, { url: url, label: label }]
+				setStore({ favoritesMeals: newArray })				
+			},
+			removeFavMeal: async (url) => {
+				const store = getStore();
+				const newArray = store.favoritesMeals.filter((item) => item.url != url)
+				setStore({ favoritesMeals: newArray })
 			},
 			addFavExercise: async (bodypart, exercise, id) => {
 				const store = getStore();

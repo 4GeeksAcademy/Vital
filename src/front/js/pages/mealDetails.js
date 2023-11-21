@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext"
 import { useNavigate } from "react-router-dom"
@@ -7,17 +7,25 @@ import "../../styles/meals.css"
 export const MealDetails = () => {
   const navigate = useNavigate()
   const { store, actions } = useContext(Context)
-  const { index } = useParams()
-  console.log(store.meals[index])
-  const meal = store.meals[index]
+  const [meal, setMeal] = useState(null)
+  // const { index } = useParams()
+  // console.log(store.meals[index])
+  //const meal = store.mealDetail
   //if (!meal.recipe) return ""
-  useEffect(() => {
-    if (store.meals.length <= 0) navigate("/mealPlans")
+  useEffect(() => {    
+    if (!store.mealDetail) navigate("/mealPlans")
+    console.log(store)
+    actions.getMealDetails(store.urlMeal)
+    setMeal(store.mealDetail)
   }, [])
+
+  console.log(meal)
+ 
+
   return (
     <>
       {
-        store.meals.length > 0 &&
+        meal &&
         <div className="container bg-dark mt-5 mb-5 p-0" style={{ borderRadius: "2em" }}>
           <div className="d-flex pt-5 pe-5 pb-5">
             <div className="mx-5" >
@@ -37,7 +45,7 @@ export const MealDetails = () => {
               <div className="d-flex px-5 justify-content-center align-items-start flex-column fs-5 ">
                 
                 <p className="text-vital-orange">Ingredients</p>
-                <p>
+                <div>
                   {meal.recipe.ingredientLines.map((ingredient, index) => {
                     return (
                       <p className="text-vital-white" key={index}>
@@ -47,7 +55,7 @@ export const MealDetails = () => {
                     )
                   }
                   )}
-                </p>
+                </div>
               </div>
               <div className="d-flex bg-dark text-vital-white justify-content-around fs-5" style={{ borderTop: "1px solid #ff5300", borderRadius: "0 0 2em 2em" }}>
                 <div className="d-flex flex-column justify-content-center">
