@@ -31,6 +31,7 @@ export const Login = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                icon: "🚀",
                 theme: "dark",
             });
             navigate("/")
@@ -44,6 +45,7 @@ export const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
+                
             });
             setUsername("")
             setPassword("")
@@ -98,6 +100,7 @@ export const Login = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
+                
             />
         </motion.main>
     )
