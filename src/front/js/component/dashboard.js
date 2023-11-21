@@ -19,7 +19,7 @@ const Dashboard = (props) => {
         getData();          
         store.transactions && store.transactions.map((transaction) => {
             console.log(transaction.comission);
-            acum =+ parseFloat(transaction.comission)           
+            acum += parseFloat(transaction.comission)           
         });   
         setRevenue(acum);  
         store.revenue = acum;               

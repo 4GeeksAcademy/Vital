@@ -52,8 +52,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				let revenue = 0;
 				store.transactions && store.transactions.map((transaction) => {
+					console.log(transaction.comission)
 					revenue = revenue + parseFloat(transaction.comission)
 				});
+				console.log(revenue)
 				setStore({ revenue: revenue })
 			},
 			setUsername: (username) => {
