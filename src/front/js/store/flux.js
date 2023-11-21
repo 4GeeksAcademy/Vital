@@ -1,4 +1,4 @@
-import { Alert } from "bootstrap";
+
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -180,6 +180,52 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false
 			},
+
+			getUser: async () => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/get-user?username=${store.username}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Athorization": "Bearer " + store.token
+						},
+					}
+				);
+				const data = await response.json();
+				setStore({ user: data });
+				return false;
+			},
+			getProfile: async () => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/my-profile?username=${store.username}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Athorization": "Bearer " + store.token
+						},
+					}
+				);
+				const data = await response.json();
+				setStore({ profile: data });
+				return false;
+			},
+			getAdmin: async () => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/admins?username=${store.username}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Athorization": "Bearer " + store.token
+						},
+					}
+				);
+				const data = await response.json();
+				setStore({ admin: data });
+				return false;
+			},	
 
 			getProducts: async () => {
 				try {
@@ -433,7 +479,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-
 			changeNewsletterStatus: async (email) => {
 				const store = getStore()
 				const response = await fetch(process.env.BACKEND_URL + `api/update-newsletter?username=${store.username}`, {
@@ -499,14 +544,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				const data = await response.json();
 				console.log(data)
-				if (data.msg == "User updated successfully") {
+				if (data.status == "ok") {
 					localStorage.setItem("user", JSON.stringify(store.user))
-					localStorage.setItem("profile", JSON.stringify(store.profile))
+					localStorage.removeItem("profile")
+					//localStorage.setItem("profile", JSON.stringify(store.profile))
 					setStore({ user: data.user, profile: data.profile })
 					return true
 				}
 				return false
-			},
+			},			
 			resetPassword: async (user) => {	
 				const store = getStore();			
 				const response = await fetch(process.env.BACKEND_URL + `api/reset-password?username=${store.username}`, {
@@ -522,7 +568,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true
 				}
 				return false
-			},			
+			},	
+			changePassword: async (newPassword, oldPassword) => {
+				const store = getStore();
+				const response = await fetch(process.env.BACKEND_URL + `api/change-password?username=${store.username}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": "Bearer " + store.token
+					},
+					body: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword })
+				})
+				const data = await response.json();
+				console.log(data)
+				if (data.status == "ok") {
+					return true
+				}
+				return false
+			},
 			getTransactions: async () => {
 				const store = getStore();
 				const transactions = await fetch(process.env.BACKEND_URL + `api/get-transactions?username=${store.username}`,

@@ -48,9 +48,9 @@ const Dashboard = (props) => {
                                     <h5 className="card-header text-vital-orange">Users</h5>
                                     <div className="card-body text-vital-white bg-dark">
                                         <h5 className="card-title">{usersQuantity}</h5>
-                                        <p className="card-text">Feb 1 - Apr 1, United States</p>
+                                        <p className="card-text">Nov 1 - current, United States</p>
                                         <p className="card-text text-success">
-                                            10.2% increase since last month
+                                            {(usersQuantity - 0)*100}% increase since last month
                                         </p>
                                     </div>
                                 </div>
@@ -60,9 +60,9 @@ const Dashboard = (props) => {
                                     <h5 className="card-header text-vital-orange">Gyms</h5>
                                     <div className="card-body text-vital-white bg-dark">
                                         <h5 className="card-title">{gymsQuantity}</h5>
-                                        <p className="card-text">Feb 1 - Apr 1, United States</p>
+                                        <p className="card-text">Nov 1 - current, United States</p>
                                         <p className="card-text text-success">
-                                            3.6% increase since last month
+                                            {(gymsQuantity - 0)*100}% increase since last month
                                         </p>
                                     </div>
                                 </div>
@@ -72,9 +72,9 @@ const Dashboard = (props) => {
                                     <h5 className="card-header text-vital-orange">Newsletter account</h5>
                                     <div className="card-body text-vital-white bg-dark">
                                         <h5 className="card-title">{newsletterQuantity}</h5>
-                                        <p className="card-text">Feb 1 - Apr 1, United States</p>
+                                        <p className="card-text">Nov 1 - current, United States</p>
                                         <p className="card-text text-success">
-                                            1.6% increase since last month
+                                            {(newsletterQuantity - 0)*100}% increase since last month
                                         </p>
                                     </div>
                                 </div>
@@ -84,9 +84,9 @@ const Dashboard = (props) => {
                                     <h5 className="card-header text-vital-orange">Revenue</h5>
                                     <div className="card-body text-vital-white bg-dark">
                                         <h5 className="card-title">{revenue.toFixed(2)}</h5>
-                                        <p className="card-text">Feb 1 - Apr 1, United States</p>
+                                        <p className="card-text">Nov 1 - current, United States</p>
                                         <p className="card-text text-success">
-                                            2.5% increase since last month
+                                            {(revenue.toFixed(2) - 0)*100}% increase since last month
                                         </p>
                                     </div>
                                 </div>

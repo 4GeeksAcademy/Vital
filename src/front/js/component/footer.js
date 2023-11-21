@@ -3,6 +3,7 @@ import Logo from "../../img/logo-vital.png";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from 'react-toastify';
 import "../../styles/footer.css";
 
 export const Footer = () => {
@@ -14,7 +15,30 @@ export const Footer = () => {
          
       const isSuccess = await actions.addNewsletter(newsletters);
       console.log(isSuccess)
-      isSuccess ? alert("Thank you for subscribing!") : alert("Something went wrong, please try again");
+      isSuccess ? 
+      toast.success('Thanks for subscribed', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: "🎉",
+        theme: "dark",
+    })
+      : 
+      toast.error('Something went wrong!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        icon: "😭",        
+    });
   };
 
   return (
@@ -108,6 +132,19 @@ export const Footer = () => {
         Vital.com
       </a>
     </div>
+    <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={true}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                
+            />
   </footer>
 )
   };

@@ -17,8 +17,18 @@ export const Login = () => {
 
     const loginUser = async () => {
         actions.setUsername(username)
-        if (username == "" || password == "") {
-            alert("inputs can't be empty")
+        if (username == "" || password == "") {         
+            toast.warn('Inputs can not be empty', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                icon: "😔",
+            });
             return
         }
         const isValid = await actions.loginUser(username, password)
