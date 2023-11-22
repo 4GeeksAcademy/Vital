@@ -73,10 +73,13 @@ export const ShowRecipes = () => {
     <>
       {
 
-        store.meals.length <= 0 ? <Loading /> :
+        store.meals.length <= 0 ?
+          <div className="d-flex justify-content-center">
+            <Loading />
+          </div> :
           <>
-            <div className="container-fluid  p-4 d-flex flex-column">
-              <div className="d-flex mb-3  m-auto">
+            <div className="container-fluid d-flex flex-column mt-3">
+              <div className="d-flex mb-3 m-auto">
                 <span className="meal-cards nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={() => getRecipes("breakfast")}>Breakfast</span>
                 <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={() => getRecipes("lunch")}>Lunch</span>
                 <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={() => getRecipes("dinner")}>Dinner</span>
@@ -97,7 +100,7 @@ export const ShowRecipes = () => {
                   onClick={handleSearch}
                 />
               </div>
-              <motion.div className="container d-flex flex-wrap"
+              <motion.div className="container d-flex flex-wrap justify-content-around"
                 variants={container}
                 initial="hidden"
                 animate="show"
@@ -110,7 +113,7 @@ export const ShowRecipes = () => {
                       variants={item}
                     >
 
-                      <div className="card-map card d-flex me-4 mb-4 bg-vital-black position-relative rounded-3" style={{ width: "18rem" }} > {/*navigate(`/mealDetails/${index}`)*/}
+                      <div className="card-map card d-flex mb-4 bg-vital-black position-relative rounded-3 justify-content-center" style={{ width: "18rem" }} > {/*navigate(`/mealDetails/${index}`)*/}
                         <img src={meal.recipe.image} className="card-img-top" alt="..." />
 
                         {

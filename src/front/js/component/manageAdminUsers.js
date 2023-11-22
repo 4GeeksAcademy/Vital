@@ -39,7 +39,7 @@ const ManageAdminUsers = (props) => {
                                                                     <td>{admin.user.is_active}</td>
                                                                     <td>{Date()}</td>                                                                    
                                                                     <td>
-                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange">
+                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange rounded-pill">
                                                                             View
                                                                         </span>
                                                                     </td>

@@ -169,7 +169,7 @@ const ManageGyms = () => {
             <div className="col-3 m-auto mb-5 d-flex justify-content-center">
                 <button
                     type="button"
-                    className="btn btn-vital-orange text-vital-white" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    className="btn btn-vital-orange text-vital-white rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 >
                     Add New Gym
                 </button>

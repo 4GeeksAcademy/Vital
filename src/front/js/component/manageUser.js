@@ -78,7 +78,7 @@ const ManageUser = (props) => {
                                                                     <td>{user.is_active}</td>
                                                                     <td>{Date()}</td>                                                                    
                                                                     <td>
-                                                                        <span className="btn btn-sm text-vital-white btn-vital-orange" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editUser(user.id)}>
+                                                                        <span className="btn btn-sm text-vital-white btn-vital-orange rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => editUser(user.id)}>
                                                                             Edit
                                                                         </span>
                                                                     </td>
