@@ -101,29 +101,29 @@ const ManageUser = (props) => {
                     <div className="modal-content bg-black">
                         <div className="modal-header border-bottom border-vital-orange">
                             <h1 className="modal-title fs-5 text-vital-orange" id="exampleModal2Label">Reset User Password</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body bg-vital-black">
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Username</label>
-                                    <input type="text" className="form-control" value={userEdit.username} />
+                                    <input type="text" className="form-control rounded-pill" value={userEdit.username} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Email</label>
-                                    <input type="text" className="form-control" value={userEdit.email}  />
+                                    <input type="text" className="form-control rounded-pill" value={userEdit.email}  />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Password:</label>
-                                    <input type="text" className="form-control" value={userEdit.password} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={userEdit.password} onChange={
                                         (e) => setUserEdit({ ...userEdit, password: e.target.value })
                                     } />
                                 </div>   
                             </form>
                         </div>
                         <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-                            <button type="button" className="btn btn-vital-orange text-vital-white" onClick={resetPassword}>Reset Password</button>
+                            <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal" ref={closeRef}>Close</button>
+                            <button type="button" className="btn btn-vital-orange text-vital-white rounded-pill" onClick={resetPassword}>Reset Password</button>
                         </div>
                     </div>
                 </div>

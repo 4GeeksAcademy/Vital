@@ -41,7 +41,7 @@ const ShoppingCart = () => {
                 {/* end col */}
                 <div className="col-sm-6">
                   <div className="text-sm-end mt-2 mt-sm-0">
-                    <span className="btn btn-vital-orange text-vital-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span className="btn btn-vital-orange text-vital-white rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       <i className="mdi mdi-cart-outline me-1"></i> Checkout{" "}
                     </span>
                   </div>
