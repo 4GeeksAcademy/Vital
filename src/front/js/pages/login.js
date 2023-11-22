@@ -80,14 +80,14 @@ export const Login = () => {
                             <h1 className="d-flex justify-content-center my-4 text-vital-orange">Hello welcome back!</h1>
                             <div className="mb-3">
                                 <label htmlFor="exampleFormControlInput1" className="form-label text-vital-white">Username</label>
-                                <input type="string" value={username} className="form-control" id="exampleFormControlInput1" onChange={(event) => { setUsername(event.target.value) }} />
+                                <input type="string" value={username} className="form-control rounded-pill" id="exampleFormControlInput1" onChange={(event) => { setUsername(event.target.value) }} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="exampleFormControlInput1" className="form-label text-vital-white">Password</label>
-                                <input type="password" value={password} className="form-control" id="exampleFormControlInput1" onChange={(event) => { setPassword(event.target.value) }} />
+                                <input type="password" value={password} className="form-control rounded-pill" id="exampleFormControlInput1" onChange={(event) => { setPassword(event.target.value) }} />
                             </div>
                             <div className="mb-3 mt-4">
-                                <button className="btn btn-vital-orange text-vital-white w-100" onClick={loginUser}>Login</button>
+                                <button className="btn btn-vital-orange rounded-pill text-vital-white w-100" onClick={loginUser}>Login</button>
                             </div>
                             <div className="d-flex-column justify-content-center mb-4">
 
