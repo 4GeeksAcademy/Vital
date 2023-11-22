@@ -77,6 +77,11 @@ const AboutUs = () => {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/RapidAPI_logo.svg/2560px-RapidAPI_logo.svg.png" className="img-fluid" alt="about us" />
                         </div>
                     </div>
+                    <div className="col-4 p-3" style={{ width: "350px" }}>
+                        <div className="image h-100 align-items-center d-flex">
+                            <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/google_maps_logo_icon_171055.png" className="img-fluid" alt="about us" />
+                        </div>
+                    </div>
                     
                 </div>
             </div>
