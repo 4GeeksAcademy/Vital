@@ -51,12 +51,14 @@ export const Home = ({ isVisible }) => {
               <button
                 className="btn btn-vital-orange text-vital-white rounded-pill mx-3"
                 type="submit"
+                onClick={() => navigate("/register")}
               >
                 Get Started
               </button>
               <button
                 className="btn btn-outline-vital-orange text-vital-white rounded-pill"
                 type="submit"
+                onClick={() => navigate("/about-us")}
               >
                 Get more info
               </button>
