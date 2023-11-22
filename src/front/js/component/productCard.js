@@ -10,17 +10,30 @@ const ProductCard = ({ title, price, image, id }) => {
 
   const { store, actions } = useContext(Context)
 
- const addToCart = () => {
-  actions.addToCart(title, price, image, id, 1)
-  toast.info('Added to Cart!', {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
+  const addToCart = async () => {
+    const isDone = await actions.addToCart(title, price, image, id, 1)
+    if (!isDone) {
+      toast.warn('You have already added this product to the cart!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return
+    }    
+    toast.info('Added to the cart!', {      
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
     });
   }
 
@@ -43,24 +56,24 @@ const ProductCard = ({ title, price, image, id }) => {
         </h5>
         <p className="card-text text-vital-white">${price}</p>
         <button
-          onClick={() => addToCart()}
+          onClick={addToCart}
           className="btn btn-vital-orange rounded-pill text-vital-white fw-bold"
         >
           Add to cart
         </button>
       </div>
-      <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={true}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-            />
+      {/* <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      /> */}
     </div>
   );
 };
