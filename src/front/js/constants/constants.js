@@ -10,6 +10,7 @@ import upperArmsImg from "../../img/background-containers/upper-arms.png"
 import waistImg from "../../img/background-containers/waist.png"
 
 export const useAPI = true;
+export const useOpenAPI = true;
 
 export const chooseMeal = {
     highFiber: {
@@ -28,9 +29,9 @@ export const chooseMeal = {
         dinner: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-carb&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
     },
     lowFat: {
-        breakfast:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
-        lunch:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
-        dinner:"https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
+        breakfast: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Breakfast&imageSize=REGULAR",
+        lunch: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=Central%20Europe&mealType=Lunch&imageSize=REGULAR",
+        dinner: "https://api.edamam.com/api/recipes/v2?type=public&app_id=cbac510d&app_key=ba5f39498dff7bd42df151026b0f5fcd&diet=low-fat&cuisineType=American&mealType=Dinner&imageSize=REGULAR"
     }
 
 }
@@ -100,51 +101,51 @@ export const products = [
 ]
 export const title = "Lower arms";
 export const description =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan odio ut mi aliquam volutpat. Nam tincidunt quam vitae massa suscipit placerat.";
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan odio ut mi aliquam volutpat. Nam tincidunt quam vitae massa suscipit placerat.";
 
-  export const exercises = [
-  {
-    name: "exercise 1",
-    bodyPart: "chest",
-    id: 1,
-  },
-  {
-    name: "exercise 2",
-    bodyPart: "chest",
-    id: 2,
-  },
-  {
-    name: "exercise 3",
-    bodyPart: "chest",
-    id: 3,
-  },
-  {
-    name: "exercise 4",
-    bodyPart: "chest",
-    id: 4,
-  },
-  {
-    name: "exercise 5",
-    bodyPart: "chest",
-    id: 5,
-  },
-  {
-    name: "exercise 6",
-    bodyPart: "chest",
-    id: 6,
-  },
-  {
-    name: "exercise 7",
-    bodyPart: "chest",
-    id: 7,
-  },
-  {
-    name: "exercise 8",
-    bodyPart: "chest",
-    id: 8,
-  },
+export const exercises = [
+    {
+        name: "exercise 1",
+        bodyPart: "chest",
+        id: 1,
+    },
+    {
+        name: "exercise 2",
+        bodyPart: "chest",
+        id: 2,
+    },
+    {
+        name: "exercise 3",
+        bodyPart: "chest",
+        id: 3,
+    },
+    {
+        name: "exercise 4",
+        bodyPart: "chest",
+        id: 4,
+    },
+    {
+        name: "exercise 5",
+        bodyPart: "chest",
+        id: 5,
+    },
+    {
+        name: "exercise 6",
+        bodyPart: "chest",
+        id: 6,
+    },
+    {
+        name: "exercise 7",
+        bodyPart: "chest",
+        id: 7,
+    },
+    {
+        name: "exercise 8",
+        bodyPart: "chest",
+        id: 8,
+    },
 ];
-  
+
 export const dataExcersises = [
     {
         "bodyPart": "back",
@@ -308,30 +309,30 @@ export const dataExcersises = [
             "Hold this position for a few seconds, then slowly lower your legs back down to the starting position.",
             "Repeat for the desired number of repetitions."
         ]
-    }, 
+    },
 ]
 
 
 export const details = {
-  "bodyPart": "cardio",
-  "equipment": "body weight",
-  "gifUrl": "https://v2.exercisedb.io/image/09wcyQoScDt9lg",
-  "id": "3220",
-  "name": "astride jumps (male)",
-  "target": "cardiovascular system",
-  "secondaryMuscles": [
-      "quadriceps",
-      "hamstrings",
-      "calves"
-  ],
-  "instructions": [
-      "Stand with your feet shoulder-width apart.",
-      "Bend your knees and lower your body into a squat position.",
-      "Jump explosively upwards, extending your legs and arms.",
-      "While in the air, spread your legs apart and bring your arms out to the sides.",
-      "Land softly with your feet shoulder-width apart, bending your knees to absorb the impact.",
-      "Repeat for the desired number of repetitions."
-  ]
+    "bodyPart": "cardio",
+    "equipment": "body weight",
+    "gifUrl": "https://v2.exercisedb.io/image/09wcyQoScDt9lg",
+    "id": "3220",
+    "name": "astride jumps (male)",
+    "target": "cardiovascular system",
+    "secondaryMuscles": [
+        "quadriceps",
+        "hamstrings",
+        "calves"
+    ],
+    "instructions": [
+        "Stand with your feet shoulder-width apart.",
+        "Bend your knees and lower your body into a squat position.",
+        "Jump explosively upwards, extending your legs and arms.",
+        "While in the air, spread your legs apart and bring your arms out to the sides.",
+        "Land softly with your feet shoulder-width apart, bending your knees to absorb the impact.",
+        "Repeat for the desired number of repetitions."
+    ]
 }
 
 
