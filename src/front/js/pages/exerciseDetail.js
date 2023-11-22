@@ -10,6 +10,7 @@ import { getStructuredMessage } from "../function/returnExcerciseDescription";
 import Loading from "../component/loading/loading.js";
 import { objectAI2 } from "../constants/constants";
 import { useAPI } from "../constants/constants";
+import { useOpenAPI } from "../constants/constants";
 import { motion } from "framer-motion"
 
 const ExerciseDetail = () => {
@@ -42,7 +43,7 @@ const ExerciseDetail = () => {
   useEffect(() => {
     !store.token && navigate("/login")
     scrollToTop();
-    if (!useAPI) {
+    if (!useOpenAPI) {
       setData(details);
       setLoading(false);
       return;
@@ -95,7 +96,7 @@ const ExerciseDetail = () => {
     generateDescription();
   }, [loading]);
 
- objectAI && console.log(objectAI.choices[0].message.content);
+  // objectAI && console.log(objectAI.choices[0].message.content);
 
   data && console.log(data);
   const title = data ? data.name[0].toUpperCase() + data.name.slice(1) : "";

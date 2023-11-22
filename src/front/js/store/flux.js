@@ -266,13 +266,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addToCart: (title, price, image, id, quantity) => {
 				const store = getStore()
+				const isExist = store.products.map(product => product.id).includes(id)
+				if (isExist) return false
 				setStore({ products: [{ title: title, price: price, image: image, id: id, quantity: quantity }, ...store.products] })
+				return true
 			},
 			removeFromCart: (id) => {
 				const store = getStore()
+				const isExist = store.products.map(product => product.id).includes(id)
+				if (!isExist) return false
 				setStore({
 					products: store.products.filter((item) => item.id != id),
 				})
+				return true
 				//getActions().calculateTotalCart();
 			},
 			calculateTotalCart: () => {
