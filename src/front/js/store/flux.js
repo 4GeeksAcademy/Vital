@@ -9,7 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			orderNumber: 0,
 			urlMeal: null,
 			products: [],
-			favoritesMeals: [],
+			favoritesMeals: JSON.parse(localStorage.getItem("favoritesMeals")) || [],
 			meals: [],
 			totalShoppingCart: 0,
 			profile: null || JSON.parse(localStorage.getItem('profile')),
@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			newsletter: [],
 			mealDetail: null,
 			profile: null,
-			favorites: {
+			favorites: JSON.parse(localStorage.getItem("favorites")) || {
 				back: [],
 				cardio: [],
 				chest: [],
@@ -30,7 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				upperlegs: [],
 				lowerlegs: [],
 				waist: []
-			}
+			},
 		},
 
 		actions: {
@@ -303,11 +303,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				console.log(url)
 				const newArray = [...store.favoritesMeals, { url: url, label: label }]
+				localStorage.setItem("favoritesMeals", JSON.stringify(newArray))
 				setStore({ favoritesMeals: newArray })				
 			},
 			removeFavMeal: async (url) => {
 				const store = getStore();
 				const newArray = store.favoritesMeals.filter((item) => item.url != url)
+				localStorage.setItem("favoritesMeals", JSON.stringify(newArray))
 				setStore({ favoritesMeals: newArray })
 			},
 			addFavExercise: async (bodypart, exercise, id) => {
@@ -320,6 +322,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (store.favorites.hasOwnProperty(newBodypart)) {
 					const newFavorite = { ...store.favorites, [newBodypart]: [...store.favorites[newBodypart], { exercise: exercise, id: id }] }
+					localStorage.setItem("favorites", JSON.stringify(newFavorite))
 					setStore({ favorites: newFavorite })
 					const isPush = await actions.fetchFavorites()
 					if (isPush) {
@@ -339,6 +342,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const actions = getActions()
 				if (store.favorites.hasOwnProperty(newBodypart)) {
 					const newFavorite = { ...store.favorites, [newBodypart]: store.favorites[newBodypart].filter(exerciseItem => exerciseItem.id != id) }
+					localStorage.setItem("favorites", JSON.stringify(newFavorite))
 					setStore({ favorites: newFavorite });
 					const isPush = await actions.fetchFavorites()
 					if (isPush) {
