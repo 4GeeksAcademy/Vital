@@ -40,7 +40,7 @@ const ManageGyms = () => {
     const addGym = async () => {
 
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
-            
+
             toast.warn('Please fill all the fields', {
                 position: "top-center",
                 autoClose: 1000,
@@ -51,12 +51,12 @@ const ManageGyms = () => {
                 progress: undefined,
                 theme: "dark",
                 icon: "😔",
-                });
+            });
             return
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
-            closeRef.current.click()            
+            closeRef.current.click()
             toast.success('Gym added successfully', {
                 position: "top-center",
                 autoClose: 2000,
@@ -93,12 +93,12 @@ const ManageGyms = () => {
                 progress: undefined,
                 theme: "dark",
                 icon: "😔",
-                });
+            });
             return
         }
         const isTrue = actions.editGym(gymEdit)
         if (isTrue) {
-            closeRef.current.click()            
+            closeRef.current.click()
             toast.success('Gym edited successfully', {
                 position: "top-center",
                 autoClose: 2000,
@@ -127,7 +127,7 @@ const ManageGyms = () => {
         if (status) {
             const resp = actions.changeStatus(email)
             if (resp) {
-                actions.getGyms()                
+                actions.getGyms()
                 toast.success('Status changed successfully', {
                     position: "top-center",
                     autoClose: 2000,
@@ -150,7 +150,7 @@ const ManageGyms = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    icon: "😭",        
+                    icon: "😭",
                 });
             }
         }
@@ -205,7 +205,7 @@ const ManageGyms = () => {
                                                         <td>{gym.phone}</td>
                                                         <td>{gym.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{ cursor: "pointer" }} onClick={() => changeStatus(gym.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{ pointer: "" }} onClick={() => changeStatus(gym.email)}></i>}</td>
                                                         <td>
-                                                            <span className="btn btn-sm text-vital-white btn-vital-orange" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
+                                                            <span className="btn btn-sm text-vital-white btn-vital-orange rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
                                                                 Edit
                                                             </span>
                                                         </td>
@@ -264,15 +264,15 @@ const ManageGyms = () => {
                                 </div>
                                 <div className="mb-3 d-flex">
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" value={gymData.longitude} onChange={
-                                            (e) => setGymData({ ...gymData, longitude: e.target.value })
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymData.latitude} onChange={
+                                            (e) => setGymData({ ...gymData, latitude: e.target.value })
                                         } />
                                     </div>
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
-                                        <input type="text" className="w-75 form-control" value={gymData.latitude} onChange={
-                                            (e) => setGymData({ ...gymData, latitude: e.target.value })
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitude:</label>
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymData.longitude} onChange={
+                                            (e) => setGymData({ ...gymData, longitude: e.target.value })
                                         } />
                                     </div>
                                 </div>
@@ -341,7 +341,7 @@ const ManageGyms = () => {
                             </form>
                         </div>
                         <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
+                            <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal" ref={closeRef}>Close</button>
                             <button type="button" className="btn btn-vital-orange text-vital-white rounded-pill" onClick={pushGymEdit}>Edit Gym</button>
                         </div>
                     </div>
@@ -358,7 +358,7 @@ const ManageGyms = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-                
+
             />
         </>
     )

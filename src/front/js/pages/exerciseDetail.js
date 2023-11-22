@@ -159,7 +159,7 @@ const ExerciseDetail = () => {
                   </div>
                 </div>
               </div>
-              <div className="wrap-gif bg-vital-white d-flex justify-content-center align-items-center rounded-5 mx-auto mt-5 h-75">
+              <div className="wrap-gif bg-white d-flex justify-content-center align-items-center rounded-5 mx-auto mt-5 h-75">
                 <img
                   className="img-fluid"
                   src={data.gifUrl}
