@@ -59,7 +59,7 @@ const AdminPanel = () => {
                             Admin Dashboard
                         </a>
                         <button
-                            className="navbar-toggler d-md-none collapsed mb-3"
+                            className="navbar-toggler d-md-none collapsed mb-3 rounded-pill"
                             type="button"
                             data-toggle="collapse"
                             data-target="#sidebar"
@@ -70,7 +70,13 @@ const AdminPanel = () => {
                             <span className="navbar-toggler-icon" />
                         </button>
                     </div>
-                    <div className="col-12 col-md-4 col-lg-2">                        
+                    <div className="col-12 col-md-4 col-lg-2">
+                        <input
+                            className="form-control form-control-dark rounded-pill"
+                            type="text"
+                            placeholder="Search"
+                            aria-label="Search"
+                        />
                     </div>
                     <div className="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
                         <div className="btn-group dropstart ">

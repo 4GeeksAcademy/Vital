@@ -135,7 +135,7 @@ export const UserProfile = () => {
                     <p className='text-vital-white'>{profile.description}</p>
                   </div>
                 </div>
-                <i className="edit-icon fa-regular fa-pen-to-square text-vital-orange fs-5" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                <i className="edit-icon fa-regular fa-pen-to-square text-vital-orange fs-5" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ cursor: "pointer" }}></i>
               </div>
               <div className='mt-4'>
                 <div className='row'>
@@ -178,49 +178,49 @@ export const UserProfile = () => {
                   <form>
                     <div className="mb-3">
                       <label htmlFor="recipient-name" className="col-form-label text-vital-white">Username</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         username: e.target.value
                       })} value={userInput.username} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         name: e.target.value
                       })} value={userInput.name} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="recipient-name" className="col-form-label text-vital-white">Last name</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         lastname: e.target.value
                       })} value={userInput.lastname} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="recipient-name" className="col-form-label text-vital-white">description</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         description: e.target.value
                       })} value={userInput.description} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="message-text" className="col-form-label text-vital-white">Email</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         email: e.target.value
                       })} value={userInput.email} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="message-text" className="col-form-label text-vital-white">Phone</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         phone: e.target.value
                       })} value={userInput.phone} />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="message-text" className="col-form-label text-vital-white">Hobbies</label>
-                      <input type="text" className="form-control bg-vital-gray text-vital-white" onChange={e => setUserInput({
+                      <input type="text" className="form-control bg-vital-gray text-vital-white rounded-pill" onChange={e => setUserInput({
                         ...userInput,
                         jobies: e.target.value
                       })} value={userInput.jobies} />

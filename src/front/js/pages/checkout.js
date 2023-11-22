@@ -144,6 +144,7 @@ const CheckoutForm = () => {
         handleServerResponse(await serverResponse.json());
       }
     } else {
+      store.totalShoppingCart = 0
       toast.success('Thanks for you purchase', {
         position: "top-center",
         autoClose: 2000,
@@ -228,8 +229,8 @@ const CheckoutForm = () => {
           </div>
         </div>
         <div className="modal-footer border-top border-vital-orange">
-          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-          <button type="button" className="btn btn-vital-orange text-vital-white" onClick={handleSubmit}>Submit</button>
+          <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal" ref={closeRef}>Close</button>
+          <button type="button" className="btn btn-vital-orange text-vital-white rounded-pill" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
       <ToastContainer

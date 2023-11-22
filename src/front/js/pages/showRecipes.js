@@ -73,10 +73,13 @@ export const ShowRecipes = () => {
     <>
       {
 
-        store.meals.length <= 0 ? <Loading /> :
+        store.meals.length <= 0 ?
+          <div className="d-flex justify-content-center">
+            <Loading />
+          </div> :
           <>
-            <div className="container-fluid  p-4 d-flex flex-column">
-              <div className="d-flex mb-3  m-auto">
+            <div className="container-fluid d-flex flex-column mt-3">
+              <div className="d-flex mb-3 m-auto">
                 <span className="meal-cards nav-link active fs-3 text-vital-orange mx-5" aria-current="page" onClick={() => getRecipes("breakfast")}>Breakfast</span>
                 <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={() => getRecipes("lunch")}>Lunch</span>
                 <span className="meal-cards nav-link fs-3 text-vital-orange mx-5" onClick={() => getRecipes("dinner")}>Dinner</span>
@@ -97,7 +100,7 @@ export const ShowRecipes = () => {
                   onClick={handleSearch}
                 />
               </div>
-              <motion.div className="container d-flex flex-wrap"
+              <motion.div className="container d-flex flex-wrap justify-content-around"
                 variants={container}
                 initial="hidden"
                 animate="show"
@@ -110,17 +113,17 @@ export const ShowRecipes = () => {
                       variants={item}
                     >
 
-                      <div className="card-map card d-flex me-4 mb-4 bg-vital-black position-relative" style={{ width: "18rem" }} > {/*navigate(`/mealDetails/${index}`)*/}
+                      <div className="card-map card d-flex mb-4 bg-vital-black position-relative rounded-3 justify-content-center" style={{ width: "18rem" }} > {/*navigate(`/mealDetails/${index}`)*/}
                         <img src={meal.recipe.image} className="card-img-top" alt="..." />
 
                         {
                           store.favoritesMeals.map(fav => fav.label).includes(meal.recipe.label) ? <i className="heart fa-solid fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.removeFavMeal(meal._links.self.href)}></i> : <i className="heart fa-regular fa-heart" style={{ color: "#ff5300", cursor: "pointer" }} onClick={() => actions.addFavMeal(meal._links.self.href, meal.recipe.label)}></i>
                         }
 
-                        <div className="card-body text-vital-orange">
+                        <div className="d-flex flex-column card-body text-vital-orange">
                           <h5 className="card-title text-vital-white">{meal.recipe.label}</h5>
                           <p className="card-text">Dish Type: <span className="text-vital-white"> {meal.recipe.dishType}</span></p>
-                          <span className="tooltiptext" onClick={() => handleMealDetails(meal._links.self.href)}>click to view details</span>
+                          <button className="btn btn-vital-orange text-vital-white rounded-pill fw-bold tooltiptext mt-auto w-50" onClick={() => handleMealDetails(meal._links.self.href)}>View details</button>
                         </div>
                       </div>
 

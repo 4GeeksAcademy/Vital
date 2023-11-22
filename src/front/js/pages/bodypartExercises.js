@@ -29,10 +29,10 @@ export const BodypartExercises = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sort, setSort] = useState(searchParams.get("sort") || "asc");  
+  const [sort, setSort] = useState(searchParams.get("sort") || "asc");
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [exercises, setExercises] = useState(null)
-  const [page, setPage] = useState(1);  
+  const [page, setPage] = useState(1);
   const currentPage = searchParams.get("page") ? searchParams.get("page") : 1;
   const navigate = useNavigate();
   const { bodypart } = useParams();
@@ -43,39 +43,50 @@ export const BodypartExercises = () => {
       "X-RapidAPI-Key": "89971d01c0msh1690c1d9906070dp1cb205jsnac087ad4de35",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
-  }; 
+  };
 
-const bodyPartsImgs = {
+  const bodyPartsImgs = {
     back: {
       image: backImg,
-      description: "Find the best exercises to strengthen your back muscles and improve your posture"},
+      description: "Find the best exercises to strengthen your back muscles and improve your posture"
+    },
     cardio: {
       image: cardioImg,
-      description: " Boost your heart health and burn calories with these cardio exercises. You can do them at gym, outdoors or home" },
+      description: " Boost your heart health and burn calories with these cardio exercises. You can do them at gym, outdoors or home"
+    },
     chest: {
       image: chestImg,
-      description: "Build a powerful chest with these exercises that target your pectoral muscles. You can use dumbbells, resistance bands, or your own body weight"},
+      description: "Build a powerful chest with these exercises that target your pectoral muscles. You can use dumbbells, resistance bands, or your own body weight"
+    },
     neck: {
       image: neckImg,
-      description: "Relieve neck pain and stiffness with these gentle exercises. They will help you stretch and mobilize your neck muscles"},
+      description: "Relieve neck pain and stiffness with these gentle exercises. They will help you stretch and mobilize your neck muscles"
+    },
     shoulders: {
       image: shouldersImg,
-      description: "Enhance your shoulder mobility and stability with these exercises that challenge your deltoids and rotator cuff. You can use a broomstick, a pillow, or a bottle." },
-    upperarms: { image: upperArmsImg,
-      description: "Tone and sculpt your upper arms with these exercises that work your biceps and triceps. You can choose from different levels of difficulty"},
-    lowerarms: { 
+      description: "Enhance your shoulder mobility and stability with these exercises that challenge your deltoids and rotator cuff. You can use a broomstick, a pillow, or a bottle."
+    },
+    upperarms: {
+      image: upperArmsImg,
+      description: "Tone and sculpt your upper arms with these exercises that work your biceps and triceps. You can choose from different levels of difficulty"
+    },
+    lowerarms: {
       image: lowerArmsImg,
-      description: "Strengthen your lower arms and wrists with these exercises that improve your grip and flexibility. You can use a tennis ball, a towel, or a rubber band"},
+      description: "Strengthen your lower arms and wrists with these exercises that improve your grip and flexibility. You can use a tennis ball, a towel, or a rubber band"
+    },
     upperlegs: {
       image: upperLegsImg,
-      description: "Shape and strengthen your upper legs with these exercises that work your quads, hamstrings, and glutes. You can use a chair, a wall, or a step"},
+      description: "Shape and strengthen your upper legs with these exercises that work your quads, hamstrings, and glutes. You can use a chair, a wall, or a step"
+    },
     lowerlegs: {
       image: lowerLegsImg,
-      description: "Train your lower legs and prevent injuries with these exercises that target your calves and ankles. You can do them with or without equipment"},
+      description: "Train your lower legs and prevent injuries with these exercises that target your calves and ankles. You can do them with or without equipment"
+    },
     waist: {
       image: waistImg,
-      description: "Slim and tighten your waist with these exercises that activate your core and oblique muscles. You can do them on the floor, on a mat, or on a ball"}
-}
+      description: "Slim and tighten your waist with these exercises that activate your core and oblique muscles. You can do them on the floor, on a mat, or on a ball"
+    }
+  }
 
   useEffect(() => {
     !store.token && navigate("/login")
@@ -84,10 +95,10 @@ const bodyPartsImgs = {
     if (!useAPI) {
       const dataFilter = allExercises.filter((exercise) => {
         return exercise.bodyPart === bodypart;
-      });  
+      });
       setExercises(dataFilter);
       setLoading(false);
-      return 
+      return
     }
     try {
       const getData = async (bodypart) => {
@@ -106,15 +117,15 @@ const bodyPartsImgs = {
     }
   }, []);
 
- 
-  useEffect(() => {  
+
+  useEffect(() => {
     let newArray = []
     if (exercises) {
       // console.log(fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))) 
-      newArray = fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))   
-      
+      newArray = fetchExercises.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase()))
+
       // setExercises(data.filter((exercise) => exercise.name.toLowerCase().includes(search.toLowerCase())));
-    } 
+    }
     //search == '' && setExercises(fetchExercises)
     if (exercises && sort) {
       if (sort == "asc") {
@@ -126,21 +137,23 @@ const bodyPartsImgs = {
         setExercises(newArray.sort((a, b) => b.name.localeCompare(a.name)))
         // setExercises(data.sort((a, b) => b.name.localeCompare(a.name)));
       }
-    }         
+    }
     setSearchParams({ sort: sort, page: page, search: search });
   }, [sort, page, search]);
 
 
   const start = (page - 1) * 8;
-  const end = page * 8;    
-  
+  const end = page * 8;
+
   const title = bodypart.charAt(0).toUpperCase() + bodypart.slice(1);
   const params = Object.fromEntries([...searchParams]);
-  
+
   return (
     <>
       {loading ? (
-        <Loading />
+        <div className="d-flex justify-content-center">
+          <Loading />
+        </div>
       ) : (
         <>
           <BackgroundContainer
@@ -149,7 +162,7 @@ const bodyPartsImgs = {
             description={bodyPartsImgs[bodypart.replace(/\s/g, '')].description}
             image={bodyPartsImgs[bodypart.replace(/\s/g, '')].image}
           />
-          <SortFilterBox setSort={setSort} setSearch={setSearch}/>
+          <SortFilterBox setSort={setSort} setSearch={setSearch} />
           <div className="container-fluid py-3 bg-vital-gray">
             <div className="container d-flex  flex-column title-workout">
               <div className="row col-11 d-flex mx-auto justify-content-around">
@@ -165,7 +178,7 @@ const bodyPartsImgs = {
                             target={exercise.target}
                             equipment={exercise.equipment}
                             url={exercise.gifUrl}
-                            bodypart={bodypart}                         
+                            bodypart={bodypart}
                           />
                         )}
                       </>
@@ -175,7 +188,7 @@ const bodyPartsImgs = {
             </div>
           </div>
           <div>
-            <Pagination exercisesPerPage="8" totalExercises={exercises?.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams}/>
+            <Pagination exercisesPerPage="8" totalExercises={exercises?.length} setPage={setPage} currentPage={currentPage} searchParams={searchParams} setSearchParams={setSearchParams} />
           </div>
         </>
       )}

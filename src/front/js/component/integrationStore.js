@@ -39,7 +39,6 @@ const IntegrationsStore = () => {
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Amount</th>  
                                                         <th scope="col">Commission</th>                                                      
-                                                        <th scope="col" />
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -53,11 +52,6 @@ const IntegrationsStore = () => {
                                                                     <td>{transaction.amount}</td>
                                                                     <td>{transaction.comission.toFixed(2)}</td>
                                                                     <td>{Date()}</td>                                                                    
-                                                                    <td>
-                                                                        <span className="btn btn-sm text-vital-white btn-vital-orange">
-                                                                            View
-                                                                        </span>
-                                                                    </td>
                                                                 </tr>
                                                             )
                                                         }

@@ -40,7 +40,7 @@ const ManageGyms = () => {
     const addGym = async () => {
 
         if (gymData.name == "" || gymData.email == "" || gymData.address == "" || gymData.latitude == "" || gymData.longitude == "" || gymData.phone == "" || gymData.description == "") {
-            
+
             toast.warn('Please fill all the fields', {
                 position: "top-center",
                 autoClose: 1000,
@@ -51,12 +51,12 @@ const ManageGyms = () => {
                 progress: undefined,
                 theme: "dark",
                 icon: "😔",
-                });
+            });
             return
         }
         const isTrue = actions.addGym(gymData)
         if (isTrue) {
-            closeRef.current.click()            
+            closeRef.current.click()
             toast.success('Gym added successfully', {
                 position: "top-center",
                 autoClose: 2000,
@@ -93,12 +93,12 @@ const ManageGyms = () => {
                 progress: undefined,
                 theme: "dark",
                 icon: "😔",
-                });
+            });
             return
         }
         const isTrue = actions.editGym(gymEdit)
         if (isTrue) {
-            closeRef.current.click()            
+            closeRef.current.click()
             toast.success('Gym edited successfully', {
                 position: "top-center",
                 autoClose: 2000,
@@ -127,7 +127,7 @@ const ManageGyms = () => {
         if (status) {
             const resp = actions.changeStatus(email)
             if (resp) {
-                actions.getGyms()                
+                actions.getGyms()
                 toast.success('Status changed successfully', {
                     position: "top-center",
                     autoClose: 2000,
@@ -150,7 +150,7 @@ const ManageGyms = () => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    icon: "😭",        
+                    icon: "😭",
                 });
             }
         }
@@ -169,7 +169,7 @@ const ManageGyms = () => {
             <div className="col-3 m-auto mb-5 d-flex justify-content-center">
                 <button
                     type="button"
-                    className="btn btn-vital-orange text-vital-white" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    className="btn btn-vital-orange text-vital-white rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 >
                     Add New Gym
                 </button>
@@ -205,7 +205,7 @@ const ManageGyms = () => {
                                                         <td>{gym.phone}</td>
                                                         <td>{gym.is_active ? <i className="fa-solid fa-check text-success" value="disable" style={{ cursor: "pointer" }} onClick={() => changeStatus(gym.email)}></i> : <i className="fa-solid fa-x text-danger" name="enable" style={{ pointer: "" }} onClick={() => changeStatus(gym.email)}></i>}</td>
                                                         <td>
-                                                            <span className="btn btn-sm text-vital-white btn-vital-orange" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
+                                                            <span className="btn btn-sm text-vital-white btn-vital-orange rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal2" onClick={() => editGym(gym.id)}>
                                                                 Edit
                                                             </span>
                                                         </td>
@@ -234,53 +234,53 @@ const ManageGyms = () => {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
-                                    <input type="text" className="form-control" value={gymData.name} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymData.name} onChange={
                                         (e) => setGymData({ ...gymData, name: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Description</label>
-                                    <input type="text" className="form-control" value={gymData.description} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymData.description} onChange={
                                         (e) => setGymData({ ...gymData, description: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Email:</label>
-                                    <input type="text" className="form-control" value={gymData.email} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymData.email} onChange={
                                         (e) => setGymData({ ...gymData, email: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Address:</label>
-                                    <input type="text" className="form-control" value={gymData.address} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymData.address} onChange={
                                         (e) => setGymData({ ...gymData, address: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Phone:</label>
-                                    <input type="text" className="form-control" value={gymData.phone} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymData.phone} onChange={
                                         (e) => setGymData({ ...gymData, phone: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3 d-flex">
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" value={gymData.longitude} onChange={
-                                            (e) => setGymData({ ...gymData, longitude: e.target.value })
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymData.latitude} onChange={
+                                            (e) => setGymData({ ...gymData, latitude: e.target.value })
                                         } />
                                     </div>
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
-                                        <input type="text" className="w-75 form-control" value={gymData.latitude} onChange={
-                                            (e) => setGymData({ ...gymData, latitude: e.target.value })
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitude:</label>
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymData.longitude} onChange={
+                                            (e) => setGymData({ ...gymData, longitude: e.target.value })
                                         } />
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-                            <button type="button" className="btn btn-vital-orange text-vital-white" onClick={addGym}>Add Gym</button>
+                            <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal" ref={closeRef}>Close</button>
+                            <button type="button" className="btn btn-vital-orange text-vital-white rounded-pill" onClick={addGym}>Add Gym</button>
                         </div>
                     </div>
                 </div>
@@ -290,50 +290,50 @@ const ManageGyms = () => {
                     <div className="modal-content bg-black">
                         <div className="modal-header border-bottom border-vital-orange">
                             <h1 className="modal-title fs-5 text-vital-orange" id="exampleModal2Label">Edit Gym</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body bg-vital-black">
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Name</label>
-                                    <input type="text" className="form-control" value={gymEdit.name} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymEdit.name} onChange={
                                         (e) => setGymEdit({ ...gymEdit, name: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label text-vital-white">Description</label>
-                                    <input type="text" className="form-control" value={gymEdit.description} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymEdit.description} onChange={
                                         (e) => setGymEdit({ ...gymEdit, description: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Email:</label>
-                                    <input type="text" className="form-control" value={gymEdit.email} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymEdit.email} onChange={
                                         (e) => setGymEdit({ ...gymEdit, email: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Address:</label>
-                                    <input type="text" className="form-control" value={gymEdit.address} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymEdit.address} onChange={
                                         (e) => setGymEdit({ ...gymEdit, address: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label text-vital-white">Phone:</label>
-                                    <input type="text" className="form-control" value={gymEdit.phone} onChange={
+                                    <input type="text" className="form-control rounded-pill" value={gymEdit.phone} onChange={
                                         (e) => setGymEdit({ ...gymEdit, phone: e.target.value })
                                     } />
                                 </div>
                                 <div className="mb-3 d-flex">
                                     <div className="d-flex flex-column justify-content-around">
                                         <label htmlFor="message-text" className="col-form-label text-vital-white">Latitude:</label>
-                                        <input type="text" className="w-75 form-control" value={gymEdit.latitude} onChange={
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymEdit.latitude} onChange={
                                             (e) => setGymEdit({ ...gymEdit, latitude: e.target.value })
                                         } />
                                     </div>
                                     <div className="d-flex flex-column justify-content-around">
-                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitud:</label>
-                                        <input type="text" className="w-75 form-control" value={gymEdit.longitude} onChange={
+                                        <label htmlFor="message-text" className="col-form-label text-vital-white">Longitude:</label>
+                                        <input type="text" className="w-75 form-control rounded-pill" value={gymEdit.longitude} onChange={
                                             (e) => setGymEdit({ ...gymEdit, longitude: e.target.value })
                                         } />
                                     </div>
@@ -341,8 +341,8 @@ const ManageGyms = () => {
                             </form>
                         </div>
                         <div className="modal-footer border-top border-vital-orange">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeRef}>Close</button>
-                            <button type="button" className="btn btn-vital-orange text-vital-white" onClick={pushGymEdit}>Edit Gym</button>
+                            <button type="button" className="btn btn-secondary rounded-pill" data-bs-dismiss="modal" ref={closeRef}>Close</button>
+                            <button type="button" className="btn btn-vital-orange text-vital-white rounded-pill" onClick={pushGymEdit}>Edit Gym</button>
                         </div>
                     </div>
                 </div>
@@ -358,7 +358,7 @@ const ManageGyms = () => {
                 draggable
                 pauseOnHover
                 theme="dark"
-                
+
             />
         </>
     )

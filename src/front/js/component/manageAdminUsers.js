@@ -25,7 +25,6 @@ const ManageAdminUsers = (props) => {
                                                         <th scope="col">Email</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Date</th>                                                        
-                                                        <th scope="col" />
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -38,11 +37,7 @@ const ManageAdminUsers = (props) => {
                                                                     <td>{admin.user.email}</td>
                                                                     <td>{admin.user.is_active}</td>
                                                                     <td>{Date()}</td>                                                                    
-                                                                    <td>
-                                                                        <span href="#" className="btn btn-sm text-vital-white btn-vital-orange">
-                                                                            View
-                                                                        </span>
-                                                                    </td>
+
                                                                 </tr>
                                                             )
                                                         }
