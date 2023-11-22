@@ -5,6 +5,7 @@ import { BackendURL } from "./component/backendURL";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Home } from "./pages/home";
+import AboutUs from "./pages/aboutUs";
 import { Store } from "./pages/store";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
@@ -67,6 +68,7 @@ const Layout = () => {
             <Route element={<Checkout />} path="/checkout" />
             <Route element={<ShowRecipes />} path="/showRecipes/:diet" />
             <Route element={<MealDetails />} path="/mealDetails" />
+            <Route element={<AboutUs />} path="/about-us" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />

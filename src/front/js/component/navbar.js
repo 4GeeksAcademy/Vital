@@ -56,6 +56,7 @@ const Logout = () => {
               <a
                 className="nav-link text-vital-white active"
                 aria-current="page"
+                onClick={() => navigate("/about-us")}
               >
                 About us
               </a>
