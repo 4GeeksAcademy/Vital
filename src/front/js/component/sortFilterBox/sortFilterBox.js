@@ -14,11 +14,9 @@ const SortFilterBox = ({ setSearch, setSort }) => {
 
 
   function splittExercises(exerciseString) {
-    // Remove leading and trailing whitespaces, then split the string based on the delimiter "digit. "
-     // Use regular expression to split the string based on the numbers
+    
      const exercisesArray = exerciseString.split(/\d+\.\s+/).filter(Boolean);
-
-     // Format as "number. Exercise"
+     
      const formattedExercises = exercisesArray.map((exercise, index) => `${index + 1}. ${exercise.trim()}`);
  
      return formattedExercises;
