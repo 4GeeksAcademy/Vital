@@ -84,6 +84,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+			createAdmin: async (newAdmin) => {
+				const store = getStore();				
+				try {					
+					const response = await fetch(process.env.BACKEND_URL + `api/create-admin?username=${store.username}`,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": "Bearer " + store.token
+							},
+							body: JSON.stringify(newAdmin)
+
+						})
+					const data = await response.json()
+					console.log(data)
+					return true
+				}
+				catch (error) {
+					alert(error)
+					return false
+				}
+			},
 			getMealDetails: async (url) => {
 				console.log(url)
 				try {
@@ -232,21 +254,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ profile: data });
 				return false;
 			},
-			getAdmin: async () => {
+			getAdmins: async () => {
 				const store = getStore();
-				const response = await fetch(process.env.BACKEND_URL + `api/admins?username=${store.username}`,
+				const response = await fetch(process.env.BACKEND_URL + `api/get-admins?username=${store.username}`,
 					{
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
-							"Athorization": "Bearer " + store.token
+							"Authorization": "Bearer " + store.token
 						},
 					}
 				);
 				const data = await response.json();
-				setStore({ admin: data });
+				setStore({ admins: data });
 				return false;
-			},	
+			},
 
 			getProducts: async () => {
 				try {
@@ -304,7 +326,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(url)
 				const newArray = [...store.favoritesMeals, { url: url, label: label }]
 				localStorage.setItem("favoritesMeals", JSON.stringify(newArray))
-				setStore({ favoritesMeals: newArray })				
+				setStore({ favoritesMeals: newArray })
 			},
 			removeFavMeal: async (url) => {
 				const store = getStore();
@@ -385,7 +407,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 							"Authorization": "Bearer " + store.token
 						},
-					}					
+					}
 				);
 				const dataNewsletter = await newsletter.json();
 				setStore({ newsletter: dataNewsletter });
@@ -411,7 +433,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				);
 				const dataTransactions = await transactions.json();
 				setStore({ transactions: dataTransactions });
-				return false;			
+				return false;
 			},
 			getNewsletter: async () => {
 				const store = getStore();
@@ -574,7 +596,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			clearCart: () => {
 				setStore({ products: [] });
 			},
-			updateUser: async (user) => {			
+			updateUser: async (user) => {
 				const store = getStore();
 				const response = await fetch(process.env.BACKEND_URL + `api/update-user?username=${store.username}`, {
 					method: "PUT",
@@ -594,9 +616,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true
 				}
 				return false
-			},			
-			resetPassword: async (user) => {	
-				const store = getStore();			
+			},
+			resetPassword: async (user) => {
+				const store = getStore();
 				const response = await fetch(process.env.BACKEND_URL + `api/reset-password?username=${store.username}`, {
 					method: "PUT",
 					headers: {
@@ -605,12 +627,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: JSON.stringify(user)
 				})
-				const data = await response.json();				
-				if (data.status == "ok") {					
+				const data = await response.json();
+				if (data.status == "ok") {
 					return true
 				}
 				return false
-			},	
+			},
 			changePassword: async (newPassword, oldPassword) => {
 				const store = getStore();
 				const response = await fetch(process.env.BACKEND_URL + `api/change-password?username=${store.username}`, {

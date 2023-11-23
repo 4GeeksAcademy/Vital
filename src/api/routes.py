@@ -191,7 +191,12 @@ def create_user():
         return {"msg": "User already exists"}, 400
 
 @api.route("create-admin", methods=["POST"])
+@jwt_required()
 def create_admin():
+    front_username = request.args.get("username", None)
+    username = get_jwt_identity()
+    if username != front_username:
+        return {"msg": "User not authorized"}, 501
     body = request.get_json()
     email = body.get("email", None)
     password = body.get("password", None)
