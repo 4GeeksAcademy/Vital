@@ -9,9 +9,9 @@ const AboutUs = () => {
                     <div className="col-12 p-3">
                         <h1 className="text-center text-vital-orange" style={{ fontSize: "100px" }}>Technologies</h1>
                     </div>
-                    <div className="col-4 p-3" style={{ width: "250px" }}>
+                    <div className="image h-100 align-items-center d-flex" style={{ width: "250px" }}>
                         <div className="image">
-                            <img src="https://assets.stickpng.com/thumbs/62a74dd1223343fbc2207d00.png" className="img-fluid" alt="about us" />
+                            <img src="https://static.wixstatic.com/media/d49396_b88e382f207743ec84960a74f9e2aa56~mv2.png/v1/fill/w_547,h_528,al_c,lg_1,q_85/d49396_b88e382f207743ec84960a74f9e2aa56~mv2.png" className="img-fluid" alt="about us" />
                         </div>
                     </div>
                     <div className="col-4 p-3" style={{ width: "250px" }}>
