@@ -13,13 +13,16 @@ const SortFilterBox = ({ setSearch, setSort }) => {
   const {bodypart} = useParams();
 
 
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "89971d01c0msh1690c1d9906070dp1cb205jsnac087ad4de35",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
-  };
+  function splittExercises(exerciseString) {
+    // Remove leading and trailing whitespaces, then split the string based on the delimiter "digit. "
+     // Use regular expression to split the string based on the numbers
+     const exercisesArray = exerciseString.split(/\d+\.\s+/).filter(Boolean);
+
+     // Format as "number. Exercise"
+     const formattedExercises = exercisesArray.map((exercise, index) => `${index + 1}. ${exercise.trim()}`);
+ 
+     return formattedExercises;
+}
 
   const handleSelect = (e) => {
     e.preventDefault();
@@ -34,8 +37,8 @@ const SortFilterBox = ({ setSearch, setSort }) => {
   const handleRoutine = async (e) => {
     e.preventDefault();     
     const response = await getRoutines(bodypart, 4);  
-    new string = response.split
-    setRoutine(response.choices[0].message.content) 
+    const listExcersices = splittExercises(response.choices[0].message.content)     
+    setRoutine(listExcersices) 
     toast.success('Routine Generated successfully', {
       position: "top-center",
       autoClose: 2000,
@@ -106,9 +109,12 @@ const SortFilterBox = ({ setSearch, setSort }) => {
                         <div className="modal-body bg-vital-black">
                             <form>
                                <ul className="list-group list-group-flush">
-                                <p className="text-vital-orange">
-                                {routine}  
-                                </p>    
+                                {
+                                  routine && routine.map((exercise, index) => {
+                                    return <li key={index} className="list-group-item bg-vital-black text-vital-white">{exercise}</li>
+                                  }
+                                  )
+                                }   
                                 </ul>          
                             </form>
                         </div>
