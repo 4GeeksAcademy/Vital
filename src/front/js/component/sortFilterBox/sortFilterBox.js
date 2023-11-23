@@ -92,7 +92,7 @@ const SortFilterBox = ({ setSearch, setSort }) => {
         <div className="filter-container d-flex">
         <input
             type="button"
-            value="See Routine Routine"
+            value="See Routine"
             className="search-button btn btn-vital-orange text-vital-white rounded-pill mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal"            
           />
         </div>
